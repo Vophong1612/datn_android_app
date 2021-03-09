@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">ARFashion</string>
+    <string name="or">Or</string>
+
+    <string name="username_label">Username</string>
+    <string name="username_edt_hint"><font size="12">Enter username here</font></string>
+    <string name="password_label">Password</string>
+    <string name="password_edt_hint"><font size="12">Enter password here</font></string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up_">Sign Up!</string>
+
+    <string name="email_label">Email</string>
+    <string name="email_edt_hint"><font size="12">Enter your email here</font></string>
+    <string name="continue_btn">Continue</string>
+    <string name="sign_in_register">Sign In!</string>
+    <string name="verify_btn">Verify</string>
+</resources>
