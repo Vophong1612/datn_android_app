@@ -16,7 +16,6 @@
             android:label="@string/title_activity_main_ativity" />
         <activity android:name=".presentation.app.presentation.register.RegisterActivity" />
         <activity android:name=".presentation.app.presentation.login.LoginActivity" />
-        <activity android:name=".presentation.presentation.login.LoginActivity" />
         <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
