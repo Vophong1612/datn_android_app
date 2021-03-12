@@ -10,6 +10,8 @@
     
 <!--    main color -->
     <color name="palattes_1">#FF383E56</color>
+    <color name="palattes_1_50">#80383E56</color>
+
     <color name="palattes_2">#FFF69E7B</color>
     <color name="palattes_3">#FFEEDAD1</color>
     <color name="palattes_4">#FFD4B5B0</color>
@@ -19,6 +21,5 @@
     <color name="back_75">#BF000000</color>
 
     <color name="white">#FFFFFFFF</color>
-
 
 </resources>
