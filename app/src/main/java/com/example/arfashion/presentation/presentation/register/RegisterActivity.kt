@@ -3,11 +3,9 @@ package com.example.arfashion.presentation.presentation.register
 import OtpEditText
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.View
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.arfashion.R
-import kotlinx.android.synthetic.main.activity_register.*
+import com.example.arfashion.presentation.presentation.register.otp.GenericKeyEvent
 import kotlinx.android.synthetic.main.layout_back_header.*
 import kotlinx.android.synthetic.main.layout_otp.*
 
@@ -33,5 +31,12 @@ class RegisterActivity : AppCompatActivity() {
         fourth.addTextChangedListener(OtpEditText(fourth, this))
         fifth.addTextChangedListener(OtpEditText(fifth, this))
         sixth.addTextChangedListener(OtpEditText(sixth, this))
+
+        first.setOnKeyListener(GenericKeyEvent(first, null))
+        second.setOnKeyListener(GenericKeyEvent(second, first))
+        third.setOnKeyListener(GenericKeyEvent(third, second))
+        fourth.setOnKeyListener(GenericKeyEvent(first, third))
+        fifth.setOnKeyListener(GenericKeyEvent(first, fourth))
+        sixth.setOnKeyListener(GenericKeyEvent(first, fifth))
     }
 }

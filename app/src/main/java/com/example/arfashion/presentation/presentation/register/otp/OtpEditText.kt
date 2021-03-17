@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.EditText
 import com.example.arfashion.R
 
-class OtpEditText(private val view: View, private val activity: Activity) : TextWatcher {
+class OtpEditText(private val view: EditText, activity: Activity) : TextWatcher {
 
     private val first = activity.findViewById<EditText>(R.id.first)
     private val second = activity.findViewById<EditText>(R.id.second)

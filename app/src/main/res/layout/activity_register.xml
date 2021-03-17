@@ -40,7 +40,7 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="26dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/logo">
@@ -93,7 +93,7 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="26dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/logo">
