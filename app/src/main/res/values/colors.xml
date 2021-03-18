@@ -21,5 +21,6 @@
     <color name="back_75">#BF000000</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="grey_text">#FFC2C9D1</color>
 
 </resources>

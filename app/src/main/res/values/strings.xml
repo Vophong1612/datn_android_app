@@ -16,4 +16,7 @@
     <string name="continue_btn">Continue</string>
     <string name="sign_in_register">Sign In!</string>
     <string name="verify_btn">Verify</string>
+
+    <string name="default_price"><strike> %1$d VND </strike> </string>
+    <string name="sale_tag">sale</string>
 </resources>
