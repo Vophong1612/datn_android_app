@@ -4,8 +4,34 @@
     <string name="username_edt_hint"><font size="12">Enter username here</font></string>
     <string name="password_label">Password</string>
     <string name="password_edt_hint"><font size="12">Enter password here</font></string>
+    <string name="current_password_label">Current password</string>
+    <string name="current_password_edt_hint"><font size="12">Enter current password here</font></string>
+    <string name="new_password_label">New password</string>
+    <string name="new_password_edt_hint"><font size="12">Enter new password here</font></string>
+    <string name="confirm_password_label">Confirm password</string>
+    <string name="confirm_password_edt_hint"><font size="12">Enter confirm password here</font></string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="forgot_password_label">Forgot password</string>
     <string name="sign_up">Sign Up!</string>
     <string name="sign_in">Sign In</string>
-
+    <string name="user_info">Your Profile</string>
+    <string name="full_name_label">Full Name</string>
+    <string name="full_name_edt_hint"><font size="12">Enter fullname here</font></string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="phone_number_edt_hint"><font size="12">Enter phone number here</font></string>
+    <string name="birthday_label">Birthday</string>
+    <string name="birthday_edt_hint"><font size="12">Choose date</font></string>
+    <string name="gender_label">Gender</string>
+    <string name="address_label">Address</string>
+    <string name="address_edt_hint"><font size="12">Choose address here</font></string>
+    <string name="email_label">Email</string>
+    <string name="email_edt_hint"><font size="12">Enter email here</font></string>
+    <string name="change_password_label">Change Password</string>
+    <string name="choose_from_device_label">Choose from your device</string>
+    <string name="choose_from_camera_label">Camera</string>
+    <string name="province_label">Province</string>
+    <string name="district_label">District</string>
+    <string name="ward_label">Ward</string>
+    <string name="street_label">Street Name</string>
+    <string name="street_name_edt_hint"><font size="12">Enter street name here</font></string>
 </resources>
