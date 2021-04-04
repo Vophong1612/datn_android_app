@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
 
     <color name="transparent">#00000000</color>
+    <color name="backgroundColor">#F2F2F2</color>
     
 <!--    main color -->
     <color name="palattes_1">#FF383E56</color>
@@ -21,5 +22,9 @@
     <color name="back_75">#BF000000</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="white_75">#BFFFFFFF</color>
+    <color name="grey_text">#FFC2C9D1</color>
+
+    <color name="red">#FFF03738</color>
 
 </resources>

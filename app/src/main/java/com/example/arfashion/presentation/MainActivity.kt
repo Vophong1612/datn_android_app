@@ -4,8 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.arfashion.R
-import com.example.arfashion.presentation.presentation.login.LoginActivity
-import com.example.arfashion.presentation.presentation.register.RegisterActivity
+import com.example.arfashion.presentation.app.presentation.login.LoginActivity
+import com.example.arfashion.presentation.app.presentation.main.MainActivity
+import com.example.arfashion.presentation.app.presentation.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,13 +17,16 @@ class MainActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         registerBtn.setOnClickListener {
             val intent = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(intent)
-            finish()
+        }
+
+        homeBtn.setOnClickListener {
+            val intent = Intent(this@MainActivity, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

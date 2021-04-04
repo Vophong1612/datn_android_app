@@ -17,6 +17,16 @@
         app:layout_constraintBottom_toBottomOf="@id/registerBtn"/>
 
     <Button
+        android:id="@+id/homeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginBtn"
+        app:layout_constraintBottom_toTopOf="@id/registerBtn"/>
+
+    <Button
         android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.arfashion">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ARFashion">
-        <activity android:name=".presentation.presentation.register.RegisterActivity"></activity>
-        <activity android:name=".presentation.presentation.login.LoginActivity" />
+        <activity
+            android:name=".presentation.app.presentation.main.MainActivity"
+            android:label="@string/title_activity_main_ativity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterActivity" />
+        <activity android:name=".presentation.app.presentation.login.LoginActivity" />
         <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
