@@ -1,27 +1,37 @@
-package com.example.arfashion.presentation.presentation.register
+package com.example.arfashion.presentation.app.presentation.register
 
 import OtpEditText
-import android.os.Bundle
-import android.view.KeyEvent
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import com.example.arfashion.R
-import com.example.arfashion.presentation.presentation.register.otp.GenericKeyEvent
-import kotlinx.android.synthetic.main.layout_back_header.*
+import com.example.arfashion.presentation.app.presentation.login.LoginActivity
+import com.example.arfashion.presentation.app.presentation.register.otp.GenericKeyEvent
+import kotlinx.android.synthetic.main.activity_register_verify.*
+import kotlinx.android.synthetic.main.layout_back_save_header.*
 import kotlinx.android.synthetic.main.layout_otp.*
 
-class RegisterActivity : AppCompatActivity() {
-
+class RegisterVerifiyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        setContentView(R.layout.activity_register_verify)
         init()
+        verifyBtn.setOnClickListener {
+            val intent = Intent(this@RegisterVerifiyActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun init() {
         screen_name.text = this.getString(R.string.sign_up)
+        onNavigateBack()
 
-        initOtp()
+    }
 
+    private fun onNavigateBack() {
+        back_icon.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initOtp() {
@@ -39,4 +49,5 @@ class RegisterActivity : AppCompatActivity() {
         fifth.setOnKeyListener(GenericKeyEvent(first, fourth))
         sixth.setOnKeyListener(GenericKeyEvent(first, fifth))
     }
+
 }

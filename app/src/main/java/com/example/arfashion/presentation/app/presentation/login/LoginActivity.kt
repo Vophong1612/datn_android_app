@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.login
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
@@ -7,13 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
+import com.example.arfashion.presentation.app.presentation.main.MainActivity
+import com.example.arfashion.presentation.app.presentation.register.RegisterVerifiyActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.UserService
+import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_back_header.*
 
@@ -55,29 +60,30 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        loginViewModel.result.observe(this, {
+        loginViewModel.result.observe(this) {
             if (it) {
                 val response = loginViewModel.loginResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
                     Toast.makeText(this, userRes.message, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
             } else {
                 Toast.makeText(this, "Failure !", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     private fun initView() {
         signInBtn.setOnClickListener {
-            loginViewModel.login("dreamleage1999@gmail.com", "12345678")
-            /*val email = emailEdt.text.toString()
+            val email = usernameEdt.text.toString()
             val password = passwordEdt.text.toString()
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginViewmodel.login(email, password)
+            if (Utils.isValidEmail(email) && Utils.isValidPassword(password)) {
+                loginViewModel.login(email, password)
             } else {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
-            }*/
+            }
         }
     }
 

@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
-import com.example.arfashion.presentation.app.presentation.register.RegisterActivity
+import com.example.arfashion.presentation.app.presentation.register.RegisterEmailActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         registerBtn.setOnClickListener {
-            val intent = Intent(this@MainActivity, RegisterActivity::class.java)
+            val intent = Intent(this@MainActivity, RegisterEmailActivity::class.java)
             startActivity(intent)
         }
 

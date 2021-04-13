@@ -15,27 +15,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp" />
 
     <View
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_layout"
+        app:layout_constraintBottom_toBottomOf="@id/v_none"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="90dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/choose_adress_background"
+        android:layout_marginTop="25dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/white"/>
 
     <TextView
         android:id="@+id/provinceLabel"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/choose_adress_background"
         app:layout_constraintStart_toStartOf="@id/relative_layout_province"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:text="@string/province_label"
         android:textColor="@color/palattes_1"
@@ -43,18 +45,18 @@
 
     <RelativeLayout
         android:id="@+id/relative_layout_province"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/choose_adress_background"
+        app:layout_constraintStart_toStartOf="@id/choose_adress_background"
         app:layout_constraintTop_toBottomOf="@id/provinceLabel">
 
         <Spinner
             android:id="@+id/provinceSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bg_edt_radius_pressed"
             android:spinnerMode="dropdown"/>
 
@@ -62,16 +64,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_arrow_drop_down"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="28dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/districtLabel"
         app:layout_constraintTop_toBottomOf="@id/relative_layout_province"
-        app:layout_constraintBottom_toTopOf="@id/relative_layout_district"
         app:layout_constraintStart_toStartOf="@id/relative_layout_district"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,19 +84,19 @@
 
     <RelativeLayout
         android:id="@+id/relative_layout_district"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/choose_adress_background"
+        app:layout_constraintStart_toStartOf="@id/choose_adress_background"
         app:layout_constraintTop_toBottomOf="@id/relative_layout_province">
 
         <Spinner
             android:id="@+id/districtSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bg_edt_radius_pressed"
             android:spinnerMode="dropdown"/>
 
@@ -103,39 +104,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_arrow_drop_down"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="28dp"
-            android:layout_marginTop="8dp"/>
-
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     <TextView
         android:id="@+id/wardLabel"
-        app:layout_constraintBottom_toTopOf="@id/relative_layout_ward"
+        app:layout_constraintTop_toBottomOf="@id/relative_layout_district"
         app:layout_constraintStart_toStartOf="@id/relative_layout_ward"
+        app:layout_constraintBottom_toTopOf="@id/relative_layout_ward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/ward_label"
         android:textColor="@color/palattes_1"
         android:textSize="15sp" />
 
     <RelativeLayout
         android:id="@+id/relative_layout_ward"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/choose_adress_background"
+        app:layout_constraintStart_toStartOf="@id/choose_adress_background"
         app:layout_constraintTop_toBottomOf="@id/relative_layout_district">
 
         <Spinner
             android:id="@+id/wardSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bg_edt_radius_pressed"
             android:spinnerMode="dropdown"/>
 
@@ -143,31 +144,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_arrow_drop_down"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="28dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/streetNameLabel"
+        app:layout_constraintTop_toBottomOf="@id/relative_layout_ward"
+        app:layout_constraintStart_toStartOf="@id/relative_layout_ward"
         app:layout_constraintBottom_toTopOf="@id/relative_layout_street_name"
-        app:layout_constraintStart_toStartOf="@id/relative_layout_street_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/street_label"
         android:textColor="@color/palattes_1"
         android:textSize="15sp" />
 
     <RelativeLayout
         android:id="@+id/relative_layout_street_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintEnd_toEndOf="@id/choose_adress_background"
+        app:layout_constraintStart_toStartOf="@id/choose_adress_background"
         app:layout_constraintTop_toBottomOf="@id/relative_layout_ward">
 
         <EditText
@@ -175,13 +178,24 @@
             tools:ignore="RtlSymmetry"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bg_edt_radius_pressed"
             android:hint="@string/street_name_edt_hint"
             android:inputType="textPassword"
             android:paddingStart="10dp"/>
 
     </RelativeLayout>
+
+    <View
+        android:id="@+id/v_none"
+        app:layout_constraintTop_toBottomOf="@id/relative_layout_street_name"
+        app:layout_constraintStart_toStartOf="@id/relative_layout_street_name"
+        app:layout_constraintBottom_toTopOf="@id/relative_layout_street_name"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

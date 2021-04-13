@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.arfashion">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,11 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ARFashion">
-
+        <activity android:name=".presentation.app.presentation.register.RegisterChooseAddressActivity"></activity>
+        <activity android:name=".presentation.app.presentation.forgotpassword.ForgotPasswordActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterVerifiyActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterUserInfoActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
             android:label="@string/title_activity_main_ativity" />
-        <activity android:name=".presentation.app.presentation.register.RegisterActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterEmailActivity" />
         <activity android:name=".presentation.app.presentation.login.LoginActivity" />
         <activity android:name=".presentation.MainActivity">
             <intent-filter>
