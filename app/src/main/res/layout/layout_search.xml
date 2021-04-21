@@ -74,7 +74,8 @@
         android:background="@drawable/bg_notification"
         app:layout_constraintTop_toTopOf="@id/cart"
         app:layout_constraintEnd_toEndOf="@id/cart"
-        tools:text="2" />
+        tools:text="2"
+        android:fontFamily="@font/sf_pro_text_bold"/>
 
     <ImageView
         android:id="@+id/notification"
@@ -99,6 +100,7 @@
         android:background="@drawable/bg_notification"
         app:layout_constraintTop_toTopOf="@id/notification"
         app:layout_constraintEnd_toEndOf="@id/notification"
-        tools:text="0"/>
+        tools:text="0"
+        android:fontFamily="@font/sf_pro_text_bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

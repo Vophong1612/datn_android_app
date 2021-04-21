@@ -28,6 +28,7 @@
         app:layout_constraintStart_toEndOf="@id/back_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text = "Tên màn hình" />
+        tools:text = "Tên màn hình"
+        android:fontFamily="@font/sf_pro_text_regular"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

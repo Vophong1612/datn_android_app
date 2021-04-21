@@ -119,7 +119,8 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/otp_edt" />
+                app:layout_constraintTop_toBottomOf="@id/otp_edt"
+                android:fontFamily="@font/sf_pro_text_bold"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

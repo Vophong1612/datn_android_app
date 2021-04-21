@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="tower"
-        />
+        android:fontFamily="@font/sf_pro_text_bold"/>
 
     <TextView
         android:id="@+id/product_name"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Gangzhou sweater"
-        />
+        android:fontFamily="@font/sf_pro_text_regular"/>
 
     <TextView
         android:id="@+id/salePrice"
@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="@id/product_name"
         app:layout_constraintEnd_toEndOf="@id/product_name"
         tools:text="200.000 VND"
-        />
+        android:fontFamily="@font/sf_pro_text_bold"/>
 
     <TextView
         android:id="@+id/defaultPrice"
@@ -68,7 +68,7 @@
         app:layout_constraintStart_toEndOf="@id/salePrice"
         app:layout_constraintBottom_toTopOf="@id/bottomSpace"
         tools:visibility="visible"
-        />
+        android:fontFamily="@font/sf_pro_text_regular"/>
 
     <Space
         android:id="@+id/bottomSpace"
@@ -90,6 +90,7 @@
         android:gravity="center"
         android:textSize="15sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/sf_pro_text_bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

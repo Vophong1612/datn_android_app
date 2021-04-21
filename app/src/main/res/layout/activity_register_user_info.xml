@@ -77,7 +77,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toTopOf="@id/user_info_background"
-            app:layout_constraintStart_toStartOf="@id/fullNameEdt" />
+            app:layout_constraintStart_toStartOf="@id/fullNameEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/fullNameEdt"
@@ -103,7 +104,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toBottomOf="@id/fullNameEdt"
-            app:layout_constraintStart_toStartOf="@id/passwordEdt" />
+            app:layout_constraintStart_toStartOf="@id/passwordEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/passwordEdt"
@@ -130,7 +132,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toBottomOf="@id/passwordEdt"
-            app:layout_constraintStart_toStartOf="@id/phoneNumberEdt" />
+            app:layout_constraintStart_toStartOf="@id/phoneNumberEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/phoneNumberEdt"
@@ -175,7 +178,8 @@
                     android:layout_marginStart="15dp"
                     android:text="@string/birthday_label"
                     android:textColor="@color/palattes_1"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sf_pro_text_regular"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -190,7 +194,8 @@
                         android:paddingStart="10dp"
                         android:enabled="false"
                         android:hint="@string/birthday_edt_hint"
-                        tools:ignore="RtlSymmetry" />
+                        tools:ignore="RtlSymmetry"
+                        android:fontFamily="@font/sf_pro_text_regular"/>
 
                     <ImageView
                         android:id="@+id/iv_birthday"
@@ -219,7 +224,8 @@
                     android:layout_marginStart="15dp"
                     android:text="@string/gender_label"
                     android:textColor="@color/palattes_1"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sf_pro_text_regular"/>
 
                 <Spinner
                     android:id="@+id/genderSpinner"
@@ -242,7 +248,8 @@
             android:textColor="@color/palattes_1"
             android:textSize="15sp"
             app:layout_constraintTop_toBottomOf="@id/ll_dob_gender"
-            app:layout_constraintStart_toStartOf="@id/relative_layout_address_register" />
+            app:layout_constraintStart_toStartOf="@id/relative_layout_address_register"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <RelativeLayout
             android:id="@+id/relative_layout_address_register"
@@ -285,7 +292,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toBottomOf="@id/relative_layout_address_register"
-            app:layout_constraintStart_toStartOf="@id/emailEdt"  />
+            app:layout_constraintStart_toStartOf="@id/emailEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/emailEdt"

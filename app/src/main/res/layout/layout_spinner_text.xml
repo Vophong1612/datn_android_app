@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/text"
@@ -8,4 +9,6 @@
     style="@style/Theme.AppCompat"
     android:singleLine="true"
     android:ellipsize="marquee"
-    android:paddingLeft="2dp"/>
+    android:paddingStart="2dp"
+    android:fontFamily="@font/sf_pro_text_regular"
+    tools:ignore="RtlSymmetry" />
