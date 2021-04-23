@@ -18,12 +18,13 @@
     <string name="sign_in_register">Sign In!</string>
     <string name="verify_btn">Verify</string>
 
-    <string name="default_price"><strike> %1$d VND </strike> </string>
+    <string name="price">%1$d VND</string>
+    <string name="default_price">&lt;strike> %1$d VND &lt;/strike> </string>
     <string name="sale_tag">sale</string>
     <string name="title_activity_main_ativity">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_category">Categories</string>
+    <string name="title_profile">Profile</string>
     <string name="search">Search</string>
 
     <string name="current_password_label">Current password</string>
@@ -52,4 +53,6 @@
     <string name="street_label">Street Name</string>
     <string name="street_name_edt_hint"><font size="12">Enter street name here</font></string>
 
+    <string name="best_seller_label">Best Seller</string>
+    <string name="recommed_for_you_text">Recommed for you</string>
 </resources>

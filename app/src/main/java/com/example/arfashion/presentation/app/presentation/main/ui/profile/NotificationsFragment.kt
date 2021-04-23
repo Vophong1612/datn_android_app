@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.presentation.main.ui.notifications
+package com.example.arfashion.presentation.app.presentation.main.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

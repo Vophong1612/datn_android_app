@@ -1,10 +1,10 @@
-package com.example.arfashion.presentation.app.presentation.main.ui.dashboard
+package com.example.arfashion.presentation.app.presentation.main.ui.categories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class CategoriesViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
