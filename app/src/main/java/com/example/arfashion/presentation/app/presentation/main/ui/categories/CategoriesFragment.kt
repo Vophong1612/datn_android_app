@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.presentation.main.ui.dashboard
+package com.example.arfashion.presentation.app.presentation.main.ui.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.arfashion.R
 
-class DashboardFragment : Fragment() {
+class CategoriesFragment : Fragment() {
     companion object {
         const val TAG = "DashboardFragment"
 
-        fun newInstance(): DashboardFragment {
+        fun newInstance(): CategoriesFragment {
             val args = Bundle()
 
-            val fragment = DashboardFragment()
+            val fragment = CategoriesFragment()
             fragment.arguments = args
             return fragment
         }
     }
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var categoriesViewModel: CategoriesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

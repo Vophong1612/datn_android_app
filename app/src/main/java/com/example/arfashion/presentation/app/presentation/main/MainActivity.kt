@@ -2,61 +2,43 @@ package com.example.arfashion.presentation.app.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.example.arfashion.R
-import com.example.arfashion.presentation.app.presentation.main.ui.dashboard.DashboardFragment
-import com.example.arfashion.presentation.app.presentation.main.ui.home.HomeFragment
-import com.example.arfashion.presentation.app.presentation.main.ui.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mainPagerAdapter: MainPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-//            )
-//        )
+        if (savedInstanceState == null) {
+            nav_view.setItemSelected(R.id.navigation_home)
+        }
 
-       toHomeFragment()
-        nav_view.setMenuResource(R.menu.bottom_nav_menu)
+        mainPagerAdapter = MainPagerAdapter(supportFragmentManager, lifecycle, nav_view.childCount)
+        mainPager.adapter = mainPagerAdapter
+        mainPager.isUserInputEnabled = false
+        mainPager.currentItem = nav_view.getSelectedItemId()
+        mainPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when (position) {
+                    0 -> nav_view.setItemSelected(R.id.navigation_category)
+                    2 -> nav_view.setItemSelected(R.id.navigation_profile)
+                    else -> nav_view.setItemSelected(R.id.navigation_home)
+                }
+            }
+        })
+
         nav_view.setOnItemSelectedListener { id ->
             when (id) {
-                R.id.navigation_home -> toHomeFragment()
-                R.id.navigation_dashboard -> toDashboardFragment()
-                R.id.navigation_notifications -> toNotificationsFragment()
+                R.id.navigation_home -> mainPager.currentItem = TabPosition.Home.index
+                R.id.navigation_category -> mainPager.currentItem = TabPosition.Categories.index
+                R.id.navigation_profile -> mainPager.currentItem = TabPosition.Profile.index
             }
-        }
-    }
-
-    private fun toHomeFragment() {
-        val fragmentManager = this.supportFragmentManager
-        fragmentManager.beginTransaction().apply {
-            replace(R.id.nav_host_fragment, HomeFragment.newInstance())
-            addToBackStack(HomeFragment.TAG)
-            commit()
-        }
-    }
-
-    private fun toDashboardFragment() {
-        val fragmentManager = this.supportFragmentManager
-        fragmentManager.beginTransaction().apply {
-            replace(R.id.nav_host_fragment, DashboardFragment.newInstance())
-            addToBackStack(DashboardFragment.TAG)
-            commit()
-        }
-    }
-
-    private fun toNotificationsFragment() {
-        val fragmentManager = this.supportFragmentManager
-        fragmentManager.beginTransaction().apply {
-            replace(R.id.nav_host_fragment, NotificationsFragment.newInstance())
-            addToBackStack(NotificationsFragment.TAG)
-            commit()
         }
     }
 }

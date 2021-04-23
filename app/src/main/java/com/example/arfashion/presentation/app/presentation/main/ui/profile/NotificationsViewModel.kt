@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.presentation.main.ui.notifications
+package com.example.arfashion.presentation.app.presentation.main.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
