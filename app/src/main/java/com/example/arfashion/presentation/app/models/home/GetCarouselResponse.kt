@@ -1,6 +1,5 @@
 package com.example.arfashion.presentation.app.models.home
 
-import com.example.arfashion.presentation.data.model.Carousel
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -19,7 +18,4 @@ data class GetCarouselResponse(
     val startDate: String = "",
     @SerializedName("end_date")
     val endDate: String = ""
-
-//    @SerializedName("list_carousel")
-//    val carousels: List<Carousel> = listOf()
 ) : Serializable

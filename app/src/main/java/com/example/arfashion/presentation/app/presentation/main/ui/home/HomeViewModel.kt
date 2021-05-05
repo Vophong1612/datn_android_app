@@ -7,6 +7,7 @@ import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Carousel
 import com.example.arfashion.presentation.services.ProductService
+import com.example.arfashion.presentation.services.toCarousel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,9 +25,7 @@ class HomeViewModel(private val productService: ProductService) : ViewModel() {
             ) {
                 response.body()?.let { it ->
                     _carousels.value = ARResult.Success(it.map { carousel ->
-                        Carousel( carousel.name,
-                            carousel.id,
-                            carousel.image)
+                        carousel.toCarousel()
                     })
                 }
             }

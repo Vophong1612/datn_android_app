@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.main.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
 import com.example.arfashion.presentation.app.widget.indicator.IndicatorSlideView
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Carousel
 import com.example.arfashion.presentation.data.model.Product
 import com.example.arfashion.presentation.services.ProductService
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 
 class HomeFragment : Fragment() {
     companion object {
@@ -48,7 +51,8 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
@@ -57,44 +61,50 @@ class HomeFragment : Fragment() {
         })[HomeViewModel::class.java]
 
         homeViewModel.getCarouselList()
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         productAdapter = ProductAdapter(requireContext())
-        recommendPager.adapter = productAdapter
+        bestSellerPager.adapter = productAdapter
+        productAdapter.productClickLister = {
+            val intent = Intent(this@HomeFragment.context, ProductDetailActivity::class.java)
+            startActivity(intent)
+        }
 
         carouselAdapter = CarouselAdapter()
         carousel.adapter = carouselAdapter
 
         setUpIndicatorSlide(carousel, carouselSlide)
 
-        setUpIndicatorSlide(recommendPager, recommendSlide)
+        setUpIndicatorSlide(bestSellerPager, bestSellerSlide)
 
         //TODO: Hard code, remove
         val products = listOf(
             Product(
-                "Áo 1",
-                "T-Shirt",
-                images = "https://product.hstatic.net/200000053174/product/4apkh006trt-295k_7cb61b16ced4411a81da614a5f544759_master.jpg",
+                name = "Áo 1",
+                tag = listOf("T-Shirt"),
+                images = listOf("https://product.hstatic.net/200000053174/product/4apkh006trt-295k_7cb61b16ced4411a81da614a5f544759_master.jpg"),
                 prices = 300000,
-                sales = 100000
+                sales = /*Sales(100000, Date(2021, 12, 31))*/ 100000
             ),
             Product(
-                "Quần 1" ,
-                "Pan",
-                images = "https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg",
+                name = "Quần 1" ,
+                tag = listOf("Pan"),
+                images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
                 prices = 500000
             ),
             Product(
-                "Quần 1" ,
-                "Pan",
-                images = "https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg",
+                name ="Quần 1" ,
+                tag = listOf("Pan"),
+                images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
                 prices = 500000
             ),
             Product(
-                "Áo 2" ,
-                "T-Shirt",
-                images = "https://product.hstatic.net/200000053174/product/4apkh007ttt_-_295k_5db812b469f84e2aa34a51a79a460dad_master.jpg",
+                name ="Áo 2" ,
+                tag = listOf("T-Shirt"),
+                images = listOf("https://product.hstatic.net/200000053174/product/4apkh007ttt_-_295k_5db812b469f84e2aa34a51a79a460dad_master.jpg"),
                 prices = 300000,
-                sales = 50000
+                sales = /*Sales(50000, Date(2021, 12, 31))*/ 50000
             ),
         )
 
@@ -109,9 +119,9 @@ class HomeFragment : Fragment() {
         transformData.add(temp.first())
         productAdapter.setProducts(transformData)
         if (products.size >= 2) {
-            recommendSlide.visibility = View.VISIBLE
-            recommendPager.adapter?.itemCount?.let { it -> recommendSlide.setDots(it) }
-            recommendPager.setCurrentItem(1, true)
+            bestSellerSlide.visibility = View.VISIBLE
+            bestSellerPager.adapter?.itemCount?.let { it -> bestSellerSlide.setDots(it) }
+            bestSellerPager.setCurrentItem(1, true)
         } else {
             bestSellerSlide.visibility = View.GONE
         }

@@ -25,5 +25,4 @@ class MainPagerAdapter(
             else -> HomeFragment.newInstance()
         }
     }
-
 }

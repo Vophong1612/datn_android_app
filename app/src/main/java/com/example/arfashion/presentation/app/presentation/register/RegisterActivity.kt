@@ -1,6 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.register
 
-import OtpEditText
+import com.example.arfashion.presentation.app.presentation.register.otp.OtpEditText
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.arfashion.R

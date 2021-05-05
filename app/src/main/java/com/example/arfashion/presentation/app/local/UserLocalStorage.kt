@@ -1,9 +1,7 @@
 package com.example.arfashion.presentation.app.local
 
 import android.content.SharedPreferences
-import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.local.UserStorage
-import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
 
 private const val KEY_USER_ID = "pref_user_id"
@@ -24,7 +22,7 @@ class UserLocalStorage(private val pref: SharedPreferences) : UserStorage {
 
     override fun save(user: User) {
         pref.edit().apply {
-            putInt(KEY_USER_ID, user.profile.id)
+            putString(KEY_USER_ID, user.profile.id)
             putString(KEY_USER_NAME, user.profile.name)
             putString(KEY_USER_EMAIL, user.profile.email)
             putString(KEY_USER_AVATAR, user.profile.avatar)

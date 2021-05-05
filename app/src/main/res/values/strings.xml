@@ -55,4 +55,20 @@
 
     <string name="best_seller_label">Best Seller</string>
     <string name="recommed_for_you_text">Recommed for you</string>
+    <string name="ar_test">AR Test</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="product_desciption_tab">Desciption</string>
+    <string name="product_review_tab">Review</string>
+    <string name="related_product">Related Product</string>
+    <string name="total_rating">(%1$d)</string>
+    <string name="review_label">%1$d Review(s)</string>
+    <string name="view_all">View all…</string>
+    <string name="no_review_alert">Be the first to review this product !</string>
+    <string name="no_related_product_alert">Not available !</string>
+    <string name="selected_image_dialog_title">Choose your picture</string>
+    <string name="selected_image_dialog_take_image_option">Take image</string>
+    <string name="selected_image_dialog_from_gallery_option">Choose from galary</string>
+    <string name="selected_image_dialog_cancel_option">Cancel</string>
+    <string name="access_storage_denied">Can not access to storage</string>
+    <string name="prepare_stream_error">Cannot connect to camera. Please check the installation and try again.</string>
 </resources>
