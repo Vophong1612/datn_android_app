@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,6 +17,8 @@ class ProductAdapter(private val context: Context) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     private var products: MutableList<Product> = mutableListOf()
+
+    var productClickLister: ((product: Product) -> Unit)? = null
 
     fun setProducts(products: List<Product>?) {
         this.products.clear()
@@ -46,26 +49,38 @@ class ProductAdapter(private val context: Context) :
         private val productName = view.findViewById<TextView>(R.id.productName)
         private val price = view.findViewById<TextView>(R.id.price)
         private val defaultPrice = view.findViewById<TextView>(R.id.defaultPrice)
-        private val sale_tag = view.findViewById<TextView>(R.id.sale_tag)
+        private val saleTag = view.findViewById<TextView>(R.id.sale_tag)
+
+        init {
+            view.layoutParams = ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+
+            itemView.setOnClickListener {
+                productClickLister?.invoke(products[adapterPosition])
+            }
+        }
 
         fun bindData(product: Product) {
             Glide.with(mainImage)
-                .load(product.images)
+                .load(product.images[0])
                 .into(mainImage)
 
-            category.text = product.categories
+            category.text = product.tag[0]
             productName.text = product.name
-            if (product.sales > 0) {
+            if (product.isSale) {
                 defaultPrice.visibility = View.VISIBLE
-                sale_tag.visibility = View.VISIBLE
+                saleTag.visibility = View.VISIBLE
                 defaultPrice.text = HtmlCompat.fromHtml(
                     context.getString(R.string.default_price, product.prices),
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
-                price.text = context.getString(R.string.price, product.sales)
+                price.text =
+                    context.getString(R.string.price, (product.prices - product.sales))
             } else {
                 defaultPrice.visibility = View.GONE
-                sale_tag.visibility = View.GONE
+                saleTag.visibility = View.GONE
                 price.text = context.getString(R.string.price, product.prices)
             }
         }
