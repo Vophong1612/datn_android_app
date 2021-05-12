@@ -71,4 +71,13 @@
     <string name="selected_image_dialog_cancel_option">Cancel</string>
     <string name="access_storage_denied">Can not access to storage</string>
     <string name="prepare_stream_error">Cannot connect to camera. Please check the installation and try again.</string>
+
+    <string name="categories_man">Man</string>
+    <string name="categories_kid">Kid</string>
+    <string name="category_woman">Woman</string>
+    <string name="category_could_not_be_found">Category could not be found !</string>
+    <string name="product_could_not_be_found">Product could not be found !</string>
+    <string name="tag_could_not_be_found"> Not Tag available !</string>
+    <string name="sort_by">Sort by:</string>
+
 </resources>

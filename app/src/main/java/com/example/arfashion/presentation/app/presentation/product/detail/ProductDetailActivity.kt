@@ -96,8 +96,8 @@ class ProductDetailActivity : AppCompatActivity() {
 
     init {
         lifecycleScope.launchWhenCreated {
-            productDetailViewModel.getProductDetail("6059fad101f525c13f092e12") //fixme: this is hardcode, please replace id by id which is in Bundle
-            productDetailViewModel.getRelatedProduct("6059fad101f525c13f092e12")
+            productDetailViewModel.getProductDetail("605a279c928cf217986aad9d") //fixme: this is hardcode, please replace id by id which is in Bundle
+            productDetailViewModel.getRelatedProduct("605a279c928cf217986aad9d")
         }
     }
 
@@ -173,15 +173,16 @@ class ProductDetailActivity : AppCompatActivity() {
             )
             addItemDecoration(ThumbnailItemOffset(applicationContext))
         }
-        relatedProductAdapter = ProductAdapter(applicationContext)
+        relatedProductAdapter = ProductAdapter(applicationContext, false)
         with(relatedProductList) {
             adapter = relatedProductAdapter
-            layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(RelatedProductItemOffset(applicationContext))
         }
 
         refreshLayout.setOnRefreshListener {
-            productDetailViewModel.getProductDetail("6059fad101f525c13f092e12") //fixme: this is hardcode, please replace id by id which is in Bundle
+            productDetailViewModel.getProductDetail("605a279c928cf217986aad9d") //fixme: this is hardcode, please replace id by id which is in Bundle
         }
 
         productDetailViewModel.product.observe(this) {

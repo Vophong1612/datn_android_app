@@ -1,8 +1,10 @@
 package com.example.arfashion.presentation.services
 
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
+import com.example.arfashion.presentation.app.models.product.CategoriesResponse
 import com.example.arfashion.presentation.app.models.product.Comments
 import com.example.arfashion.presentation.app.models.product.ProductResponse
+import com.example.arfashion.presentation.app.models.product.RelatedProductResponse
 import com.example.arfashion.presentation.data.model.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,10 +28,8 @@ fun ProductResponse.toProduct(): Product {
             image.url
         },
         images.map { thumbnail ->
-            thumbnail.thumbMobile
+            thumbnail.mobile
         },
-        if (sales.isNotEmpty()) sales[0].discount
-        else 0,
         price,
         description,
         details.toString(),
@@ -56,9 +56,28 @@ fun Comments.toComment(): Comment =
         responses.map {
             it.toComment()
         },
-        (parser.parse(created_at)?: Date())
+//        (parser.parse(created_at)?: Date())
     )
 
-//fun Sale.toSale(): Sales {
-//    return Sales(discount, (parser.parse(end_date)?: Date()))
-//}
+fun RelatedProductResponse.toProduct(): Product =
+    Product(id = id,
+        name = name,
+        prices = price,
+        priceSale = if (priceSale.isNotEmpty()) {
+             price - priceSale[0].discount
+        } else price,
+        images = images.map {
+            it.url
+        },
+        tag = tags.map { tag ->
+            tag.name
+        }
+    )
+
+fun CategoriesResponse.toCategory() : Category =
+    Category(name = name,
+        tag = tags.map { it.name },
+        id = _id,
+        imageCategory = listImage.img_category.mobile,
+        imageBanner = listImage.img_category.mobile
+    )

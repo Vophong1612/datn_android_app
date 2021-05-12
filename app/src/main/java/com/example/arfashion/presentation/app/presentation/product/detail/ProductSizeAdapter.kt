@@ -13,7 +13,7 @@ class ProductSizeAdapter : RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>()
 
     var sizeClickListener: ((Int) -> Unit)? = null
 
-    var selectedIndex = 0
+    var selectedIndex = -1
 
     private var internalSelectedListener = object : ((Int) -> Unit) {
         override fun invoke(index: Int) {

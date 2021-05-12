@@ -19,6 +19,7 @@
         <activity android:name=".presentation.app.presentation.product.detail.ProductDetailActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_activity_main_ativity" />
         <activity android:name=".presentation.app.presentation.register.RegisterActivity" />
         <activity android:name=".presentation.app.presentation.login.LoginActivity" />

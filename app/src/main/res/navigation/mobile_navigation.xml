@@ -15,7 +15,7 @@
         android:id="@+id/navigation_category"
         android:name="com.example.arfashion.presentation.app.presentation.main.ui.categories.CategoriesFragment"
         android:label="@string/title_category"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_categories" />
 
     <fragment
         android:id="@+id/navigation_profile"
