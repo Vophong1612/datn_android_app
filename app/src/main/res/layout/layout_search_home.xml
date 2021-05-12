@@ -28,7 +28,7 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_search"/>
 
-        <EditText
+        <TextView
             android:id="@+id/searchBox"
             android:layout_width="0dp"
             android:layout_height="20dp"
@@ -42,15 +42,6 @@
             android:singleLine="true"
             android:layout_gravity="center_vertical"
             android:background="@drawable/bg_search"/>
-
-        <ImageView
-            android:id="@+id/clearIcon"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginEnd="10dp"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_clear" />
 
     </LinearLayout>
 

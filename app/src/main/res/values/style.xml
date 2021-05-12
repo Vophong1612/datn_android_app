@@ -9,4 +9,11 @@
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="Categories.Tab" parent="Theme.ARFashion">
+        <item name="android:background">@drawable/bg_categories_state_tab</item>
+        <item name="android:textColor">@color/palattes_1</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.arfashion.presentation.app.models.product.ProductResponse
+import com.example.arfashion.presentation.app.models.product.RelatedProductResponse
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Product
 import com.example.arfashion.presentation.services.ProductService
@@ -49,10 +50,10 @@ class ProductDetailViewModel : ViewModel() {
     }
 
     fun getRelatedProduct(id: String) {
-        productService.getRelatedProduct(id).enqueue(object : Callback<List<ProductResponse>> {
+        productService.getRelatedProduct(id).enqueue(object : Callback<List<RelatedProductResponse>> {
             override fun onResponse(
-                call: Call<List<ProductResponse>>,
-                response: Response<List<ProductResponse>>
+                call: Call<List<RelatedProductResponse>>,
+                response: Response<List<RelatedProductResponse>>
             ) {
                 val data = response.body()
                 if (data != null) {
@@ -64,7 +65,7 @@ class ProductDetailViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<List<ProductResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<RelatedProductResponse>>, t: Throwable) {
                 _relatedProduct.value = ARResult.Error(t)
             }
 

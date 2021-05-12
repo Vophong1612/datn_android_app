@@ -1,8 +1,5 @@
 package com.example.arfashion.presentation.data.model
 
-import java.util.*
-import kotlin.math.roundToLong
-
 data class Product(
     val id: String = "",
     val name: String = "",
@@ -11,7 +8,6 @@ data class Product(
     val comments: List<Comment> = listOf(),
     val images: List<String> = listOf(),
     val thumbnail: List<String> = listOf(),
-    val sales: Int = 0,
     val prices: Int = 0,
     val description: String = "",
     val details: String = "",
@@ -21,13 +17,8 @@ data class Product(
     val priceSale: Int = 0
 ) {
     val isSale: Boolean
-        get() = (sales > 0)
+        get() = (prices - priceSale > 0)
 }
-
-//data class Sales(
-//    val discount: Int = 0,
-//    val endDate: Date = Date()
-//)
 
 //data class ProductColor(
 //    val id: String = "",

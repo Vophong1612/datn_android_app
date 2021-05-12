@@ -1,24 +1,17 @@
-package com.example.arfashion.presentation.app.presentation.main.ui.home
+package com.example.arfashion.presentation.app.presentation.product.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
-import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailViewModel
-import com.example.arfashion.presentation.app.presentation.product.detail.ReviewAdapter
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Comment
-import com.example.arfashion.presentation.data.model.Product
-import kotlinx.android.synthetic.main.fragment_product_desciption_tab.*
 import kotlinx.android.synthetic.main.fragment_product_review_tab.*
 
 class ProductReviewTabFragment : Fragment() {

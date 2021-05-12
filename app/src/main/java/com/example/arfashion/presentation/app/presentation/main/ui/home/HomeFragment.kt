@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.presentation.main.HomeToCategoresShareViewModel
 import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
 import com.example.arfashion.presentation.app.widget.indicator.IndicatorSlideView
 import com.example.arfashion.presentation.data.ARResult
@@ -18,6 +20,7 @@ import com.example.arfashion.presentation.data.model.Carousel
 import com.example.arfashion.presentation.data.model.Product
 import com.example.arfashion.presentation.services.ProductService
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_search_home.*
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -43,6 +46,8 @@ class HomeFragment : Fragment() {
 
     private val productService = ProductService.create()
 
+    private val homeToCategoresShareViewModel: HomeToCategoresShareViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,7 +69,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        productAdapter = ProductAdapter(requireContext())
+        productAdapter = ProductAdapter(requireContext(), true)
         bestSellerPager.adapter = productAdapter
         productAdapter.productClickLister = {
             val intent = Intent(this@HomeFragment.context, ProductDetailActivity::class.java)
@@ -85,7 +90,7 @@ class HomeFragment : Fragment() {
                 tag = listOf("T-Shirt"),
                 images = listOf("https://product.hstatic.net/200000053174/product/4apkh006trt-295k_7cb61b16ced4411a81da614a5f544759_master.jpg"),
                 prices = 300000,
-                sales = /*Sales(100000, Date(2021, 12, 31))*/ 100000
+                priceSale = /*Sales(100000, Date(2021, 12, 31))*/ 100000
             ),
             Product(
                 name = "Quần 1" ,
@@ -104,7 +109,7 @@ class HomeFragment : Fragment() {
                 tag = listOf("T-Shirt"),
                 images = listOf("https://product.hstatic.net/200000053174/product/4apkh007ttt_-_295k_5db812b469f84e2aa34a51a79a460dad_master.jpg"),
                 prices = 300000,
-                sales = /*Sales(50000, Date(2021, 12, 31))*/ 50000
+                priceSale = /*Sales(50000, Date(2021, 12, 31))*/ 50000
             ),
         )
 
@@ -135,6 +140,10 @@ class HomeFragment : Fragment() {
                 is ARResult.Error -> {}
             }
         })
+
+        searchArea.setOnClickListener {
+            homeToCategoresShareViewModel.onSearchClick()
+        }
     }
 
     private fun handleCarouselData(carousels: List<Carousel>) {

@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.data.model.Product
 
-class ProductAdapter(private val context: Context) :
+class ProductAdapter(private val context: Context, private val isViewPager: Boolean) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     private var products: MutableList<Product> = mutableListOf()
@@ -52,10 +52,12 @@ class ProductAdapter(private val context: Context) :
         private val saleTag = view.findViewById<TextView>(R.id.sale_tag)
 
         init {
-            view.layoutParams = ConstraintLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
+            if (isViewPager) {
+                view.layoutParams = ConstraintLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+            }
 
             itemView.setOnClickListener {
                 productClickLister?.invoke(products[adapterPosition])
@@ -77,7 +79,7 @@ class ProductAdapter(private val context: Context) :
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
                 price.text =
-                    context.getString(R.string.price, (product.prices - product.sales))
+                    context.getString(R.string.price, product.priceSale)
             } else {
                 defaultPrice.visibility = View.GONE
                 saleTag.visibility = View.GONE
