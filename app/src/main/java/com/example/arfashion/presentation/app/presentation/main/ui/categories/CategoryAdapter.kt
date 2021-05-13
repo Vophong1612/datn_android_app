@@ -17,6 +17,8 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private var list: MutableList<Category> = mutableListOf()
 
+    var itemClickListener : ((categoryId: String) -> Unit)? = null
+
     fun setData(data: List<Category>?) {
         this.list.clear()
         data?.let {
@@ -52,6 +54,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
             with(tagList) {
                 adapter = tagAdapter
                 layoutManager = GridLayoutManager(context, 2)
+            }
+
+            image.setOnClickListener {
+                itemClickListener?.invoke(list[adapterPosition].id)
             }
         }
 

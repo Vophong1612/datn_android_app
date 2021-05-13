@@ -14,7 +14,9 @@ data class Product(
     val tag: List<String> = listOf(),
     val total: Int = 0,
     val star: Float = 0f,
-    val priceSale: Int = 0
+    val priceSale: Int = 0,
+    val mask: String = "",
+    val category: Category = Category()
 ) {
     val isSale: Boolean
         get() = (prices - priceSale > 0)

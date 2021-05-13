@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.arfashion.presentation.app.models.product.CategoriesResponse
+import com.example.arfashion.presentation.app.models.product.ProductByCategoryResponse
 import com.example.arfashion.presentation.app.models.product.ProductResponse
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Category
@@ -28,22 +29,27 @@ class CategoriesViewModel : ViewModel() {
     private val _search = MutableLiveData<ARResult<List<Product>>>()
     val search: LiveData<ARResult<List<Product>>> = _search
 
+    private val _listProductByCategory = MutableLiveData<ARResult<List<Product>>>()
+    val listProductByCategory: LiveData<ARResult<List<Product>>> = _listProductByCategory
+
+
     fun getCategories() {
         _loading.value = true
-        productService.getCategories().enqueue(object: Callback<List<CategoriesResponse>> {
+        productService.getCategories().enqueue(object : Callback<List<CategoriesResponse>> {
             override fun onResponse(
                 call: Call<List<CategoriesResponse>>,
                 response: Response<List<CategoriesResponse>>
             ) {
                 when (response.code()) {
-                    200 ->{
+                    200 -> {
                         response.body()?.let {
                             _categories.value = ARResult.Success(it.map { category ->
                                 category.toCategory()
                             })
                         }
                     }
-                    else -> _categories.value = ARResult.Error(Throwable("Fail to get category. Code: ${response.code()}"))
+                    else -> _categories.value =
+                        ARResult.Error(Throwable("Fail to get category. Code: ${response.code()}"))
                 }
                 _loading.value = false
             }
@@ -64,14 +70,15 @@ class CategoriesViewModel : ViewModel() {
             ) {
                 _loading.value = false
                 when (response.code()) {
-                    200 ->{
+                    200 -> {
                         response.body()?.let {
                             _search.value = ARResult.Success(it.map { product ->
                                 product.toProduct()
                             })
                         }
                     }
-                    else -> _search.value = ARResult.Error(Throwable("Fail to search. Code: ${response.code()}"))
+                    else -> _search.value =
+                        ARResult.Error(Throwable("Fail to search. Code: ${response.code()}"))
                 }
             }
 
@@ -81,5 +88,34 @@ class CategoriesViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun getProductListByCategory(id: String) {
+        _loading.value = true
+        productService.getProductListByCategory(id)
+            .enqueue(object : Callback<List<ProductByCategoryResponse>> {
+                override fun onResponse(
+                    call: Call<List<ProductByCategoryResponse>>,
+                    response: Response<List<ProductByCategoryResponse>>
+                ) {
+                    _loading.value = false
+                    when (response.code()) {
+                        200 -> {
+                            response.body()?.let {
+                                _listProductByCategory.value = ARResult.Success(it.map { product ->
+                                    product.toProduct()
+                                })
+                            }
+                        }
+                        else -> _listProductByCategory.value =
+                            ARResult.Error(Throwable("Fail to get list product by category. Code: ${response.code()}"))
+                    }
+                }
+
+                override fun onFailure(call: Call<List<ProductByCategoryResponse>>, t: Throwable) {
+                    _loading.value = false
+                    _listProductByCategory.value = ARResult.Error(t)
+                }
+            })
     }
 }

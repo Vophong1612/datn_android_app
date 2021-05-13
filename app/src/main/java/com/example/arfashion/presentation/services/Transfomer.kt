@@ -1,10 +1,7 @@
 package com.example.arfashion.presentation.services
 
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
-import com.example.arfashion.presentation.app.models.product.CategoriesResponse
-import com.example.arfashion.presentation.app.models.product.Comments
-import com.example.arfashion.presentation.app.models.product.ProductResponse
-import com.example.arfashion.presentation.app.models.product.RelatedProductResponse
+import com.example.arfashion.presentation.app.models.product.*
 import com.example.arfashion.presentation.data.model.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,7 +35,8 @@ fun ProductResponse.toProduct(): Product {
         },
         total,
         star,
-        priceSale
+        priceSale,
+        mask,
     )
 }
 
@@ -80,4 +78,17 @@ fun CategoriesResponse.toCategory() : Category =
         id = _id,
         imageCategory = listImage.img_category.mobile,
         imageBanner = listImage.img_category.mobile
+    )
+
+fun ProductByCategoryResponse.toProduct(): Product =
+    Product(id = id,
+        name = name,
+        prices = price,
+        priceSale = priceSale,
+        images = images.map {
+            it.url
+        },
+        tag = tags.map { tag ->
+            tag.name
+        }
     )

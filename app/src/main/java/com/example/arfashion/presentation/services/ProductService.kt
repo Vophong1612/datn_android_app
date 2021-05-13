@@ -2,6 +2,7 @@ package com.example.arfashion.presentation.services
 
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.app.models.product.CategoriesResponse
+import com.example.arfashion.presentation.app.models.product.ProductByCategoryResponse
 import com.example.arfashion.presentation.app.models.product.ProductResponse
 import com.example.arfashion.presentation.app.models.product.RelatedProductResponse
 import retrofit2.Call
@@ -30,4 +31,7 @@ interface ProductService {
 
     @GET("/products/listByKeyWord")
     fun searchByKeyWord(@Query("q") keyword: String): Call<List<ProductResponse>>
+
+    @GET("/products/listByCategory")
+    fun getProductListByCategory(@Query("_id") id: String): Call<List<ProductByCategoryResponse>>
 }

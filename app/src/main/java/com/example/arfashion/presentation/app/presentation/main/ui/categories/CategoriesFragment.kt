@@ -96,6 +96,14 @@ class CategoriesFragment : Fragment() {
             handleSearchData(it.data)
         })
 
+        categoryAdapter.itemClickListener = {
+            categoryViewModel.getProductListByCategory(it)
+        }
+
+        categoryViewModel.listProductByCategory.observe(viewLifecycleOwner, {
+            handleSearchData(it.data)
+        })
+
         refreshLayout.setOnRefreshListener {
             val searchContent = searchBox.text.toString()
             if (searchContent.isNotEmpty()) {
