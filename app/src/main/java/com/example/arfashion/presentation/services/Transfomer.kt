@@ -1,10 +1,12 @@
 package com.example.arfashion.presentation.services
 
+import com.example.arfashion.presentation.app.models.cart.Cart
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.app.models.product.*
 import com.example.arfashion.presentation.data.model.*
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.arfashion.presentation.data.model.Cart as CartModel
 
 val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
 
@@ -16,7 +18,10 @@ fun ProductResponse.toProduct(): Product {
         id,
         name,
         sizes.map { size ->
-            size.name
+            Size(
+                size._id,
+                size.name
+            )
         },
         comments.map { comment ->
             comment.toComment()
@@ -62,7 +67,7 @@ fun RelatedProductResponse.toProduct(): Product =
         name = name,
         prices = price,
         priceSale = if (priceSale.isNotEmpty()) {
-             price - priceSale[0].discount
+            price - priceSale[0].discount
         } else price,
         images = images.map {
             it.url
@@ -72,8 +77,9 @@ fun RelatedProductResponse.toProduct(): Product =
         }
     )
 
-fun CategoriesResponse.toCategory() : Category =
-    Category(name = name,
+fun CategoriesResponse.toCategory(): Category =
+    Category(
+        name = name,
         tag = tags.map { it.name },
         id = _id,
         imageCategory = listImage.img_category.mobile,
@@ -90,5 +96,21 @@ fun ProductByCategoryResponse.toProduct(): Product =
         },
         tag = tags.map { tag ->
             tag.name
+        }
+    )
+
+fun Cart.toCart(): CartModel =
+    CartModel(
+        id = _id,
+        product = products.map {
+            Product(
+                id = it._id,
+                name = it.name,
+                prices = it.price,
+                priceSale = it.priceSale,
+                images = listOf(it.images.mobile),
+                sizes = listOf(Size(it.size._id, it.size.name)),
+                total = it.total
+            )
         }
     )

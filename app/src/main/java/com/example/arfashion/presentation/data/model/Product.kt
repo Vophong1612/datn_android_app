@@ -4,7 +4,7 @@ data class Product(
     val id: String = "",
     val name: String = "",
 //    val colors: List<ProductColor> = listOf(),
-    val sizes: List<String> = listOf(),
+    val sizes: List<Size> = listOf(),
     val comments: List<Comment> = listOf(),
     val images: List<String> = listOf(),
     val thumbnail: List<String> = listOf(),
@@ -20,7 +20,14 @@ data class Product(
 ) {
     val isSale: Boolean
         get() = (prices - priceSale > 0)
+
+    var isCartCheck: Boolean = false
 }
+
+data class Size(
+    val id: String = "",
+    val name: String = ""
+)
 
 //data class ProductColor(
 //    val id: String = "",

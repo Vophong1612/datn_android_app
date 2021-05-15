@@ -7,13 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.presentation.cart.CartActivity
+import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.HomeToCategoresShareViewModel
+import com.example.arfashion.presentation.app.presentation.main.MainActivity
 import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
+import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.app.widget.indicator.IndicatorSlideView
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Carousel
@@ -48,7 +54,10 @@ class HomeFragment : Fragment() {
 
     private val homeToCategoresShareViewModel: HomeToCategoresShareViewModel by activityViewModels()
 
+    private val cartViewModel: CartViewModel by viewModels (ownerProducer = {this})
+
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +75,8 @@ class HomeFragment : Fragment() {
         })[HomeViewModel::class.java]
 
         homeViewModel.getCarouselList()
+
+        cartViewModel.getCart()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -141,8 +152,25 @@ class HomeFragment : Fragment() {
             }
         })
 
+        cartViewModel.cart.observe(viewLifecycleOwner, {
+            when (it) {
+                is ARResult.Success -> {
+                    cartCount.visible()
+                    cartCount.text = it.data.product.size.toString()
+                }
+                is ARResult.Error -> {
+                    cartCount.gone()
+                }
+            }
+        })
+
         searchArea.setOnClickListener {
             homeToCategoresShareViewModel.onSearchClick()
+        }
+
+        cart.setOnClickListener {
+            val intent = Intent(this@HomeFragment.context, CartActivity::class.java)
+            startActivity(intent)
         }
     }
 
