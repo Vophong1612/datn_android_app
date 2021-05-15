@@ -14,21 +14,12 @@ data class ProductResponse(
     @SerializedName("created_at") val created_at : String,
     @SerializedName("updated_at") val updated_at : String,
     @SerializedName("_id") val id : String,
-    @SerializedName("categories") val categories : Categories,
     @SerializedName("images") val images : List<Images>,
     @SerializedName("description") val description : String,
     @SerializedName("total") val total : Int,
     @SerializedName("star") val star: Float,
-    @SerializedName("priceSale") val priceSale: Int
-)
-
-data class Categories (
-    @SerializedName("name") val name : String,
-    @SerializedName("tags") val tags : List<String>,
-    @SerializedName("created_at") val created_at : String,
-    @SerializedName("updated_at") val updated_at : String,
-    @SerializedName("_id") val _id : String,
-    @SerializedName("image") val image : Image
+    @SerializedName("priceSale") val priceSale: Int,
+    @SerializedName("mask") val mask: String
 )
 
 data class Image (
