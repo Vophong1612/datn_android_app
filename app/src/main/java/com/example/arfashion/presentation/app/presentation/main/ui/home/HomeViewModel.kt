@@ -20,7 +20,7 @@ class HomeViewModel : ViewModel() {
         get() = _carousels
 
     fun getCarouselList() {
-        productService.getCarousels().enqueue(object : Callback<List<GetCarouselResponse>> {
+        productService.getCarousels(4, 0).enqueue(object : Callback<List<GetCarouselResponse>> {
             override fun onResponse(
                 call: Call<List<GetCarouselResponse>>,
                 response: Response<List<GetCarouselResponse>>
