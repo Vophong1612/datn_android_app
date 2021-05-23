@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
+import com.example.arfashion.presentation.data.model.Size
 
 class ProductSizeAdapter : RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>() {
 
-    private var sizesList: MutableList<String> = mutableListOf()
+    private var sizesList: MutableList<Size> = mutableListOf()
 
     var sizeClickListener: ((Int) -> Unit)? = null
 
@@ -29,7 +30,7 @@ class ProductSizeAdapter : RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>()
         }
     }
 
-    fun setData(size: List<String>?) {
+    fun setData(size: List<Size>?) {
         this.sizesList.clear()
         size?.let {
             this.sizesList.addAll(it)
@@ -61,8 +62,8 @@ class ProductSizeAdapter : RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>()
             }
         }
 
-        fun bindData(size: String) {
-            sizeText.text = size
+        fun bindData(size: Size) {
+            sizeText.text = size.name
             sizeText.isSelected = selectedIndex == adapterPosition
         }
     }

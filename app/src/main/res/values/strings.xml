@@ -80,4 +80,12 @@
     <string name="tag_could_not_be_found"> Not Tag available !</string>
     <string name="sort_by">Sort by:</string>
 
+    <string name="cart_screen_name">Cart</string>
+    <string name="select_all">Select all</string>
+    <string name="buy_now">Buy now</string>
+    <string name="total_prices">Total: %1$d VND</string>
+    <string name="cart_size">Size: %1$s</string>
+    <string name="cart_color">Color: %1$s</string>
+    <string name="delete_alert_yes">Yes</string>
+    <string name="delete_alert_cancel">Cancel</string>
 </resources>

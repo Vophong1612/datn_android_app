@@ -173,7 +173,7 @@
                 app:layout_constraintTop_toBottomOf="@id/sizeList"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/addToCartBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -186,7 +186,10 @@
                 android:paddingBottom="6dp"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
-                android:background="@drawable/bg_add_to_cart_btn"
+                android:backgroundTint="@color/palattes_2"
+                app:cornerRadius="5dp"
+                app:rippleColor="@color/white_75"
+                android:theme="@style/Theme.MaterialComponents"
                 app:layout_constraintTop_toTopOf="@id/productCount"
                 app:layout_constraintBottom_toBottomOf="@id/productCount"
                 app:layout_constraintStart_toEndOf="@id/productCount"/>

@@ -4,9 +4,10 @@
     package="com.example.arfashion">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -16,11 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ARFashion">
+        <activity android:name=".presentation.app.presentation.cart.CartActivity"></activity>
         <activity android:name=".presentation.app.presentation.product.detail.ProductDetailActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/title_activity_main_ativity" />
+            android:label="@string/title_activity_main_ativity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".presentation.app.presentation.register.RegisterActivity" />
         <activity android:name=".presentation.app.presentation.login.LoginActivity" />
         <activity android:name=".presentation.MainActivity">

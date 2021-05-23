@@ -22,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.ui.home.ProductAdapter
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
@@ -36,7 +37,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 
@@ -50,6 +50,8 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var productTabAdapter: ProductTabAdapter
 
     private val productDetailViewModel: ProductDetailViewModel by viewModels()
+
+    private val cartViewModel: CartViewModel by viewModels()
 
     private lateinit var thumbnailAdapter: ThumbnailAdapter
 
@@ -188,6 +190,7 @@ class ProductDetailActivity : AppCompatActivity() {
         productDetailViewModel.product.observe(this) {
             when (it) {
                 is ARResult.Success -> {
+                    this.product = it.data
                     handleData(it.data)
                 }
                 is ARResult.Error -> {
@@ -206,6 +209,16 @@ class ProductDetailActivity : AppCompatActivity() {
                 is ARResult.Error -> {
                     relatedProductList.gone()
                     noRelatedProductAlert.visible()
+                }
+            }
+        }
+        cartViewModel.updateCart.observe(this) {
+            when (it) {
+                is ARResult.Success -> {
+                    Toast.makeText(this, "Added !", Toast.LENGTH_SHORT).show()
+                }
+                is ARResult.Error -> {
+                    Toast.makeText(this, it.throwable.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -240,8 +253,6 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun handleData(product: Product) {
-        this.product = product
-
         Glide.with(mainImage)
             .load(product.images[0])
             .into(mainImage)
@@ -311,6 +322,37 @@ class ProductDetailActivity : AppCompatActivity() {
                     favouriteIcon.isSelected = it
                     //todo: check isSelected: if false then call remove favourite API else otherwise call add favourite API
 
+                }
+        }
+
+        lifecycleScope.launch {
+            callbackFlow {
+                addToCartBtn.setOnClickListener {
+                    offer(Unit)
+                }
+                awaitClose { cancel() }
+            }.debounce(300)
+                .collect {
+                    when {
+                        productCount.progress == 0 -> Toast.makeText(applicationContext, "Please select number of product !", Toast.LENGTH_SHORT)
+                            .show()
+                        sizeAdapter.selectedIndex == -1 -> Toast.makeText(
+                            applicationContext,
+                            "Please select size !",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        else -> {
+                            product?.let {
+                                cartViewModel.updateCart(
+                                    it.id,
+                                    it.sizes[sizeAdapter.selectedIndex].id,
+                                    "Yellow",
+                                    it.priceSale,
+                                    productCount.progress
+                                )
+                            }
+                        }
+                    }
                 }
         }
     }
