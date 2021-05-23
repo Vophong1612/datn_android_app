@@ -5,13 +5,14 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.ContextThemeWrapper
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Cart
 import com.example.arfashion.presentation.data.model.Product
@@ -51,12 +52,6 @@ class CartActivity : AppCompatActivity() {
         initData()
     }
 
-    private fun handelData(data: Cart) {
-        if (data.product.isNotEmpty()) {
-            cartProductAdapter.setData(data.product)
-        }
-    }
-
     private fun initData() {
 //        val cart = Cart(
 //            id = "609d41147ff9a80015ac06ff",
@@ -88,7 +83,11 @@ class CartActivity : AppCompatActivity() {
                     handelData(it.data)
                 }
                 is ARResult.Error -> {
-                    Toast.makeText(this, it.throwable.message, Toast.LENGTH_SHORT).show()
+                    if (it.throwable.message != null) {
+                        handleShowMessage(it.throwable.message!!)
+                    } else {
+                        handleShowMessage("Can not get cart !")
+                    }
                 }
             }
         })
@@ -196,6 +195,34 @@ class CartActivity : AppCompatActivity() {
         back_icon.setOnClickListener {
             finish()
         }
+    }
+
+    private fun handelData(data: Cart) {
+        if (data.product.isNotEmpty()) {
+            selectAllCb.visible()
+            buyNowBtn.isEnabled = true
+            showCartList()
+            cartProductAdapter.setData(data.product)
+        } else {
+            selectAllCb.gone()
+            buyNowBtn.isEnabled = false
+            handleShowMessage(applicationContext.getString(R.string.cart_is_empty))
+        }
+    }
+
+    private fun handleShowMessage(message: String) {
+        showCartAlert()
+        cartAlert.text = message
+    }
+
+    private fun showCartList() {
+        cartList.visible()
+        cartAlert.gone()
+    }
+
+    private fun showCartAlert() {
+        cartAlert.visible()
+        cartList.gone()
     }
 
     private fun showDeleteProductAlertDialog(product: Product, position: Int) {
