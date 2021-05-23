@@ -8,31 +8,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
-import com.example.arfashion.presentation.app.presentation.main.HomeToCategoresShareViewModel
-import com.example.arfashion.presentation.app.presentation.main.MainActivity
+import com.example.arfashion.presentation.app.presentation.main.HomeToCategoriesShareViewModel
 import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.app.widget.indicator.IndicatorSlideView
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Carousel
 import com.example.arfashion.presentation.data.model.Product
-import com.example.arfashion.presentation.services.ProductService
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_search_home.*
 import java.util.*
 
 class HomeFragment : Fragment() {
     companion object {
-//        const val TAG = "HomeFragment"
-
         fun newInstance(): HomeFragment {
             val args = Bundle()
 
@@ -48,16 +42,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var carouselAdapter: CarouselAdapter
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel by viewModels<HomeViewModel> ()
 
-    private val productService = ProductService.create()
-
-    private val homeToCategoresShareViewModel: HomeToCategoresShareViewModel by activityViewModels()
+    private val homeToCategoriesShareViewModel: HomeToCategoriesShareViewModel by activityViewModels()
 
     private val cartViewModel: CartViewModel by viewModels (ownerProducer = {this})
 
     override fun onCreateView(
-
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,18 +56,11 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        homeViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(productService) as T
-            }
-        })[HomeViewModel::class.java]
-
-        homeViewModel.getCarouselList()
-
-        cartViewModel.getCart()
+    init {
+        lifecycleScope.launchWhenCreated {
+            homeViewModel.getCarouselList()
+            cartViewModel.getCart()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -155,22 +139,36 @@ class HomeFragment : Fragment() {
         cartViewModel.cart.observe(viewLifecycleOwner, {
             when (it) {
                 is ARResult.Success -> {
-                    cartCount.visible()
-                    cartCount.text = it.data.product.size.toString()
+                    it.data.product.size.let { size ->
+                        if (size > 0) {
+                            cartCount.visible()
+                            cartCount.text = size.toString()
+                        } else {
+                            cartCount.gone()
+                        }
+                    }
                 }
                 is ARResult.Error -> {
                     cartCount.gone()
                 }
             }
         })
+        cartViewModel.loading.observe(viewLifecycleOwner, {
+            refreshLayout.isRefreshing = it
+        })
 
         searchArea.setOnClickListener {
-            homeToCategoresShareViewModel.onSearchClick()
+            homeToCategoriesShareViewModel.onSearchClick()
         }
 
         cart.setOnClickListener {
             val intent = Intent(this@HomeFragment.context, CartActivity::class.java)
             startActivity(intent)
+        }
+
+        refreshLayout.setOnRefreshListener {
+            homeViewModel.getCarouselList()
+            cartViewModel.getCart()
         }
     }
 

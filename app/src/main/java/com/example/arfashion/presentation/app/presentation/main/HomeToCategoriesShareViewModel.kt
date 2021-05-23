@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeToCategoresShareViewModel : ViewModel() {
+class HomeToCategoriesShareViewModel : ViewModel() {
     private val _searchClickEvent = MutableLiveData<Unit>()
     val searchClickEvent: LiveData<Unit>
         get() = _searchClickEvent
