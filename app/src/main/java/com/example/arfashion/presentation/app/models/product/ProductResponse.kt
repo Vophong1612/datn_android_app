@@ -6,10 +6,8 @@ data class ProductResponse(
     @SerializedName("details") val details : Details,
     @SerializedName("name") val name : String,
     @SerializedName("price") val price : Int,
-    @SerializedName("colors") val colors : List<Colors>,
     @SerializedName("sizes") val sizes : List<Sizes>,
     @SerializedName("comments") val comments : List<Comments>,
-//    @SerializedName("sales") val sales : List<Sale>,
     @SerializedName("tags") val tags : List<Tags>,
     @SerializedName("created_at") val created_at : String,
     @SerializedName("updated_at") val updated_at : String,
@@ -27,21 +25,11 @@ data class Image (
     @SerializedName("img_category") val img_category : String
 )
 
-data class Colors (
-    @SerializedName("created_at") val created_at : String,
-    @SerializedName("updated_at") val updated_at : String,
-    @SerializedName("_id") val _id : String,
-    @SerializedName("name") val name : String,
-    @SerializedName("image") val image : String
-)
-
 data class Comments (
     @SerializedName("content") val content : String,
     @SerializedName("star") val star : Float,
     @SerializedName("responses") val responses : List<Comments>,
     @SerializedName("like") val like : Int,
-    @SerializedName("created_at") val created_at : String,
-    @SerializedName("updated_at") val updated_at : String,
     @SerializedName("_id") val _id : String,
     @SerializedName("created_by") val created_by : CreatedBy
 )
@@ -64,35 +52,17 @@ data class Details (
 
 data class Images (
     @SerializedName("url") val url : String,
-    @SerializedName("type") val type : String,
+    @SerializedName("color") val color : String,
     @SerializedName("desktop") val desktop : String,
     @SerializedName("mobile") val mobile : String
 )
 
 data class Sizes (
-    @SerializedName("created_at") val created_at : String,
-    @SerializedName("updated_at") val updated_at : String,
     @SerializedName("_id") val _id : String,
     @SerializedName("name") val name : String
 )
 
 data class Tags(
-    @SerializedName("created_at") val created_at: String,
-    @SerializedName("updated_at") val updated_at: String,
     @SerializedName("_id") val _id: String,
     @SerializedName("name") val name: String
 )
-
-//data class Sale (
-//    @SerializedName("from_at") val from_at : String,
-//    @SerializedName("end_at") val end_at : String,
-//    @SerializedName("created_at") val created_at : String,
-//    @SerializedName("updated_at") val updated_at : String,
-//    @SerializedName("_id") val _id : String,
-//    @SerializedName("title") val title : String,
-//    @SerializedName("content") val content : String,
-//    @SerializedName("imgage") val imgage : String,
-//    @SerializedName("from_date") val from_date : String,
-//    @SerializedName("end_date") val end_date : String,
-//    @SerializedName("discount") val discount : Int
-//)

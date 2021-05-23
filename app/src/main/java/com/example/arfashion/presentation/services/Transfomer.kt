@@ -17,6 +17,7 @@ fun ProductResponse.toProduct(): Product {
     return Product(
         id,
         name,
+        images.map { it.color },
         sizes.map { size ->
             Size(
                 size._id,
@@ -62,20 +63,20 @@ fun Comments.toComment(): Comment =
 //        (parser.parse(created_at)?: Date())
     )
 
-fun RelatedProductResponse.toProduct(): Product =
-    Product(id = id,
-        name = name,
-        prices = price,
-        priceSale = if (priceSale.isNotEmpty()) {
-            price - priceSale[0].discount
-        } else price,
-        images = images.map {
-            it.url
-        },
-        tag = tags.map { tag ->
-            tag.name
-        }
-    )
+//fun RelatedProductResponse.toProduct(): Product =
+//    Product(id = id,
+//        name = name,
+//        prices = price,
+//        priceSale = if (priceSale.isNotEmpty()) {
+//            price - priceSale[0].discount
+//        } else price,
+//        images = images.map {
+//            it.url
+//        },
+//        tag = tags.map { tag ->
+//            tag.name
+//        }
+//    )
 
 fun CategoriesResponse.toCategory(): Category =
     Category(
@@ -86,17 +87,19 @@ fun CategoriesResponse.toCategory(): Category =
         imageBanner = listImage.img_category.mobile
     )
 
-fun ProductByCategoryResponse.toProduct(): Product =
+fun ProductByCondition.toProduct(): Product =
     Product(id = id,
         name = name,
         prices = price,
-        priceSale = priceSale,
+        priceSale = if (priceSale.isNotEmpty()) {
+            price - priceSale[0].discount
+        } else price,
         images = images.map {
             it.url
         },
-        tag = tags.map { tag ->
+        tag = tags /*tags.map { tag ->
             tag.name
-        }
+        }*/
     )
 
 fun Cart.toCart(): CartModel =
@@ -110,7 +113,8 @@ fun Cart.toCart(): CartModel =
                 priceSale = it.priceSale,
                 images = listOf(it.images.mobile),
                 sizes = listOf(Size(it.size._id, it.size.name)),
-                total = it.total
+                total = it.total,
+                colors = listOf(it.color)
             )
         }
     )

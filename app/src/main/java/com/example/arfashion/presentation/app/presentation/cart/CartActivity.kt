@@ -143,7 +143,8 @@ class CartActivity : AppCompatActivity() {
                             id = product.id,
                             sizes = product.sizes,
                             total = total,
-                            priceSale = product.priceSale
+                            priceSale = product.priceSale,
+                            colors = product.colors
                         )
                     )
                 }
@@ -153,7 +154,7 @@ class CartActivity : AppCompatActivity() {
                     cartViewModel.updateCart(
                         it.id,
                         it.sizes[0].id,
-                        "Yellow",
+                        it.colors[0],
                         it.priceSale,
                         it.total
                     )

@@ -12,7 +12,7 @@ class SearchItemOffset(
 
     private val verticalOffset = context.dp(10f)
 
-    private val bottomOffset = context.dp(100f)
+    private val bottomOffset = context.dp(70f)
 
     override fun getItemOffsets(
         outRect: Rect,

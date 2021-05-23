@@ -36,59 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/searchGroup"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:constraint_referenced_ids="searchList,sortSpinnerLayout,sortLabel"/>
-
-        <TextView
-            android:id="@+id/sortLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@string/sort_by"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@id/sortSpinnerLayout"
-            app:layout_constraintEnd_toStartOf="@id/sortSpinnerLayout"
-            app:layout_constraintTop_toTopOf="@id/sortSpinnerLayout" />
-
-        <FrameLayout
-            android:id="@+id/sortSpinnerLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:minWidth="70dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:background="@drawable/bg_sort_spinner"
-            app:layout_constraintEnd_toEndOf="@id/search"
-            app:layout_constraintTop_toBottomOf="@id/search">
-
-            <Spinner
-                android:id="@+id/sortSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:spinnerMode="dropdown"/>
-
-        </FrameLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="19dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sortSpinnerLayout" />
-
         <TextView
             android:id="@+id/listEmptyAlert"
             android:layout_width="wrap_content"

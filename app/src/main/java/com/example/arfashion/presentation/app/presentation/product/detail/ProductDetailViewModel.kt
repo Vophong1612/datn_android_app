@@ -3,8 +3,8 @@ package com.example.arfashion.presentation.app.presentation.product.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.arfashion.presentation.app.models.product.ProductByCondition
 import com.example.arfashion.presentation.app.models.product.ProductResponse
-import com.example.arfashion.presentation.app.models.product.RelatedProductResponse
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Product
 import com.example.arfashion.presentation.services.ProductService
@@ -36,9 +36,15 @@ class ProductDetailViewModel : ViewModel() {
                 call: Call<ProductResponse>,
                 response: Response<ProductResponse>
             ) {
-                response.body()?.let {
-                    _product.value = ARResult.Success(it.toProduct())
+                when (response.code()) {
+                    200 -> {
+                        response.body()?.let {
+                            _product.value = ARResult.Success(it.toProduct())
+                        }
+                    }
+                    else ->  _product.value = ARResult.Error(Throwable("Can not get product. Code: ${response.code()}"))
                 }
+
                 _loading.value = false
             }
 
@@ -50,10 +56,10 @@ class ProductDetailViewModel : ViewModel() {
     }
 
     fun getRelatedProduct(id: String) {
-        productService.getRelatedProduct(id).enqueue(object : Callback<List<RelatedProductResponse>> {
+        productService.getRelatedProduct(id).enqueue(object : Callback<List<ProductByCondition>> {
             override fun onResponse(
-                call: Call<List<RelatedProductResponse>>,
-                response: Response<List<RelatedProductResponse>>
+                call: Call<List<ProductByCondition>>,
+                response: Response<List<ProductByCondition>>
             ) {
                 val data = response.body()
                 if (data != null) {
@@ -65,7 +71,7 @@ class ProductDetailViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<List<RelatedProductResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<ProductByCondition>>, t: Throwable) {
                 _relatedProduct.value = ARResult.Error(t)
             }
 

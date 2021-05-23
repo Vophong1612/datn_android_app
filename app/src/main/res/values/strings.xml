@@ -26,6 +26,7 @@
     <string name="title_category">Categories</string>
     <string name="title_profile">Profile</string>
     <string name="search">Search</string>
+    <string name="clear_search_button">Hủy</string>
 
     <string name="current_password_label">Current password</string>
     <string name="current_password_edt_hint"><font size="12">Enter current password here</font></string>
