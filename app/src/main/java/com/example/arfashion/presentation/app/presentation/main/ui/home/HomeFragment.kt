@@ -9,15 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager2.widget.ViewPager2
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.checkItemsAre
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.HomeToCategoriesShareViewModel
 import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
 import com.example.arfashion.presentation.app.visible
-import com.example.arfashion.presentation.app.widget.indicator.IndicatorSlideView
+import com.example.arfashion.presentation.app.widget.indicator.PagerIndicatorController
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Carousel
 import com.example.arfashion.presentation.data.model.Product
@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private lateinit var productAdapter: ProductAdapter
+    private lateinit var bestSellerProductAdapter: ProductAdapter
 
     //TODO: recommendProductAdapter
 
@@ -47,6 +47,10 @@ class HomeFragment : Fragment() {
     private val homeToCategoriesShareViewModel: HomeToCategoriesShareViewModel by activityViewModels()
 
     private val cartViewModel: CartViewModel by viewModels (ownerProducer = {this})
+
+    private lateinit var bestSellerPagerIndicatorController : PagerIndicatorController
+
+    private lateinit var carouselPagerIndicatorController: PagerIndicatorController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,20 +68,23 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        productAdapter = ProductAdapter(requireContext(), true)
-        bestSellerPager.adapter = productAdapter
-        productAdapter.productClickLister = {
-            val intent = Intent(this@HomeFragment.context, ProductDetailActivity::class.java)
-            startActivity(intent)
+        bestSellerProductAdapter = ProductAdapter(requireContext(), true)
+        bestSellerPager.adapter = bestSellerProductAdapter
+        bestSellerPagerIndicatorController = PagerIndicatorController(bestSellerPager, bestSellerSlide) {
+            it.checkItemsAre<Product>()?.let { products ->
+                bestSellerProductAdapter.setProducts(products)
+            }
         }
 
         carouselAdapter = CarouselAdapter()
         carousel.adapter = carouselAdapter
+        carouselPagerIndicatorController = PagerIndicatorController(carousel, carouselSlide) {
+            it.checkItemsAre<Carousel>()?.let { carousels ->
+                carouselAdapter.setData(carousels)
+            }
+        }
 
-        setUpIndicatorSlide(carousel, carouselSlide)
-
-        setUpIndicatorSlide(bestSellerPager, bestSellerSlide)
-
+        //TODO: connect api, observer data here
         //TODO: Hard code, remove
         val products = listOf(
             Product(
@@ -91,13 +98,15 @@ class HomeFragment : Fragment() {
                 name = "Quần 1" ,
                 tag = listOf("Pan"),
                 images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
-                prices = 500000
+                prices = 500000,
+                priceSale = 500000
             ),
             Product(
                 name ="Quần 1" ,
                 tag = listOf("Pan"),
                 images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
-                prices = 500000
+                prices = 500000,
+                priceSale = 500000
             ),
             Product(
                 name ="Áo 2" ,
@@ -108,24 +117,13 @@ class HomeFragment : Fragment() {
             ),
         )
 
-        //TODO: connect api, observer data here
         val temp = if (products.size > 4) {
             products.subList(0, 3)
         } else {
             products
         }
-        val transformData = arrayListOf(temp.last())
-        transformData.addAll(temp)
-        transformData.add(temp.first())
-        productAdapter.setProducts(transformData)
-        if (products.size >= 2) {
-            bestSellerSlide.visibility = View.VISIBLE
-            bestSellerPager.adapter?.itemCount?.let { it -> bestSellerSlide.setDots(it) }
-            bestSellerPager.setCurrentItem(1, true)
-        } else {
-            bestSellerSlide.visibility = View.GONE
-        }
         //end TODO
+        bestSellerPagerIndicatorController.handleData(temp)
 
         homeViewModel.carousel.observe(viewLifecycleOwner, {
             when (it) {
@@ -170,48 +168,14 @@ class HomeFragment : Fragment() {
             homeViewModel.getCarouselList()
             cartViewModel.getCart()
         }
+
+        bestSellerProductAdapter.productClickLister = {
+            val intent = Intent(this@HomeFragment.context, ProductDetailActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun handleCarouselData(carousels: List<Carousel>) {
-        val temp = if (carousels.size > 4) {
-            carousels.subList(0, 3)
-        } else {
-            carousels
-        }
-        val transformData = arrayListOf(temp.last())
-        transformData.addAll(temp)
-        transformData.add(temp.first())
-
-        carouselAdapter.setData(transformData)
-
-        if (carousels.size >= 2) {
-            carouselSlide.visibility = View.VISIBLE
-            carousel.adapter?.itemCount?.let { count -> carouselSlide.setDots(count) }
-            carousel.setCurrentItem(1, true)
-        } else {
-            carouselSlide.visibility = View.GONE
-        }
+        carouselPagerIndicatorController.handleData(carousels)
     }
-
-    private fun setUpIndicatorSlide(pager: ViewPager2, indicator: IndicatorSlideView) {
-        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                indicator.onDotSelected(position)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-                super.onPageScrollStateChanged(state)
-                val currentPosition = indicator.getCurrentPosition()
-                val dotsCount = indicator.getDotsCount()
-                if (state == ViewPager2.SCROLL_STATE_IDLE || state == ViewPager2.SCROLL_STATE_DRAGGING) {
-                    if (currentPosition == 0)
-                        pager.setCurrentItem(dotsCount - 2, false)
-                    else if (currentPosition == dotsCount - 1)
-                        pager.setCurrentItem(1, false)
-                }
-            }
-        })
-    }
-
 }

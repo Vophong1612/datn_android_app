@@ -18,7 +18,7 @@ interface ProductService {
     }
 
     @GET("/events/list")
-    fun getCarousels(): Call<List<GetCarouselResponse>>
+    fun getCarousels(@Query("limit") limit: Int, @Query("offset") offset: Int): Call<List<GetCarouselResponse>>
 
     @GET("/products/getProductById")
     fun findProduct(@Query("_id") id: String): Call<ProductResponse>
