@@ -12,7 +12,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(private val productService: ProductService) : ViewModel() {
+class HomeViewModel : ViewModel() {
+    private val productService =  ProductService.create()
+
     private val _carousels = MutableLiveData<ARResult<List<Carousel>>>()
     val carousel: LiveData<ARResult<List<Carousel>>>
         get() = _carousels

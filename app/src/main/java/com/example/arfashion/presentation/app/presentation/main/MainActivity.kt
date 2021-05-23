@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainPagerAdapter: MainPagerAdapter
 
-    private val homeToCategoriesShareViewModel: HomeToCategoresShareViewModel by viewModels()
+    private val homeToCategoriesShareViewModel: HomeToCategoriesShareViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
