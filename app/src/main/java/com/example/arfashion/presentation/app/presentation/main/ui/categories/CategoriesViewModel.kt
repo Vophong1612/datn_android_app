@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.arfashion.presentation.app.models.product.CategoriesResponse
-import com.example.arfashion.presentation.app.models.product.ProductByCategoryResponse
-import com.example.arfashion.presentation.app.models.product.ProductResponse
+import com.example.arfashion.presentation.app.models.product.ProductByConditionResponse
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Category
 import com.example.arfashion.presentation.data.model.Product
@@ -63,16 +62,16 @@ class CategoriesViewModel : ViewModel() {
 
     fun searchByKeyWord(keyword: String) {
         _loading.value = true
-        productService.searchByKeyWord(keyword).enqueue(object : Callback<List<ProductResponse>> {
+        productService.getProductByCondition(keyword = keyword).enqueue(object : Callback<ProductByConditionResponse> {
             override fun onResponse(
-                call: Call<List<ProductResponse>>,
-                response: Response<List<ProductResponse>>
+                call: Call<ProductByConditionResponse>,
+                response: Response<ProductByConditionResponse>
             ) {
                 _loading.value = false
                 when (response.code()) {
                     200 -> {
                         response.body()?.let {
-                            _search.value = ARResult.Success(it.map { product ->
+                            _search.value = ARResult.Success(it.product.map { product ->
                                 product.toProduct()
                             })
                         }
@@ -82,7 +81,7 @@ class CategoriesViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<List<ProductResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ProductByConditionResponse>, t: Throwable) {
                 _loading.value = false
                 _search.value = ARResult.Error(t)
             }
@@ -92,17 +91,17 @@ class CategoriesViewModel : ViewModel() {
 
     fun getProductListByCategory(id: String) {
         _loading.value = true
-        productService.getProductListByCategory(id)
-            .enqueue(object : Callback<List<ProductByCategoryResponse>> {
+        productService.getProductByCondition(categoryId = id)
+            .enqueue(object : Callback<ProductByConditionResponse> {
                 override fun onResponse(
-                    call: Call<List<ProductByCategoryResponse>>,
-                    response: Response<List<ProductByCategoryResponse>>
+                    call: Call<ProductByConditionResponse>,
+                    response: Response<ProductByConditionResponse>
                 ) {
                     _loading.value = false
                     when (response.code()) {
                         200 -> {
                             response.body()?.let {
-                                _listProductByCategory.value = ARResult.Success(it.map { product ->
+                                _listProductByCategory.value = ARResult.Success(it.product.map { product ->
                                     product.toProduct()
                                 })
                             }
@@ -112,7 +111,7 @@ class CategoriesViewModel : ViewModel() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<ProductByCategoryResponse>>, t: Throwable) {
+                override fun onFailure(call: Call<ProductByConditionResponse>, t: Throwable) {
                     _loading.value = false
                     _listProductByCategory.value = ARResult.Error(t)
                 }

@@ -103,8 +103,16 @@ class CartProductAdapter : RecyclerView.Adapter<CartProductAdapter.ViewHolder>()
             productCount.progress = data.total
             beforeProgress = data.total
 
-            size.text = size.context.getString(R.string.cart_size, data.sizes[0].name)
-            color.text = color.context.getString(R.string.cart_color, "Red")
+            data.sizes.let {
+                if (it.isNotEmpty()) {
+                    size.text = size.context.getString(R.string.cart_size, data.sizes[0].name)
+                }
+            }
+            data.colors.let {
+                if (it.isNotEmpty()) {
+                    color.text = color.context.getString(R.string.cart_color, data.colors[0])
+                }
+            }
 
             price.text = price.context.getString(R.string.price, data.priceSale)
             if (data.isSale) {

@@ -22,8 +22,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
-import com.example.arfashion.presentation.app.presentation.main.ui.home.ProductAdapter
+import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
+import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Product
@@ -39,13 +41,12 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
-
 class ProductDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val CAMERA_PERMISSION_CODE = 100
         private const val STORAGE_PERMISSION_CODE = 101
-    }
+     }
 
     private lateinit var productTabAdapter: ProductTabAdapter
 
@@ -96,10 +97,15 @@ class ProductDetailActivity : AppCompatActivity() {
             ).show()
         }
 
+    private var productId: String? = ""
+
     init {
         lifecycleScope.launchWhenCreated {
-            productDetailViewModel.getProductDetail("605a279c928cf217986aad9d") //fixme: this is hardcode, please replace id by id which is in Bundle
-            productDetailViewModel.getRelatedProduct("605a279c928cf217986aad9d")
+            productId = intent.extras?.getString(KEY_PRODUCT_ID)
+            productId?.let {
+                productDetailViewModel.getProductDetail(it)
+                productDetailViewModel.getRelatedProduct(it)
+            }
         }
     }
 
@@ -184,7 +190,9 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         refreshLayout.setOnRefreshListener {
-            productDetailViewModel.getProductDetail("605a279c928cf217986aad9d") //fixme: this is hardcode, please replace id by id which is in Bundle
+            productId?.let {
+                productDetailViewModel.getProductDetail(it)
+            }
         }
 
         productDetailViewModel.product.observe(this) {
@@ -293,8 +301,10 @@ class ProductDetailActivity : AppCompatActivity() {
             defaultPrice.gone()
         }
 
-        if (product.sizes.isNotEmpty()) {
-            sizeAdapter.setData(product.sizes)
+        product.sizes.let {
+            if (it.isNotEmpty()) {
+                sizeAdapter.setData(it)
+            }
         }
     }
 
@@ -346,7 +356,7 @@ class ProductDetailActivity : AppCompatActivity() {
                                 cartViewModel.updateCart(
                                     it.id,
                                     it.sizes[sizeAdapter.selectedIndex].id,
-                                    "Yellow",
+                                    it.colors[thumbnailAdapter.selectedIndex],
                                     it.priceSale,
                                     productCount.progress
                                 )
@@ -354,6 +364,9 @@ class ProductDetailActivity : AppCompatActivity() {
                         }
                     }
                 }
+        }
+        relatedProductAdapter.productClickLister = {
+            openProductDetailActivity(it)
         }
     }
 

@@ -3,7 +3,7 @@ package com.example.arfashion.presentation.data.model
 data class Product(
     val id: String = "",
     val name: String = "",
-//    val colors: List<ProductColor> = listOf(),
+    val colors: List<String> = listOf(),
     val sizes: List<Size> = listOf(),
     val comments: List<Comment> = listOf(),
     val images: List<String> = listOf(),
@@ -28,9 +28,3 @@ data class Size(
     val id: String = "",
     val name: String = ""
 )
-
-//data class ProductColor(
-//    val id: String = "",
-//    val name: String = "",
-//    val image: String = ""
-//)

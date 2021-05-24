@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.presentation.main.ui.home
+package com.example.arfashion.presentation.app.presentation.product
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -18,7 +18,7 @@ class ProductAdapter(private val context: Context, private val isViewPager: Bool
 
     private var products: MutableList<Product> = mutableListOf()
 
-    var productClickLister: ((product: Product) -> Unit)? = null
+    var productClickLister: ((productId: String) -> Unit)? = null
 
     fun setProducts(products: List<Product>?) {
         this.products.clear()
@@ -60,7 +60,7 @@ class ProductAdapter(private val context: Context, private val isViewPager: Bool
             }
 
             itemView.setOnClickListener {
-                productClickLister?.invoke(products[adapterPosition])
+                productClickLister?.invoke(products[adapterPosition].id)
             }
         }
 

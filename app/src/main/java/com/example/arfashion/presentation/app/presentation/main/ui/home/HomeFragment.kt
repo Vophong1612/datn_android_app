@@ -10,13 +10,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.arfashion.R
-import com.example.arfashion.presentation.app.checkItemsAre
-import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.*
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.HomeToCategoriesShareViewModel
+import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
+import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
 import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
-import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.app.widget.indicator.PagerIndicatorController
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Carousel
@@ -88,6 +88,7 @@ class HomeFragment : Fragment() {
         //TODO: Hard code, remove
         val products = listOf(
             Product(
+                id = "605a279c928cf217986aad9d",
                 name = "Áo 1",
                 tag = listOf("T-Shirt"),
                 images = listOf("https://product.hstatic.net/200000053174/product/4apkh006trt-295k_7cb61b16ced4411a81da614a5f544759_master.jpg"),
@@ -95,6 +96,7 @@ class HomeFragment : Fragment() {
                 priceSale = /*Sales(100000, Date(2021, 12, 31))*/ 100000
             ),
             Product(
+                id = "605a279c928cf217986aad9d",
                 name = "Quần 1" ,
                 tag = listOf("Pan"),
                 images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
@@ -102,6 +104,7 @@ class HomeFragment : Fragment() {
                 priceSale = 500000
             ),
             Product(
+                id = "605a279c928cf217986aad9d",
                 name ="Quần 1" ,
                 tag = listOf("Pan"),
                 images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
@@ -109,6 +112,7 @@ class HomeFragment : Fragment() {
                 priceSale = 500000
             ),
             Product(
+                id = "605a279c928cf217986aad9d",
                 name ="Áo 2" ,
                 tag = listOf("T-Shirt"),
                 images = listOf("https://product.hstatic.net/200000053174/product/4apkh007ttt_-_295k_5db812b469f84e2aa34a51a79a460dad_master.jpg"),
@@ -170,8 +174,7 @@ class HomeFragment : Fragment() {
         }
 
         bestSellerProductAdapter.productClickLister = {
-            val intent = Intent(this@HomeFragment.context, ProductDetailActivity::class.java)
-            startActivity(intent)
+            this.requireContext().openProductDetailActivity(it)
         }
     }
 

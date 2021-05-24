@@ -2,16 +2,20 @@ package com.example.arfashion.presentation.app
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Bundle
 import android.view.*
 import android.view.View.*
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
+import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -112,6 +116,12 @@ fun View.invisible() = run { visibility = INVISIBLE }
 
 infix fun Int?.isIn(range: IntRange): Boolean {
     return this != null && range.first <= this && this <= range.last
+}
+
+fun Context.openProductDetailActivity(productId: String) {
+    val intent = Intent(this, ProductDetailActivity::class.java)
+    intent.putExtra(KEY_PRODUCT_ID, productId)
+    startActivity(intent)
 }
 
 @Suppress("UNCHECKED_CAST")
