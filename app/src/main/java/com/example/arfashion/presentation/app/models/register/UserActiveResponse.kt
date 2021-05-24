@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.models.register
+package com.example.arfashion.presentation.app.models.active
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,8 +11,17 @@ data class UserActiveResponse(
     val statusCode: StatusCode
         get() =
             when (status_code) {
-                0 -> StatusCode.SUCCESS
-                else -> StatusCode.EXISTED_ACCOUNT
+                0 -> StatusCode.HAD_BEEN_ACTIVATED
+                1 -> StatusCode.SUCCESS
+                2 -> StatusCode.INCORRECT
+                else -> StatusCode.MISSING_CREDENTIALS
             }
+}
+
+enum class StatusCode {
+    HAD_BEEN_ACTIVATED,
+    SUCCESS,
+    INCORRECT,
+    MISSING_CREDENTIALS
 }
 

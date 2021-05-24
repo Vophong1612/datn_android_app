@@ -221,12 +221,28 @@
                     android:textColor="@color/palattes_1"
                     android:textSize="15sp"/>
 
+                <RelativeLayout
+                    android:id="@+id/relative_layout_province"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
                 <Spinner
                     android:id="@+id/genderSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_edt_radius_pressed"
-                    android:paddingStart="10dp"/>
+                    android:paddingStart="10dp"
+                    tools:ignore="RtlSymmetry" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_arrow_drop_down"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -248,22 +264,25 @@
             android:id="@+id/relative_layout_address_register"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/ll_dob_gender">
 
-            <EditText
-                android:id="@+id/addressEdt"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="5dp"
-                android:paddingStart="10dp"
-                android:background="@drawable/bg_edt_radius_pressed"
-                android:enabled="false"
-                android:hint="@string/address_edt_hint"
-                tools:ignore="RtlSymmetry" />
+                <EditText
+                    android:id="@+id/addressEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="40dp"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:focusableInTouchMode="true"
+                    android:background="@drawable/bg_edt_radius_pressed"
+                    android:hint="@string/address_edt_hint"
+                    tools:ignore="RtlSymmetry"/>
 
             <ImageView
                 android:layout_width="wrap_content"
