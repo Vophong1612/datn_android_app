@@ -1,6 +1,5 @@
 package com.example.arfashion.presentation.app.presentation.register
 
-import OtpEditText
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +16,7 @@ import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.app.presentation.login.LoginViewModel
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
 import com.example.arfashion.presentation.app.presentation.register.otp.GenericKeyEvent
+import com.example.arfashion.presentation.app.presentation.register.otp.OtpEditText
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile

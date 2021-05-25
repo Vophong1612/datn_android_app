@@ -2,4 +2,22 @@
 <resources>
     <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem" />
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem" />
+
+    <style name="Product.Tab" parent="Theme.ARFashion">
+        <item name="android:background">@drawable/bg_product_state_tab</item>
+        <item name="android:textColor">@color/color_product_tab</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Categories.Tab" parent="Theme.ARFashion">
+        <item name="android:background">@drawable/bg_categories_state_tab</item>
+        <item name="android:textColor">@color/palattes_1</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="myDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

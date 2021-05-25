@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.arfashion">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -21,10 +24,14 @@
         <activity android:name=".presentation.app.presentation.forgotPassword.ForgotPasswordActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterVerifyActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailUserInfoActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterEmailOrPhoneActivity" />
+        <activity android:name=".presentation.app.presentation.main.ui.categories.ProductResultActivity"/>
+        <activity android:name=".presentation.app.presentation.cart.CartActivity" />
+        <activity android:name=".presentation.app.presentation.product.detail.ProductDetailActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
-            android:label="@string/title_activity_main_ativity" />
-        <activity android:name=".presentation.app.presentation.register.RegisterEmailOrPhoneActivity" />
+            android:label="@string/title_activity_main_ativity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".presentation.app.presentation.login.LoginActivity" />
         <activity android:name=".presentation.MainActivity">
             <intent-filter>

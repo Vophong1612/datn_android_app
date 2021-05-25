@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pick_image">
+        <item>@string/selected_image_dialog_take_image_option</item>
+        <item>@string/selected_image_dialog_from_gallery_option</item>
+        <item>@string/selected_image_dialog_cancel_option</item>
+    </array>
+</resources>

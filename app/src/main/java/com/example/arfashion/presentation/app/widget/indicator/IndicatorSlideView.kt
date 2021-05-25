@@ -1,10 +1,13 @@
 package com.example.arfashion.presentation.app.widget.indicator
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.example.arfashion.R
 import kotlin.math.min
 
 private const val DEFAULT_RADIUS = 10f
@@ -24,12 +27,36 @@ class IndicatorSlideView @JvmOverloads constructor(
     private var selectedAlpha = 178
     private var dots: MutableList<Dot> = mutableListOf()
 
-    fun setDotsCount(count: Int) {
+    init {
+        attrs?.let {
+            val typedArray: TypedArray =
+                context.obtainStyledAttributes(it, R.styleable.IndicatorSlideView)
+
+            try {
+                defaultRadius = typedArray.getDimensionPixelSize(
+                    R.styleable.IndicatorSlideView_radius, DEFAULT_RADIUS.toInt()).toFloat()
+
+                selectedColor = typedArray.getColor(
+                    R.styleable.IndicatorSlideView_color_selected,
+                    ContextCompat.getColor(context, R.color.palattes_2)
+                )
+
+                unselectedColor = typedArray.getColor(
+                    R.styleable.IndicatorSlideView_color_unselected,
+                    ContextCompat.getColor(context, R.color.palattes_3)
+                )
+            } finally {
+                typedArray.recycle()
+            }
+        }
+    }
+
+    fun setDots(count: Int) {
         dots.clear()
         for (i in 0 until count) {
             dots.add(Dot())
         }
-        selectedIndex = 0
+        selectedIndex = 1
         requestLayout()
     }
 
@@ -38,25 +65,33 @@ class IndicatorSlideView @JvmOverloads constructor(
         requestLayout()
     }
 
+    fun getDotsCount(): Int {
+        return dots.size
+    }
+
+    fun getCurrentPosition(): Int {
+        return selectedIndex
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val desireHeight = 2 * defaultRadius.toInt()
-        val minimumCalWidth = (defaultRadius * 2 * 14).toInt()
-        val widthResult = if (widthMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.AT_MOST) {
-            min(minimumCalWidth, MeasureSpec.getSize(widthMeasureSpec))
-        } else {
-            minimumCalWidth
-        }
-        val heightResult : Int = if (heightMode == MeasureSpec.EXACTLY || heightMode == MeasureSpec.AT_MOST) {
-            min(desireHeight, MeasureSpec.getSize(heightMeasureSpec))
-        } else {
-            desireHeight
-        }
-        setMeasuredDimension(
-            MeasureSpec.makeMeasureSpec(widthResult, MeasureSpec.EXACTLY),
-            MeasureSpec.makeMeasureSpec(heightResult, MeasureSpec.EXACTLY)
-        )
+        val minimumCalWidth = (defaultRadius * 2 * 10).toInt()
+        val widthResult =
+            if (widthMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.AT_MOST) {
+                min(minimumCalWidth, MeasureSpec.getSize(widthMeasureSpec))
+            } else {
+                minimumCalWidth
+            }
+        val heightResult: Int =
+            if (heightMode == MeasureSpec.EXACTLY || heightMode == MeasureSpec.AT_MOST) {
+                min(desireHeight, MeasureSpec.getSize(heightMeasureSpec))
+            } else {
+                desireHeight
+            }
+
+        setMeasuredDimension(widthResult, heightResult)
     }
 
 
@@ -68,15 +103,15 @@ class IndicatorSlideView @JvmOverloads constructor(
         //round rect
         val rectY = yCenter - radius
         val heightRect = radius * 2
-        var startX = radius * 2
+        var startX = 0f
 
-        for (i in 0 until dots.size) {
+        for (i in 1 until dots.size - 1) {
             if (i == selectedIndex) {
                 dots[i].isSelected = true
                 dots[i].setColor(selectedColor)
                 dots[i].setAlpha(selectedAlpha)
-                var rectLeft : Float
-                var rectRight : Float
+                var rectLeft: Float
+                var rectRight: Float
                 if (i == 0) {
                     rectLeft = startX
                     rectRight = rectLeft + rectWidth
@@ -106,7 +141,7 @@ class IndicatorSlideView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        for (i in 0 until dots.size) {
+        for (i in 1 until dots.size - 1) {
             dots[i].draw(canvas)
         }
         super.onDraw(canvas)

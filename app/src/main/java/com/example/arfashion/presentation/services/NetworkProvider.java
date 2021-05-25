@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class NetworkProvider {
     private static volatile NetworkProvider mInstance = null;
 
-    private Retrofit retrofit;
+    private final Retrofit retrofit;
 
     public static NetworkProvider newInstance() {
         if (mInstance == null) {
@@ -22,7 +22,7 @@ public final class NetworkProvider {
     private NetworkProvider() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.API_URL)
-                .client(new OkHttpClient.Builder().build())
+                .client(okhttpClient())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
     }
@@ -31,4 +31,7 @@ public final class NetworkProvider {
         return retrofit.create(serviceClass);
     }
 
+    private OkHttpClient okhttpClient() {
+        return new OkHttpClient.Builder().addInterceptor(new AuthInterceptor()).build();
+    }
 }

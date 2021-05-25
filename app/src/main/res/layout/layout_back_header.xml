@@ -24,10 +24,8 @@
         android:padding="5dp"
         android:gravity="center_vertical"
         android:textColor="@color/palattes_1"
-        android:text="@string/sign_in"
         app:layout_constraintStart_toEndOf="@id/back_icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:text = "Tên màn hình" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
