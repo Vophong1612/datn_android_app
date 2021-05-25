@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">ARFashion</string>
     <string name="or">Or</string>
-    <string name="username_label">Username</string>
+    <string name="username_label">Email or Phone</string>
     <string name="username_edt_hint"><font size="12">Enter username here</font></string>
     <string name="password_label">Password</string>
     <string name="password_edt_hint"><font size="12">Enter password here</font></string>
     <string name="sign_up_">Sign Up!</string>
     <string name="email_label">Email</string>
-    <string name="email_edt_hint"><font size="12">Enter your email here</font></string>
+    <string name="email_edt_hint"><font size="12">Enter your email or phone here</font></string>
     <string name="continue_btn">Continue</string>
     <string name="sign_in_register">Sign In!</string>
     <string name="verify_btn">Verify</string>
@@ -26,7 +26,7 @@
     <string name="confirm_password_edt_hint"><font size="12">Enter confirm password here</font></string>
     <string name="forgot_password">Forgot password?</string>
     <string name="forgot_password_label">Forgot password</string>
-    <string name="sign_up">Sign Up!</string>
+    <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
     <string name="user_info">Your Profile</string>
     <string name="full_name_label">Full Name</string>
@@ -49,9 +49,25 @@
     <string name="choose_from_camera">Camera</string>
     <string name="choose_from_gallery">Choose from gallery</string>
 
-    <string name="invalid_email">Invalid email. Try again</string>
-    <string name="invalid_data">Invalid data. Try again</string>
+    <string name="invalid_email">Invalid data. Try again</string>
+    <string name="invalid_data">Data must not be empty</string>
+    <string name="invalid_password">Password must contain more 6 characters</string>
+    <string name="invalid_data_login">Please enter email and password</string>
+
+    <string name="incorrect_data_login">Email or password is incorrect</string>
+    <string name="incorrect_active_code">Incorrect active code</string>
+
     <string name="register_fail">Fail to register. Try again</string>
+    <string name="confirm_password_fail">Password and Confirm Password must be equal. Try again</string>
+
+    <string name="existed_email">Email already existed</string>
+    <string name="existed_phone">Existed Phone</string>
+
+
+    <string name="resend_active_email">Resend Code</string>
+    <string name="server_client_id">512036407122-41hbaj45eeuq9lnecl8vs1o4edlgnukh.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">518441759182869</string>
+    <string name="fb_login_protocol_scheme">fb518441759182869</string>
 
     <string-array name="genderList">
         <item>Male</item>

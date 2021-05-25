@@ -2,7 +2,7 @@ package com.example.arfashion.presentation.app.models.register
 
 import com.google.gson.annotations.SerializedName
 
-data class UserResendActiveEmailResponse(
+data class UserResendActiveResponse(
         @SerializedName("message")
         val message: String = "",
         @SerializedName("status_code")

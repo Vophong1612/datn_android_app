@@ -14,14 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ARFashion">
-        <activity android:name=".presentation.app.presentation.register.RegisterChooseAddressActivity"></activity>
-        <activity android:name=".presentation.app.presentation.forgotpassword.ForgotPasswordActivity" />
-        <activity android:name=".presentation.app.presentation.register.RegisterVerifiyActivity" />
-        <activity android:name=".presentation.app.presentation.register.RegisterUserInfoActivity" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <activity android:name=".presentation.app.presentation.register.RegisterPhoneUserInfoActivity"/>
+        <activity android:name=".presentation.app.presentation.forgotPassword.ChangePasswordActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterChooseAddressActivity" />
+        <activity android:name=".presentation.app.presentation.forgotPassword.ForgotPasswordActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterVerifyActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterEmailUserInfoActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
             android:label="@string/title_activity_main_ativity" />
-        <activity android:name=".presentation.app.presentation.register.RegisterEmailActivity" />
+        <activity android:name=".presentation.app.presentation.register.RegisterEmailOrPhoneActivity" />
         <activity android:name=".presentation.app.presentation.login.LoginActivity" />
         <activity android:name=".presentation.MainActivity">
             <intent-filter>

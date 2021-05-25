@@ -1,14 +1,21 @@
 package com.example.arfashion.presentation.app.presentation.main
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.presentation.main.ui.dashboard.DashboardFragment
 import com.example.arfashion.presentation.app.presentation.main.ui.home.HomeFragment
 import com.example.arfashion.presentation.app.presentation.main.ui.notifications.NotificationsFragment
+import com.example.arfashion.presentation.data.ARFashionUserManager
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var userManager: ARFashionUserManager
+    private lateinit var userStorage: UserLocalStorage
+    private lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

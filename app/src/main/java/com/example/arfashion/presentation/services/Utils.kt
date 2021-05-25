@@ -28,6 +28,22 @@ class Utils {
                 target!!.length > 8
             }
         }
+
+        fun isValidPhone(target: String?): Boolean {
+            return if (TextUtils.isEmpty(target)) {
+                false
+            } else {
+                Patterns.PHONE.matcher(target).matches();
+            }
+        }
+
+        fun formatPhone(target: String?): String {
+           val res: String? = target
+            if (res != null) {
+                return "84" + res.removeRange(0,1)
+            }
+            return ""
+        }
     }
 
 }

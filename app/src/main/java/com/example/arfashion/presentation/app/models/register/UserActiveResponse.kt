@@ -1,27 +1,21 @@
-package com.example.arfashion.presentation.app.models.active
+package com.example.arfashion.presentation.app.models.register
 
+import com.example.arfashion.presentation.data.model.RefreshToken
+import com.example.arfashion.presentation.data.model.User
 import com.google.gson.annotations.SerializedName
 
 data class UserActiveResponse(
         @SerializedName("message")
         val message: String = "",
         @SerializedName("status_code")
-        val status_code: Int
-) {
-    val statusCode: StatusCode
-        get() =
-            when (status_code) {
-                0 -> StatusCode.HAD_BEEN_ACTIVATED
-                1 -> StatusCode.SUCCESS
-                2 -> StatusCode.INCORRECT
-                else -> StatusCode.MISSING_CREDENTIALS
-            }
-}
+        val status_code: Int,
+        @SerializedName("user")
+        val user: User,
+        @SerializedName("accessToken")
+        val accessToken: String = "",
+        @SerializedName("refreshToken")
+        val refreshToken: RefreshToken,
+)
 
-enum class StatusCode {
-    HAD_BEEN_ACTIVATED,
-    SUCCESS,
-    INCORRECT,
-    MISSING_CREDENTIALS
-}
+
 

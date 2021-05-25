@@ -1,6 +1,5 @@
-package com.example.arfashion.presentation.app.models.address
+package com.example.arfashion.presentation.app.models.profile
 
-import com.example.arfashion.presentation.app.models.register.StatusCode
 import com.google.gson.annotations.SerializedName
 
 data class AddressProvinceResponse(

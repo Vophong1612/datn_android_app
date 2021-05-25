@@ -15,6 +15,9 @@ private const val KEY_USER_BIRTHDAY = "pref_user_birthday"
 private const val KEY_USER_STATUS = "pref_user_status"
 
 private const val KEY_USER_ACCESS_TOKEN = "pref_access_token"
+private const val KEY_USER_REFRESH_TOKEN = "pref_refresh_token"
+private const val KEY_USER_IAT = "pref_iat"
+private const val KEY_USER_EXP = "pref_exp"
 
 class UserLocalStorage(private val pref: SharedPreferences) : UserStorage {
     override fun load(): User {
@@ -30,7 +33,10 @@ class UserLocalStorage(private val pref: SharedPreferences) : UserStorage {
             putString(KEY_USER_AVATAR, user.profile.avatar)
             putInt(KEY_USER_GENDER, user.profile.gender)
             putString(KEY_USER_BIRTHDAY, user.profile.birthday)
-            putInt(KEY_USER_STATUS, user.profile.status)
+            putInt(KEY_USER_STATUS, user.profile.account_status)
+            putString(KEY_USER_REFRESH_TOKEN, user.profile.refresh_token.token)
+            putString(KEY_USER_IAT,user.profile.refresh_token.iat)
+            putString(KEY_USER_EXP,user.profile.refresh_token.exp)
             putString(KEY_USER_ACCESS_TOKEN, user.credential.accessToken)
         }.apply()
     }

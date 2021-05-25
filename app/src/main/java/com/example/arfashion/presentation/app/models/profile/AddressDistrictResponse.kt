@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.models.address
+package com.example.arfashion.presentation.app.models.profile
 
 import com.google.gson.annotations.SerializedName
 
