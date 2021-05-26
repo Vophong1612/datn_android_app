@@ -1,10 +1,7 @@
 package com.example.arfashion.presentation.services
 
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
-import com.example.arfashion.presentation.app.models.product.CategoriesResponse
-import com.example.arfashion.presentation.app.models.product.ProductByCondition
-import com.example.arfashion.presentation.app.models.product.ProductByConditionResponse
-import com.example.arfashion.presentation.app.models.product.ProductResponse
+import com.example.arfashion.presentation.app.models.product.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -32,6 +29,12 @@ interface ProductService {
     @GET("/categories/list")
     fun getCategories(): Call<List<CategoriesResponse>>
 
+    @GET("/tags/list")
+    fun getTags(): Call<List<Tags>>
+
+    @GET("/sizes/list")
+    fun getSizes(): Call<List<Sizes>>
+
     @GET("/products/list")
     fun getProductByCondition(
         @Query("q") keyword: String = "",
@@ -40,7 +43,7 @@ interface ProductService {
         @Query("priceRange") priceRange: String = "",
         @Query("priceSort") priceSort: String = "asc",
         @Query("size") sizeId: String = "",
-        @Query("tags") tags: List<String> = listOf(),
+        @Query("tags") tags: String = "",
         @Query("limit") limit: Int = 12,
         @Query("offset") offset: Int = 0
     ): Call<ProductByConditionResponse>

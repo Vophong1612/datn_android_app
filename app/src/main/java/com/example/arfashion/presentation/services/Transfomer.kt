@@ -88,7 +88,8 @@ fun CategoriesResponse.toCategory(): Category =
     )
 
 fun ProductByCondition.toProduct(): Product =
-    Product(id = id,
+    Product(
+        id = id,
         name = name,
         prices = price,
         priceSale = if (priceSale.isNotEmpty()) {
@@ -117,4 +118,10 @@ fun Cart.toCart(): CartModel =
                 colors = listOf(it.color)
             )
         }
+    )
+
+fun Tags.toTag(): Tag =
+    Tag(
+        id = _id,
+        name = name
     )

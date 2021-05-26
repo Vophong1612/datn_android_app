@@ -39,6 +39,14 @@ class ProductSizeAdapter : RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
+    fun selectedIndex(sizeId: String) {
+        val index = sizesList.indexOfFirst { sizeId == it.id }
+        val beforeIndex = selectedIndex
+        selectedIndex = index
+        notifyItemChanged(beforeIndex)
+        notifyItemChanged(index)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context).inflate(R.layout.item_size_list, parent, false)

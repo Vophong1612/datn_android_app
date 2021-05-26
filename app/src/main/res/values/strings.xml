@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ARFashion</string>
+
     <string name="or">Or</string>
+
     <string name="username_label">Username</string>
     <string name="username_edt_hint"><font size="12">Enter username here</font></string>
     <string name="password_label">Password</string>
@@ -9,11 +11,13 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up_">Sign Up!</string>
+
     <string name="email_label">Email</string>
     <string name="email_edt_hint"><font size="12">Enter your email or phone here</font></string>
     <string name="continue_btn">Continue</string>
     <string name="sign_in_register">Sign In!</string>
     <string name="verify_btn">Verify</string>
+
     <string name="price">%1$d VND</string>
     <string name="default_price">&lt;strike> %1$d VND &lt;/strike> </string>
     <string name="sale_tag">sale</string>
@@ -23,6 +27,7 @@
     <string name="title_profile">Profile</string>
     <string name="search">Search</string>
     <string name="clear_search_button">Hủy</string>
+
     <string name="current_password_label">Current password</string>
     <string name="current_password_edt_hint"><font size="12">Enter current password here</font></string>
     <string name="new_password_label">New password</string>
@@ -112,4 +117,18 @@
         <item>Female</item>
     </string-array>
 
+    <string name="filter_category_label">Category</string>
+    <string name="filter_sort_price">Sort Price</string>
+    <string name="filter_price_low_to_hight">Low - Hight</string>
+    <string name="filter_price_high_to_low">High - Low</string>
+    <string name="filter_price_range_label">Price</string>
+    <string name="filter_size">Size</string>
+    <string name="filter_tags_all">All</string>
+    <string name="filter_tags">Tags</string>
+    <string name="filter_apply_btn">Apply</string>
+    <string name="clear_filter">Clear filter</string>
+    <string-array name="filter_range_slider_values">
+        <item>0</item>
+        <item>10000000</item>
+    </string-array>
 </resources>
