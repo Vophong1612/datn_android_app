@@ -1,31 +1,29 @@
 package com.example.arfashion.presentation.app.presentation.product.detail
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
+import com.example.arfashion.presentation.app.presentation.product.test.ARTestActivity
+import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_COLOR
+import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_IMAGE
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Product
@@ -43,11 +41,6 @@ import kotlinx.coroutines.launch
 
 class ProductDetailActivity : AppCompatActivity() {
 
-    companion object {
-        private const val CAMERA_PERMISSION_CODE = 100
-        private const val STORAGE_PERMISSION_CODE = 101
-     }
-
     private lateinit var productTabAdapter: ProductTabAdapter
 
     private val productDetailViewModel: ProductDetailViewModel by viewModels()
@@ -61,41 +54,6 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var relatedProductAdapter: ProductAdapter
 
     private var product: Product? = null
-
-    private lateinit var takeImageResultLauncher: ActivityResultLauncher<Intent>
-
-    private lateinit var chooseImageResultLauncher: ActivityResultLauncher<Intent>
-
-    private val cameraPermissionGrantedRunnable = Runnable {
-        val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        takeImageResultLauncher.launch(takePicture)
-    }
-
-    private val galleryPermissionGrantedRunnable = Runnable {
-        val pickImage = Intent().also {
-            it.type = "image/*"
-            it.action = Intent.ACTION_GET_CONTENT
-        }
-        chooseImageResultLauncher.launch(pickImage)
-    }
-
-    private val galleryPermissionDeniedRunnable =
-        Runnable {
-            Toast.makeText(
-                this,
-                this.getString(R.string.access_storage_denied),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-    private val cameraPermissionDeniedRunnable =
-        Runnable {
-            Toast.makeText(
-                this,
-                this.getString(R.string.prepare_stream_error),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
 
     private var productId: String? = ""
 
@@ -119,38 +77,6 @@ class ProductDetailActivity : AppCompatActivity() {
 
         initView()
 
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            CAMERA_PERMISSION_CODE -> runPermissionRunnable(
-                grantResults,
-                cameraPermissionGrantedRunnable,
-                cameraPermissionDeniedRunnable
-            )
-            STORAGE_PERMISSION_CODE -> runPermissionRunnable(
-                grantResults,
-                galleryPermissionGrantedRunnable,
-                galleryPermissionDeniedRunnable
-            )
-        }
-    }
-
-    private fun runPermissionRunnable(
-        grantResults: IntArray,
-        runnableGranted: Runnable,
-        runnableDenied: Runnable
-    ) {
-        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            runnableGranted.run()
-        } else {
-            runnableDenied.run()
-        }
     }
 
     private fun initData() {
@@ -230,25 +156,6 @@ class ProductDetailActivity : AppCompatActivity() {
                 }
             }
         }
-
-        takeImageResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
-                if (it.resultCode == RESULT_OK) {
-                    it.data?.let { data ->
-                        mainImage.setImageBitmap(data.extras?.get("data") as Bitmap)
-                    }
-                }
-            }
-
-        chooseImageResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    it.data?.let { data ->
-                        val selectedImage: Uri? = data.data
-                        mainImage.setImageURI(selectedImage)
-                    }
-                }
-            }
     }
 
     private fun handleRelatedData(data: List<Product>) {
@@ -261,8 +168,10 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun handleData(product: Product) {
-        Glide.with(mainImage)
+        Glide.with(applicationContext)
             .load(product.images[0])
+            .error(R.drawable.img_default_category)
+            .placeholder(R.drawable.img_default_category)
             .into(mainImage)
 
         if (product.thumbnail.isNotEmpty()) {
@@ -318,7 +227,11 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         ARTestBtn.setOnClickListener {
-            selectedImage()
+            val intent = Intent(applicationContext, ARTestActivity::class.java)
+            intent.putExtra(KEY_PRODUCT_ID, productId)
+            intent.putExtra(KEY_PRODUCT_COLOR, product?.colors?.get(thumbnailAdapter.selectedIndex))
+            intent.putExtra(KEY_PRODUCT_IMAGE, product?.images?.get(thumbnailAdapter.selectedIndex))
+            startActivity(intent)
         }
 
         lifecycleScope.launch {
@@ -344,7 +257,11 @@ class ProductDetailActivity : AppCompatActivity() {
             }.debounce(300)
                 .collect {
                     when {
-                        productCount.progress == 0 -> Toast.makeText(applicationContext, "Please select number of product !", Toast.LENGTH_SHORT)
+                        productCount.progress == 0 -> Toast.makeText(
+                            applicationContext,
+                            "Please select number of product !",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                         sizeAdapter.selectedIndex == -1 -> Toast.makeText(
                             applicationContext,
@@ -384,45 +301,5 @@ class ProductDetailActivity : AppCompatActivity() {
 
         productDetailTab.setOnClickListener { productTabPager.currentItem = 0 }
         productReviewTab.setOnClickListener { productTabPager.currentItem = 1 }
-    }
-
-    private fun selectedImage() {
-        val dialog = AlertDialog.Builder(this)
-            .setTitle(applicationContext.getString(R.string.selected_image_dialog_title))
-            .setItems(R.array.pick_image) { dialog, item ->
-                when (item) {
-                    0 -> {
-                        checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE)
-                    }
-                    1 -> {
-                        checkPermission(
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            STORAGE_PERMISSION_CODE
-                        )
-                    }
-                    else -> dialog.dismiss()
-                }
-            }
-        dialog.show()
-    }
-
-    private fun checkPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                permission
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
-        } else {
-            when (requestCode) {
-                CAMERA_PERMISSION_CODE -> cameraPermissionGrantedRunnable.run()
-                STORAGE_PERMISSION_CODE -> galleryPermissionGrantedRunnable.run()
-            }
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        takeImageResultLauncher.unregister()
     }
 }

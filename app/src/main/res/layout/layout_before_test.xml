@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerVerticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerLeftHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.20"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerRightHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.80"/>
+
+    <View
+        android:id="@+id/userImgView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_ar_test_image"
+        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/centerVerticalGuideline"/>
+
+
+    <ImageView
+        android:id="@+id/addUserImgIcon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/bg_click_here"
+        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/centerVerticalGuideline"/>
+
+    <ImageView
+        android:id="@+id/userImg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_ar_test_image"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/centerVerticalGuideline"/>
+
+    <ImageView
+        android:id="@+id/productImg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_ar_test_image"
+        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
+        app:layout_constraintTop_toBottomOf="@id/centerVerticalGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/andIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:textColor="@color/palattes_2"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/productImg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/testBtn"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/arrow_up_selector_24"
+        android:rotation="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/centerVerticalGuideline"
+        app:layout_constraintBottom_toBottomOf="@id/centerVerticalGuideline"
+        app:tint="@color/palattes_2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

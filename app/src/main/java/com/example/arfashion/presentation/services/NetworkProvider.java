@@ -3,6 +3,8 @@ package com.example.arfashion.presentation.services;
 import com.example.arfashion.presentation.app.Constants;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -32,6 +34,10 @@ public final class NetworkProvider {
     }
 
     private OkHttpClient okhttpClient() {
-        return new OkHttpClient.Builder().addInterceptor(new AuthInterceptor()).build();
+        return new OkHttpClient.Builder()
+                .addInterceptor(new AuthInterceptor())
+                .readTimeout(2, TimeUnit.MINUTES)
+                .connectTimeout(2, TimeUnit.MINUTES)
+                .build();
     }
 }

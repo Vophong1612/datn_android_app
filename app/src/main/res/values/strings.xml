@@ -111,6 +111,8 @@
     <string name="delete_alert_yes">Yes</string>
     <string name="delete_alert_cancel">Cancel</string>
     <string name="cart_is_empty">Cart is Empty !</string>
+    <string name="ar_test_your_result">Your Result</string>
+    <string name="retry_ar_test_btn">Retry</string>
 
     <string-array name="genderList">
         <item>Male</item>

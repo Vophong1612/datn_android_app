@@ -2,9 +2,10 @@ package com.example.arfashion.presentation.services
 
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.app.models.product.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ProductService {
     companion object {
@@ -47,4 +48,8 @@ interface ProductService {
         @Query("limit") limit: Int = 12,
         @Query("offset") offset: Int = 0
     ): Call<ProductByConditionResponse>
+
+    @Multipart
+    @POST("/products/testAR")
+    fun testAR(@Part body: MultipartBody.Part, @Part("color") color: RequestBody, @Part("_id") id: RequestBody) : Call<ARTestResponse>
 }
