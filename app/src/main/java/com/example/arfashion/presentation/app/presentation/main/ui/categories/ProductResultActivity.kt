@@ -10,6 +10,7 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
+import com.example.arfashion.presentation.app.presentation.product.filter.FilterDialog
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.data
 import com.example.arfashion.presentation.data.model.Product
@@ -94,6 +95,9 @@ class ProductResultActivity : AppCompatActivity() {
         categoriesViewModel.loading.observe(this) {
             refreshLayout.isRefreshing = it
         }
+        categoriesViewModel.filter.observe(this) {
+            handleData(it.data)
+        }
     }
 
     @FlowPreview
@@ -126,6 +130,15 @@ class ProductResultActivity : AppCompatActivity() {
 
         clearIcon.setOnClickListener {
             clearSearchResult()
+            finish()
+        }
+
+        filterIcon.setOnClickListener {
+            val dialog = FilterDialog.newInstance()
+            if (supportFragmentManager.isStateSaved || dialog.isAdded) {
+                return@setOnClickListener
+            }
+            dialog.show(supportFragmentManager, null)
         }
     }
 
@@ -146,7 +159,7 @@ class ProductResultActivity : AppCompatActivity() {
 
     private fun handleData(data: List<Product>?) {
         if (data.isNullOrEmpty()) {
-            showAlert(getString(R.string.category_could_not_be_found))
+            showAlert(getString(R.string.product_could_not_be_found))
             return
         }
         productResultAdapter.setProducts(data)
