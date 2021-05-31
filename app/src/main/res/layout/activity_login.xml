@@ -43,7 +43,8 @@
             android:layout_marginStart="10dp"
             android:text="@string/username_label"
             android:textColor="@color/palattes_1"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/usernameEdt"
@@ -58,14 +59,11 @@
             android:layout_marginEnd="26dp"
             android:background="@drawable/bg_edt_radius"
             android:hint="@string/username_edt_hint"
-<<<<<<< HEAD
-            android:paddingStart="10dp" />
-=======
             android:maxLines="1"
             android:imeOptions="actionNext"
             android:paddingStart="10dp"
-            android:singleLine="true"/>
->>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/passwordLabel"
@@ -93,15 +91,11 @@
             android:background="@drawable/bg_edt_radius"
             android:hint="@string/password_edt_hint"
             android:inputType="textPassword"
-<<<<<<< HEAD
-            android:paddingStart="10dp" />
-=======
             android:maxLines="1"
             android:singleLine="true"
             android:paddingStart="10dp"
             android:imeOptions="actionDone"
-            android:paddingLeft="10dp" />
->>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/forgotPasswordBtn"
@@ -124,17 +118,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-<<<<<<< HEAD
-            android:text="@string/sign_up_"
-            android:textColor="@color/palattes_1"
-            android:textSize="15sp"
-            android:fontFamily="@font/sf_pro_text_medium"/>
-=======
             android:fontFamily="sans-serif-medium"
             android:text="@string/sign_up"
             android:textColor="@color/palattes_1"
             android:textSize="15sp" />
->>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
 
         <TextView
             android:id="@+id/signInBtn"
@@ -163,7 +150,8 @@
             android:gravity="center"
             android:text="@string/sign_in"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:fontFamily="@font/sf_pro_text_bold"/>
 
         <include layout="@layout/layout_or"
             android:layout_height="wrap_content"

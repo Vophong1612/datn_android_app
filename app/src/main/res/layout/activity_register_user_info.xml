@@ -92,7 +92,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/fullNameLabel"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/passwordLabel"
@@ -120,7 +121,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/passwordLabel"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/phoneNumberLabel"
@@ -148,7 +150,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel"
-            tools:ignore="RtlSymmetry,TextFields" />
+            tools:ignore="RtlSymmetry,TextFields"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <LinearLayout
             android:id="@+id/ll_dob_gender"
@@ -270,7 +273,8 @@
                 android:background="@drawable/bg_edt_radius_pressed"
                 android:enabled="false"
                 android:hint="@string/address_edt_hint"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:fontFamily="@font/sf_pro_text_regular"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -308,7 +312,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/emailLabel"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <View
             android:id="@+id/v_none"

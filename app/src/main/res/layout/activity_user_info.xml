@@ -55,12 +55,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toTopOf="@id/user_info_background"
-<<<<<<< HEAD
-            app:layout_constraintStart_toStartOf="@id/user_fullNameEdt"
+            app:layout_constraintStart_toStartOf="@id/fullNameEdt"
             android:fontFamily="@font/sf_pro_text_regular"/>
-=======
-            app:layout_constraintStart_toStartOf="@id/fullNameEdt" />
->>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
 
         <EditText
             android:id="@+id/fullNameEdt"
@@ -74,7 +70,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/fullNameLabel"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/passwordLabel"
@@ -86,7 +83,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toBottomOf="@id/fullNameEdt"
-            app:layout_constraintStart_toStartOf="@id/passwordEdt" />
+            app:layout_constraintStart_toStartOf="@id/passwordEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/passwordEdt"
@@ -101,7 +99,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/passwordLabel"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/phoneNumberLabel"
@@ -112,14 +111,9 @@
             android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
-<<<<<<< HEAD
-            app:layout_constraintTop_toBottomOf="@id/user_fullNameEdt"
-            app:layout_constraintStart_toStartOf="@id/user_phoneNumberEdt"
-            android:fontFamily="@font/sf_pro_text_regular"/>
-=======
             app:layout_constraintTop_toBottomOf="@id/passwordEdt"
-            app:layout_constraintStart_toStartOf="@id/phoneNumberEdt" />
->>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
+            app:layout_constraintStart_toStartOf="@id/phoneNumberEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/phoneNumberEdt"
@@ -134,7 +128,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel"
-            tools:ignore="RtlSymmetry,TextFields" />
+            tools:ignore="RtlSymmetry,TextFields"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <LinearLayout
             android:id="@+id/ll_dob_gender"
@@ -180,7 +175,8 @@
                         android:paddingStart="10dp"
                         android:enabled="false"
                         android:hint="@string/birthday_edt_hint"
-                        tools:ignore="RtlSymmetry" />
+                        tools:ignore="RtlSymmetry"
+                        android:fontFamily="@font/sf_pro_text_regular"/>
 
                     <ImageView
                         android:id="@+id/iv_birthday"
@@ -248,13 +244,9 @@
             android:text="@string/address_label"
             android:textColor="@color/palattes_1"
             android:textSize="15sp"
+            android:fontFamily="@font/sf_pro_text_regular"
             app:layout_constraintTop_toBottomOf="@id/ll_dob_gender"
-<<<<<<< HEAD
-            app:layout_constraintStart_toStartOf="@id/relative_layout_address"
-            android:fontFamily="@font/sf_pro_text_regular"/>
-=======
             app:layout_constraintStart_toStartOf="@id/relative_layout_address_register" />
->>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
 
         <RelativeLayout
             android:id="@+id/relative_layout_address_register"
@@ -278,7 +270,8 @@
                 android:focusableInTouchMode="true"
                 android:background="@drawable/bg_edt_radius_pressed"
                 android:hint="@string/address_edt_hint"
-                tools:ignore="RtlSymmetry"/>
+                tools:ignore="RtlSymmetry"
+                android:fontFamily="@font/sf_pro_text_regular"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -299,14 +292,9 @@
             android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
-<<<<<<< HEAD
-            app:layout_constraintTop_toBottomOf="@id/relative_layout_address"
-            app:layout_constraintStart_toStartOf="@id/user_emailEdt"
-            android:fontFamily="@font/sf_pro_text_regular"/>
-=======
             app:layout_constraintTop_toBottomOf="@id/relative_layout_address_register"
-            app:layout_constraintStart_toStartOf="@id/emailEdt"  />
->>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
+            app:layout_constraintStart_toStartOf="@id/emailEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/emailEdt"
@@ -321,7 +309,8 @@
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/emailLabel"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <View
             android:id="@+id/v_none"
@@ -378,7 +367,8 @@
                 android:inputType="textPassword"
                 android:enabled="false"
                 android:background="@drawable/bg_edt_radius_pressed"
-                android:paddingStart="10dp"/>
+                android:paddingStart="10dp"
+                android:fontFamily="@font/sf_pro_text_regular"/>
 
             <ImageView
                 android:layout_width="wrap_content"

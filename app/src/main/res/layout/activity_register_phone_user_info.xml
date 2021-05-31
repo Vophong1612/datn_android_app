@@ -45,7 +45,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toTopOf="@id/user_info_background"
-            app:layout_constraintStart_toStartOf="@id/fullNameEdt" />
+            app:layout_constraintStart_toStartOf="@id/fullNameEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/fullNameEdt"
@@ -60,7 +61,8 @@
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/fullNameLabel"
             tools:ignore="RtlSymmetry"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/passwordLabel"
@@ -72,7 +74,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toBottomOf="@id/fullNameEdt"
-            app:layout_constraintStart_toStartOf="@id/passwordEdt" />
+            app:layout_constraintStart_toStartOf="@id/passwordEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/passwordEdt"
@@ -88,7 +91,8 @@
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/passwordLabel"
             tools:ignore="RtlSymmetry"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/confirmPasswordLabel"
@@ -97,6 +101,7 @@
             android:text="@string/confirm_password_label"
             android:textColor="@color/palattes_1"
             android:textSize="15sp"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toBottomOf="@id/passwordEdt"
@@ -116,7 +121,8 @@
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/confirmPasswordLabel"
             tools:ignore="RtlSymmetry"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
             android:id="@+id/phoneLabel"
@@ -128,7 +134,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             app:layout_constraintTop_toBottomOf="@id/confirmPasswordEdt"
-            app:layout_constraintStart_toStartOf="@id/phoneEdt"  />
+            app:layout_constraintStart_toStartOf="@id/phoneEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
             android:id="@+id/phoneEdt"
@@ -144,7 +151,8 @@
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/phoneLabel"
             tools:ignore="RtlSymmetry"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
 
         <View
             android:id="@+id/v_none"
