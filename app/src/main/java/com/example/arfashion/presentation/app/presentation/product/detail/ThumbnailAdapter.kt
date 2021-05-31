@@ -58,6 +58,10 @@ class ThumbnailAdapter : RecyclerView.Adapter<ThumbnailAdapter.ViewHolder>() {
 
         init {
             itemView.setOnClickListener{
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 internalSelectedListener(adapterPosition)
             }
         }
