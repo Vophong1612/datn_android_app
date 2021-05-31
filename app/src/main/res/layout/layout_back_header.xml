@@ -24,11 +24,14 @@
         android:padding="5dp"
         android:gravity="center_vertical"
         android:textColor="@color/palattes_1"
-        android:text="@string/sign_in"
         app:layout_constraintStart_toEndOf="@id/back_icon"
         app:layout_constraintTop_toTopOf="parent"
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text = "Tên màn hình"
         android:fontFamily="@font/sf_pro_text_regular"/>
+=======
+        app:layout_constraintBottom_toBottomOf="parent" />
+>>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6
 
 </androidx.constraintlayout.widget.ConstraintLayout>

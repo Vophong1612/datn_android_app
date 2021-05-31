@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_margin="2dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/mainImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1.071"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textSize="15sp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/grey_text"
+        app:layout_constraintTop_toBottomOf="@id/mainImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="tower"
+        android:fontFamily="@font/sf_pro_text_bold"/>
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/palattes_1"
+        android:fontFamily="@font/sf_pro_text_regular"
+        app:layout_constraintTop_toBottomOf="@id/category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Gangzhou sweater"
+        android:fontFamily="@font/sf_pro_text_regular"/>
+
+    <LinearLayout
+        android:id="@+id/priceGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+<<<<<<< HEAD:app/src/main/res/layout/layout_product.xml
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/palattes_2"
+        app:layout_constraintTop_toBottomOf="@id/product_name"
+        app:layout_constraintStart_toStartOf="@id/product_name"
+        app:layout_constraintEnd_toEndOf="@id/product_name"
+        tools:text="200.000 VND"
+        android:fontFamily="@font/sf_pro_text_bold"/>
+
+    <TextView
+        android:id="@+id/defaultPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/grey_text"
+        android:text="@string/default_price"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/salePrice"
+        app:layout_constraintBottom_toTopOf="@id/bottomSpace"
+        tools:visibility="visible"
+        android:fontFamily="@font/sf_pro_text_regular"/>
+=======
+        app:layout_constraintTop_toBottomOf="@id/productName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/palattes_2"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/sf_pro_text_bold"
+            app:layout_constraintEnd_toStartOf="@id/defaultPrice"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="200.000 VND" />
+>>>>>>> d50d365a80af3bebc2203af4960f7c35d381c2b6:app/src/main/res/layout/item_product.xml
+
+        <TextView
+            android:id="@+id/defaultPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/grey_text"
+            android:text="@string/default_price"
+            app:layout_constraintStart_toEndOf="@id/price"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/sale_tag"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:background="@drawable/bg_sale_tag"
+        android:layout_marginTop="15dp"
+        android:text="@string/sale_tag"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/sf_pro_text_bold"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

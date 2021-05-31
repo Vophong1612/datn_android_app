@@ -1,10 +1,8 @@
-import android.app.Activity
-import android.content.Context
-import android.text.Editable
+package com.example.arfashion.presentation.app.presentation.register.otp
 
+import android.app.Activity
+import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.View
 import android.widget.EditText
 import com.example.arfashion.R
 

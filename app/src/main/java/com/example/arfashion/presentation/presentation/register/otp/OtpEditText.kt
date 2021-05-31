@@ -1,13 +1,13 @@
-import android.app.Activity
-import android.content.Context
-import android.text.Editable
-
-import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.View
-import android.widget.EditText
-import com.example.arfashion.R
-
+//import android.app.Activity
+//import android.content.Context
+//import android.text.Editable
+//
+//import android.text.TextWatcher
+//import android.view.KeyEvent
+//import android.view.View
+//import android.widget.EditText
+//import com.example.arfashion.R
+//
 //class OtpEditText(private val view: EditText, activity: Activity) : TextWatcher {
 //
 //    private val first = activity.findViewById<EditText>(R.id.first)

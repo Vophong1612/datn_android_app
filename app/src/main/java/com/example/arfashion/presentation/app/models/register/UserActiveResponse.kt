@@ -1,18 +1,21 @@
 package com.example.arfashion.presentation.app.models.register
 
+import com.example.arfashion.presentation.data.model.RefreshToken
+import com.example.arfashion.presentation.data.model.User
 import com.google.gson.annotations.SerializedName
 
 data class UserActiveResponse(
         @SerializedName("message")
         val message: String = "",
         @SerializedName("status_code")
-        val status_code: Int
-) {
-    val statusCode: StatusCode
-        get() =
-            when (status_code) {
-                0 -> StatusCode.SUCCESS
-                else -> StatusCode.EXISTED_ACCOUNT
-            }
-}
+        val status_code: Int,
+        @SerializedName("user")
+        val user: User,
+        @SerializedName("accessToken")
+        val accessToken: String = "",
+        @SerializedName("refreshToken")
+        val refreshToken: RefreshToken,
+)
+
+
 

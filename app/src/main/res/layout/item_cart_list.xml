@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:background="@color/white">
+
+    <CheckBox
+        android:id="@+id/selectCb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="9dp"
+        tools:src="@color/palattes_3"
+        app:layout_constraintDimensionRatio="1:1.333"
+        app:layout_constraintStart_toEndOf="@id/selectCb"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:textColor="@color/palattes_1"
+        android:textSize="15sp"
+        android:maxWidth="150dp"
+        app:layout_constraintTop_toTopOf="@id/image"
+        app:layout_constraintStart_toEndOf="@id/image"
+        tools:text="Guangzhou sweater"/>
+
+    <TextView
+        android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/palattes_1_50"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textStyle="italic"
+        android:textSize="12sp"
+        android:maxWidth="150dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toStartOf="@id/name"
+        tools:text="Size: XL"/>
+
+    <TextView
+        android:id="@+id/color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/palattes_1_50"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textStyle="italic"
+        android:textSize="12sp"
+        android:maxWidth="150dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toEndOf="@id/size"
+        tools:text="Color: Red"/>
+
+    <it.sephiroth.android.library.numberpicker.NumberPicker
+        android:id="@+id/productCount"
+        android:layout_width="110dp"
+        android:layout_height="32dp"
+        app:picker_min="1"
+        app:picker_tracker="linear"
+        app:picker_orientation="horizontal"
+        android:progress="1"
+        android:layout_marginTop="12dp"
+        style="@style/NumberPicker.Outlined.Horizontal"
+        app:layout_constraintTop_toBottomOf="@id/size"
+        app:layout_constraintStart_toStartOf="@id/name"/>
+
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/palattes_2"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        app:layout_constraintEnd_toStartOf="@id/defaultPrice"
+        app:layout_constraintStart_toStartOf="@id/name"
+        app:layout_constraintTop_toBottomOf="@id/productCount"
+        tools:text="200.000 VND" />
+
+    <TextView
+        android:id="@+id/defaultPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textColor="@color/grey_text"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/productPrice"
+        app:layout_constraintStart_toEndOf="@id/productPrice"
+        tools:text="300.000 VND"/>
+
+    <ImageView
+        android:id="@+id/deleteProductCartBtn"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="7dp"
+        android:src="@drawable/ic_delete_cart"
+        app:layout_constraintTop_toTopOf="@id/name"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

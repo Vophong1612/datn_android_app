@@ -1,0 +1,20 @@
+diff a/app/build.gradle b/app/build.gradle	(rejected hunks)
+@@ -1,17 +1,18 @@
+ plugins {
+     id 'com.android.application'
+     id 'kotlin-android'
+     id 'kotlin-android-extensions'
+ }
++apply plugin: 'com.example.arfashion'
+ 
+ android {
+     compileSdkVersion 30
+     buildToolsVersion "30.0.3"
+ 
+     defaultConfig {
+         applicationId "com.example.arfashion"
+         minSdkVersion 21
+         targetSdkVersion 30
+         versionCode 1
+         versionName "1.0"
+ 

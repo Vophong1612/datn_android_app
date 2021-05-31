@@ -1,28 +1,18 @@
 package com.example.arfashion.presentation.app.models.login
 
+import com.example.arfashion.presentation.data.model.RefreshToken
+import com.example.arfashion.presentation.data.model.User
 import com.google.gson.annotations.SerializedName
 
 data class UserLoginResponse(
-    @SerializedName("message")
-    val message: String = "",
-    @SerializedName("status_code")
-    val status_code: Int,
-    @SerializedName("accesstoken")
-    val accessToken: String = "",
-    @SerializedName("refreshtoken")
-    val refreshToken: String = ""
-) {
-    val statusCode: StatusCode
-        get() =
-            when (status_code) {
-                0 -> StatusCode.SUCCESS
-                1 -> StatusCode.WRONG_INFO
-                else -> StatusCode.ACCOUNT_BLOCK
-            }
-}
-
-enum class StatusCode {
-    SUCCESS,
-    WRONG_INFO,
-    ACCOUNT_BLOCK
-}
+        @SerializedName("message")
+        val message: String = "",
+        @SerializedName("user")
+        val user: User,
+        @SerializedName("accessToken")
+        val accessToken: String = "",
+        @SerializedName("refreshToken")
+        val refreshToken: RefreshToken,
+        @SerializedName("statusCode")
+        val statusCode: String = ""
+)
