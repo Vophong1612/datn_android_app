@@ -7,12 +7,13 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.ContextThemeWrapper
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 import com.example.arfashion.presentation.app.visible
@@ -33,7 +34,7 @@ import java.io.Serializable
 
 class CartActivity : AppCompatActivity() {
 
-    private val cartViewModel: CartViewModel by viewModels()
+    private lateinit var cartViewModel: CartViewModel
 
     private lateinit var cartProductAdapter: CartProductAdapter
 
@@ -54,6 +55,8 @@ class CartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
+
+        cartViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(CartViewModel::class.java)
 
         cartProductAdapter = CartProductAdapter()
 

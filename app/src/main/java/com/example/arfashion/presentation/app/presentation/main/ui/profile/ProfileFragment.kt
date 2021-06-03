@@ -11,23 +11,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.local.UserLocalStorage
-import com.example.arfashion.presentation.app.presentation.address.AddressListActivity
 import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
-import com.example.arfashion.presentation.services.UserService
 import kotlinx.android.synthetic.main.fragment_profile_tab.*
-import kotlinx.android.synthetic.main.layout_before_test.*
 
 class ProfileFragment : Fragment() {
 
@@ -40,8 +36,6 @@ class ProfileFragment : Fragment() {
     private lateinit var pref: SharedPreferences
 
     private lateinit var profileViewModel: ProfileViewModel
-
-    private val userService = UserService.create()
 
     companion object {
         const val TAG = "ProfileFragment"
@@ -91,12 +85,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return ProfileViewModel(userService) as T
-            }
-        })[ProfileViewModel::class.java]
+        profileViewModel = ViewModelProvider(this, MyViewModelFactory(requireContext())).get(ProfileViewModel::class.java)
 
         pref = this.requireContext().getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
         userStorage = UserLocalStorage(pref)

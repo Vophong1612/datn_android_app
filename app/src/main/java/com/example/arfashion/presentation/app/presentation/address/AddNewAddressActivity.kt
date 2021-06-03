@@ -2,22 +2,14 @@ package com.example.arfashion.presentation.app.presentation.address
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
-import com.example.arfashion.presentation.app.local.UserLocalStorage
-import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
-import com.example.arfashion.presentation.data.ARFashionUserManager
-import com.example.arfashion.presentation.data.model.Profile
-import com.example.arfashion.presentation.data.model.User
-import com.example.arfashion.presentation.services.AddressService
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_add_new_address.*
 import kotlinx.android.synthetic.main.layout_back_save_header.back_icon
@@ -27,14 +19,6 @@ import kotlinx.android.synthetic.main.layout_back_save_white_header.*
 class AddNewAddressActivity : AppCompatActivity() {
 
     private lateinit var addressViewModel: AddressViewModel
-
-    private val addressService = AddressService.create()
-
-    private lateinit var pref: SharedPreferences
-
-    private lateinit var userStorage: UserLocalStorage
-
-    private lateinit var user: User
 
     private var content: String = ""
 
@@ -49,15 +33,19 @@ class AddNewAddressActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
-        if(content == "add"){
-            if(ChooseAddressActivity.curr_home_name.isNotEmpty()){
-                addressEdt.setText(ChooseAddressActivity.curr_home_name + ", "
-                        + ChooseAddressActivity.curr_ward_name  + ", "
-                        + ChooseAddressActivity.curr_district_name  + ", "
-                        + ChooseAddressActivity.curr_province_name)
+        if (content == "add") {
+            if (ChooseAddressActivity.curr_home_name.isNotEmpty()) {
+                addressEdt.setText(
+                    ChooseAddressActivity.curr_home_name + ", "
+                            + ChooseAddressActivity.curr_ward_name + ", "
+                            + ChooseAddressActivity.curr_district_name + ", "
+                            + ChooseAddressActivity.curr_province_name
+                )
             }
-        }else {
-            if (ChooseAddressActivity.curr_home_name == intent.getSerializableExtra("obj.home").toString()) {
+        } else {
+            if (ChooseAddressActivity.curr_home_name == intent.getSerializableExtra("obj.home")
+                    .toString()
+            ) {
                 ChooseAddressActivity.curr_home_name =
                     intent.getSerializableExtra("obj.home").toString()
                 ChooseAddressActivity.curr_ward_name =
@@ -72,7 +60,8 @@ class AddNewAddressActivity : AppCompatActivity() {
                 ChooseAddressActivity.curr_home_name + ", "
                         + ChooseAddressActivity.curr_ward_name + ", "
                         + ChooseAddressActivity.curr_district_name + ", "
-                        + ChooseAddressActivity.curr_province_name)
+                        + ChooseAddressActivity.curr_province_name
+            )
         }
     }
 
@@ -82,14 +71,11 @@ class AddNewAddressActivity : AppCompatActivity() {
         screen_name.text = this.getString(R.string.add_address)
         onNavigateBack()
 
-        pref = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
-        userStorage = UserLocalStorage(pref)
-        user = userStorage.load()
         content = intent.getStringExtra("mode").toString()
 
-        if(content == "add"){
+        if (content == "add") {
             rl_default_address.visibility = View.INVISIBLE
-        }else{
+        } else {
             rl_default_address.visibility = View.VISIBLE
             val objId = intent.getSerializableExtra("obj.id").toString()
             val objName = intent.getSerializableExtra("obj.name").toString()
@@ -102,10 +88,13 @@ class AddNewAddressActivity : AppCompatActivity() {
             val objIsDefault = intent.getSerializableExtra("obj.isDefault").toString()
 
             ChooseAddressActivity.curr_home_name = objHome
-            if(ChooseAddressActivity.curr_ward_code == -1){
-                ChooseAddressActivity.curr_ward_code = intent.getSerializableExtra("obj.villageCode").toString().toInt()
-                ChooseAddressActivity.curr_district_code = intent.getSerializableExtra("obj.districtCode").toString().toInt()
-                ChooseAddressActivity.curr_province_code = intent.getSerializableExtra("obj.provinceCode").toString().toInt()
+            if (ChooseAddressActivity.curr_ward_code == -1) {
+                ChooseAddressActivity.curr_ward_code =
+                    intent.getSerializableExtra("obj.villageCode").toString().toInt()
+                ChooseAddressActivity.curr_district_code =
+                    intent.getSerializableExtra("obj.districtCode").toString().toInt()
+                ChooseAddressActivity.curr_province_code =
+                    intent.getSerializableExtra("obj.provinceCode").toString().toInt()
             }
 
             id = objId
@@ -113,16 +102,14 @@ class AddNewAddressActivity : AppCompatActivity() {
             phoneNumberEdt.setText(objPhone)
             emailEdt.setText(objEmail)
 
-            if(objIsDefault.toBoolean())
+            if (objIsDefault.toBoolean())
                 cb_default_address.isChecked = true
         }
 
-        addressViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return AddressViewModel(addressService) as T
-            }
-        })[AddressViewModel::class.java]
+        addressViewModel = ViewModelProvider(
+            this,
+            MyViewModelFactory(applicationContext)
+        ).get(AddressViewModel::class.java)
 
         initView()
         initViewModel()
@@ -141,32 +128,30 @@ class AddNewAddressActivity : AppCompatActivity() {
             val email: String = emailEdt.text.toString()
             val address: String = addressEdt.text.toString()
 
-            if(name.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()){
+            if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()) {
                 Toast.makeText(this, getString(R.string.invalid_data), Toast.LENGTH_SHORT).show()
-            }else if(!Utils.isValidEmail(email)){
+            } else if (!Utils.isValidEmail(email)) {
                 Toast.makeText(this, getString(R.string.invalid_email), Toast.LENGTH_SHORT).show()
-            }else if(!Utils.isValidPhone(phone)){
+            } else if (!Utils.isValidPhone(phone)) {
                 Toast.makeText(this, getString(R.string.invalid_phone), Toast.LENGTH_SHORT).show()
-            }else {
-                if(content == "add"){
-                    user.credential.accessToken?.let { it1 ->
-                        addressViewModel.addAddress(
-                            it1, name, email, phone,
-                            ChooseAddressActivity.curr_home_name,
-                            ChooseAddressActivity.curr_ward_code,
-                            ChooseAddressActivity.curr_district_code,
-                            ChooseAddressActivity.curr_province_code)
-                    }
-                }else{
+            } else {
+                if (content == "add") {
+                    addressViewModel.addAddress(
+                        name, email, phone,
+                        ChooseAddressActivity.curr_home_name,
+                        ChooseAddressActivity.curr_ward_code,
+                        ChooseAddressActivity.curr_district_code,
+                        ChooseAddressActivity.curr_province_code
+                    )
+                } else {
                     val temp = cb_default_address.isChecked
-                    user.credential.accessToken?.let { it1 ->
-                        addressViewModel.updateAddress(
-                            it1, id, name, email, phone, temp,
-                            ChooseAddressActivity.curr_home_name,
-                            ChooseAddressActivity.curr_ward_code,
-                            ChooseAddressActivity.curr_district_code,
-                            ChooseAddressActivity.curr_province_code)
-                    }
+                    addressViewModel.updateAddress(
+                        id, name, email, phone, temp,
+                        ChooseAddressActivity.curr_home_name,
+                        ChooseAddressActivity.curr_ward_code,
+                        ChooseAddressActivity.curr_district_code,
+                        ChooseAddressActivity.curr_province_code
+                    )
 
                 }
             }
@@ -198,7 +183,6 @@ class AddNewAddressActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failure !", Toast.LENGTH_SHORT).show()
             }
         }
-
 
 
     }

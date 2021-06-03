@@ -9,11 +9,10 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.presentation.forgot_password.ForgotPasswordActivity
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
@@ -22,7 +21,6 @@ import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
-import com.example.arfashion.presentation.services.UserService
 import com.example.arfashion.presentation.services.Utils
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -55,8 +53,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
-    private val userService = UserService.create()
-
     private lateinit var mCallbackManager: CallbackManager
 
     private lateinit var user: User
@@ -86,12 +82,7 @@ class LoginActivity : AppCompatActivity() {
         onNavigateBack()
         mCallbackManager = CallbackManager.Factory.create()
 
-        loginViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return LoginViewModel(userService) as T
-            }
-        })[LoginViewModel::class.java]
+        loginViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(LoginViewModel::class.java)
 
         pref = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         userStorage = UserLocalStorage(pref)
@@ -269,6 +260,11 @@ class LoginActivity : AppCompatActivity() {
             Log.w("TAG", "si" +
                     "gnInResult:failed code=" + e.statusCode)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
 }

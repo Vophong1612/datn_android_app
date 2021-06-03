@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.product.comment
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +13,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CommentViewModel : ViewModel(){
+class CommentViewModel(context: Context) : ViewModel(){
 
-    private val commentService = CommentService.create()
+    private val commentService = CommentService.create(context)
 
     private val _comment = MutableLiveData<ARResult<List<Comment>>>()
     val comment: LiveData<ARResult<List<Comment>>>

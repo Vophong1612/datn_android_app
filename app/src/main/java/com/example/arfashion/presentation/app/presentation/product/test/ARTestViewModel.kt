@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.product.test
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +13,9 @@ import retrofit2.Call
 import retrofit2.Response
 import java.io.File
 
-class ARTestViewModel : ViewModel() {
+class ARTestViewModel (context: Context) : ViewModel() {
 
-    private val productService = ProductService.create()
+    private val productService = ProductService.create(context)
 
     private val _result = MutableLiveData<ARResult<String>>()
     val result : LiveData<ARResult<String>> = _result

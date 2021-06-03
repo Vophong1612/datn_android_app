@@ -8,7 +8,10 @@ import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
+import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.data
 import com.example.arfashion.presentation.data.model.Product
@@ -21,7 +24,7 @@ class ProductDescriptionTabFragment : Fragment() {
         }
     }
 
-    private val productDetailViewModel: ProductDetailViewModel by activityViewModels()
+    private lateinit var productDetailViewModel: ProductDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,12 +35,17 @@ class ProductDescriptionTabFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        productDetailViewModel =
+            ViewModelProvider(requireActivity(), MyViewModelFactory(requireContext())).get(
+                ProductDetailViewModel::class.java
+            )
         productDetailViewModel.product.observe(viewLifecycleOwner) {
             when (it) {
                 is ARResult.Success -> {
                     handleData(it.data)
                 }
-                is ARResult.Error -> { }
+                is ARResult.Error -> {
+                }
             }
         }
     }

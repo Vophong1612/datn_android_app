@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.CategoriesViewModel
 import com.example.arfashion.presentation.app.presentation.product.detail.ProductSizeAdapter
@@ -32,7 +33,7 @@ class FilterDialog : DialogFragment() {
         }
     }
 
-    private val categoriesViewModel by activityViewModels<CategoriesViewModel>()
+    private lateinit var categoriesViewModel : CategoriesViewModel
 
     private lateinit var productSizeAdapter: ProductSizeAdapter
 
@@ -58,6 +59,9 @@ class FilterDialog : DialogFragment() {
 
     init {
         lifecycleScope.launchWhenCreated {
+            categoriesViewModel = ViewModelProvider(requireActivity(), MyViewModelFactory(requireContext())).get(
+                CategoriesViewModel::class.java)
+
             categoriesViewModel.getCategories()
             categoriesViewModel.getSize()
             categoriesViewModel.getTag()
@@ -216,17 +220,22 @@ class FilterDialog : DialogFragment() {
         }
         tagAdapter.setData(data)
 
-        initTagSelected()
+        initTagSelected(data)
 
     }
 
-    private fun initTagSelected() {
+    private fun initTagSelected(data: List<Tag>) {
         val tagsList = filterController.getTagsList()
+        selectedTag.clear()
         if (tagsList.isNotEmpty()) {
-            selectedTag.clear()
             selectedTag.addAll(tagsList)
-            tagsList.forEach {
-                tagAdapter.selectTag(it.id, true)
+            data.forEach { tag ->
+                val tagSelected = tagsList.find { it.id == tag.id }
+                if (tagSelected != null) {
+                    tagAdapter.selectTag(tagSelected.id, true)
+                } else {
+                    tagAdapter.selectTag(tag.id, false)
+                }
             }
         }
     }

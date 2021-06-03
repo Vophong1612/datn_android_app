@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.register
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +10,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterViewModel(
-        private val userService: UserService
-) : ViewModel() {
+class RegisterViewModel(context: Context) : ViewModel() {
+
+    private val userService = UserService.create(context)
 
     private val _registerResponse = MutableLiveData<UserRegisterResponse>()
     val registerResponse : LiveData<UserRegisterResponse>

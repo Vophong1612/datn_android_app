@@ -8,11 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
@@ -43,7 +44,7 @@ class BillFragment : Fragment() {
 
     private var bills: MutableList<Bill> = mutableListOf()
 
-    private val billViewModel by viewModels<BillViewModel>()
+    private lateinit var billViewModel: BillViewModel
 
     private lateinit var billAdapter: BillAdapter
 
@@ -69,6 +70,7 @@ class BillFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        billViewModel = ViewModelProvider(this, MyViewModelFactory(appContext)).get(BillViewModel::class.java)
         billAdapter = BillAdapter(appContext)
         with(billList){
             adapter = billAdapter

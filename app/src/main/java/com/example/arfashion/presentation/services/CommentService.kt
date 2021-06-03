@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.services
 
+import android.content.Context
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.app.models.product.*
 import com.example.arfashion.presentation.data.model.Comment
@@ -10,8 +11,8 @@ import retrofit2.http.*
 
 interface CommentService {
     companion object {
-        fun create(): CommentService {
-            val networkProvider = NetworkProvider.newInstance()
+        fun create(context: Context): CommentService {
+            val networkProvider = NetworkProvider.newInstance(context)
             return networkProvider.getService(CommentService::class.java)
         }
     }

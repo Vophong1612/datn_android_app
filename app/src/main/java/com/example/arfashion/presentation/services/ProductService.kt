@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.services
 
+import android.content.Context
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.app.models.product.*
 import okhttp3.MultipartBody
@@ -9,8 +10,8 @@ import retrofit2.http.*
 
 interface ProductService {
     companion object {
-        fun create(): ProductService {
-            val networkProvider = NetworkProvider.newInstance()
+        fun create(context: Context): ProductService {
+            val networkProvider = NetworkProvider.newInstance(context)
             return networkProvider.getService(ProductService::class.java)
         }
     }

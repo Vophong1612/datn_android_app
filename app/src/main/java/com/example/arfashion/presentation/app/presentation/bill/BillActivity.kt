@@ -3,8 +3,9 @@ package com.example.arfashion.presentation.app.presentation.bill
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.BillStatus
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,7 +18,7 @@ class BillActivity : AppCompatActivity() {
 
     private var billPagerAdapter: BillPagerAdapter? = null
 
-    private val billViewModel by viewModels<BillViewModel>()
+    private lateinit var billViewModel: BillViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,8 @@ class BillActivity : AppCompatActivity() {
         back_icon.setOnClickListener {
             finish()
         }
+
+        billViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(BillViewModel::class.java)
 
         billViewModel.getBillStatus()
 

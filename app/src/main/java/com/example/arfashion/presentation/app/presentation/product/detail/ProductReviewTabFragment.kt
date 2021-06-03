@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.comment.CommentActivity
@@ -26,7 +27,7 @@ class ProductReviewTabFragment : Fragment() {
         }
     }
 
-    private val commentViewModel: CommentViewModel by activityViewModels ()
+    private lateinit var commentViewModel: CommentViewModel
 
     private lateinit var reviewAdapter: ReviewAdapter
 
@@ -39,6 +40,7 @@ class ProductReviewTabFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        commentViewModel = ViewModelProvider(requireActivity(), MyViewModelFactory(requireContext())).get(CommentViewModel::class.java)
         reviewAdapter = ReviewAdapter()
         with(reviewList) {
             adapter = reviewAdapter

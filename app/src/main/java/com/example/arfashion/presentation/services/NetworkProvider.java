@@ -1,5 +1,7 @@
 package com.example.arfashion.presentation.services;
 
+import android.content.Context;
+
 import com.example.arfashion.presentation.app.Constants;
 import com.google.gson.GsonBuilder;
 
@@ -14,17 +16,17 @@ public final class NetworkProvider {
 
     private final Retrofit retrofit;
 
-    public static NetworkProvider newInstance() {
+    public static NetworkProvider newInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new NetworkProvider();
+            mInstance = new NetworkProvider(context);
         }
         return mInstance;
     }
 
-    private NetworkProvider() {
+    private NetworkProvider(Context context) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.API_URL)
-                .client(okhttpClient())
+                .client(okhttpClient(context))
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
     }
@@ -33,9 +35,9 @@ public final class NetworkProvider {
         return retrofit.create(serviceClass);
     }
 
-    private OkHttpClient okhttpClient() {
+    private OkHttpClient okhttpClient(Context context) {
         return new OkHttpClient.Builder()
-                .addInterceptor(new AuthInterceptor())
+                .addInterceptor(new AuthInterceptor(context))
                 .readTimeout(2, TimeUnit.MINUTES)
                 .connectTimeout(2, TimeUnit.MINUTES)
                 .build();

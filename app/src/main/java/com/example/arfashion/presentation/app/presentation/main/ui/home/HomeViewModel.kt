@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.main.ui.home
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,8 +13,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
-    private val productService =  ProductService.create()
+class HomeViewModel (context: Context) : ViewModel() {
+    private val productService =  ProductService.create(context)
 
     private val _carousels = MutableLiveData<ARResult<List<Carousel>>>()
     val carousel: LiveData<ARResult<List<Carousel>>>

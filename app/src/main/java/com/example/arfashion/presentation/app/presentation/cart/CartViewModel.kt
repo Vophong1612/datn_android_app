@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.cart
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CartViewModel : ViewModel() {
-    private val cartService = CartService.create()
+class CartViewModel(context: Context) : ViewModel() {
+    private val cartService = CartService.create(context)
 
     private val _cart = MutableLiveData<ARResult<Cart>>()
     val cart: LiveData<ARResult<Cart>>

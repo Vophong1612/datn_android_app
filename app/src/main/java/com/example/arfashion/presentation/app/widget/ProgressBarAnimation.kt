@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.services
+package com.example.arfashion.presentation.app.widget
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.ProgressBar
 import com.example.arfashion.presentation.app.presentation.login.LoginActivity
-import com.example.arfashion.presentation.app.presentation.main.MainActivity
 
 class ProgressBarAnimation: Animation {
 

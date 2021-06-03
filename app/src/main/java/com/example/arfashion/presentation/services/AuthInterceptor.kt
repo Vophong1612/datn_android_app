@@ -1,19 +1,22 @@
 package com.example.arfashion.presentation.services
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import com.example.arfashion.presentation.app.local.UserLocalStorage
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor : Interceptor {
+class AuthInterceptor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
-        //todo: get accesstoken from pref here
 
-        //fixme: this is hard code
-        val accessToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoie1wiX2lkXCI6XCI2MGJlMjEwZDYwZmM4MTAwMTUzYzA2NzRcIixcIm5hbWVcIjpcIlbDtSBUaGFuaCBQaG9uZ1wiLFwiZW1haWxcIjpcInBob25ndnRAYWxpdmUudm5cIixcInBob25lXCI6bnVsbCxcImF2YXRhclwiOm51bGwsXCJnZW5kZXJcIjpudWxsLFwiYmlydGhkYXlcIjpudWxsLFwicmVmcmVzaF90b2tlblwiOntcInRva2VuXCI6bnVsbCxcImlhdFwiOm51bGwsXCJleHBcIjpudWxsfSxcImFjY291bnRfc3RhdHVzXCI6XCJibG9ja1wiLFwiY2FydFwiOntcIl9pZFwiOlwiNjBiZTIxMGQ2MGZjODEwMDE1M2MwNjczXCIsXCJ0b3RhbFwiOjB9LFwiZmF2b3VyaXRlc1wiOltdLFwiYWRkcmVzc1wiOltdfSIsImlhdCI6MTYyMzA3MzE0NCwiZXhwIjoxNjI1NjY1MTQ0fQ.66qERoEY6lD1FMyGEgu9hW-Z4iKqQhid4d7LLHzA_PA"
+        val pref = context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+        val userStorage = UserLocalStorage(pref)
+        val user = userStorage.load()
+        val accessToken = user.credential.accessToken
+
         requestBuilder.addHeader("Authorization", "Bearer $accessToken")
 
         return chain.proceed(requestBuilder.build())
     }
-
 }

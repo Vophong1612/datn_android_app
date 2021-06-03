@@ -1,13 +1,14 @@
 package com.example.arfashion.presentation.app.presentation.main.ui.categories
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
@@ -40,7 +41,7 @@ enum class ProductTypeResult {
 
 class ProductResultActivity : AppCompatActivity() {
 
-    private val categoriesViewModel: CategoriesViewModel by viewModels()
+    private lateinit var categoriesViewModel: CategoriesViewModel
 
     private lateinit var productResultAdapter: ProductAdapter
 
@@ -54,31 +55,34 @@ class ProductResultActivity : AppCompatActivity() {
 
     private lateinit var filterController: FilterController
 
-    init {
-        lifecycleScope.launchWhenCreated {
-            intent.extras?.let {
-                keyWord = it.getString(KEY_KEYWORD)
-                typeResult = it.getSerializable(KEY_TYPE_RESULT) as ProductTypeResult
-            }
-
-            if (typeResult == ProductTypeResult.SEARCH) {
-                searchBox.setText(keyWord)
-            }
-
-            getData(offset)
-        }
-    }
-
     @ExperimentalCoroutinesApi
     @FlowPreview
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_by_category)
 
+        categoriesViewModel = ViewModelProvider(
+            this@ProductResultActivity,
+            MyViewModelFactory(applicationContext)
+        ).get(CategoriesViewModel::class.java)
+
+        getDataFromIntent()
+
         initData()
 
         initView()
 
+    }
+
+    private fun getDataFromIntent() {
+        intent.extras?.let {
+            keyWord = it.getString(KEY_KEYWORD)
+            typeResult = it.getSerializable(KEY_TYPE_RESULT) as ProductTypeResult
+        }
+
+        if (typeResult == ProductTypeResult.SEARCH) {
+            searchBox.setText(keyWord)
+        }
     }
 
     private fun initData() {
@@ -105,6 +109,8 @@ class ProductResultActivity : AppCompatActivity() {
             })
         }
 
+        getData(offset)
+
         refreshLayout.setOnRefreshListener {
             offset = 0
             getData(offset)
@@ -129,7 +135,8 @@ class ProductResultActivity : AppCompatActivity() {
         categoriesViewModel.action.observe(this) {
             when (it) {
                 is ARResult.Success -> getData(offset)
-                is ARResult.Error -> {}
+                is ARResult.Error -> {
+                }
             }
         }
     }

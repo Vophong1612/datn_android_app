@@ -1,20 +1,19 @@
 package com.example.arfashion.presentation.app.presentation.payment
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.arfashion.presentation.app.models.payment.AddBillResponse
 import com.example.arfashion.presentation.app.models.payment.PaymentMethodResponse
 import com.example.arfashion.presentation.app.models.payment.ProductInAPI
-import com.example.arfashion.presentation.app.models.payment.ProductInBill
 import com.example.arfashion.presentation.services.PaymentService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PaymentViewModel(
-    private val paymentService: PaymentService
-) : ViewModel() {
+class PaymentViewModel(context: Context) : ViewModel() {
+    private val paymentService = PaymentService.create(context)
 
     private val _resultGetPaymentMethods = MutableLiveData<Boolean>()
     val resultGetPaymentMethods: LiveData<Boolean>
@@ -32,8 +31,8 @@ class PaymentViewModel(
     val addBillResponse: LiveData<AddBillResponse>
         get() = _addBillResponse
 
-    fun getPaymentMethods(token: String) {
-        paymentService.getPaymentMethods("Bearer $token").enqueue(object :
+    fun getPaymentMethods() {
+        paymentService.getPaymentMethods().enqueue(object :
             Callback<PaymentMethodResponse> {
             override fun onResponse(
                 call: Call<PaymentMethodResponse>,
@@ -41,7 +40,7 @@ class PaymentViewModel(
             ) {
                 _getPaymentMethodsResponse.value = response.body()
                 when (response.code()) {
-                    200 -> _resultGetPaymentMethods.value = response.isSuccessful
+                    200 -> _resultGetPaymentMethods.value = true
                     else -> _resultGetPaymentMethods.value = false
                 }
             }
@@ -52,8 +51,8 @@ class PaymentViewModel(
         })
     }
 
-    fun addBill(token: String, totalProduct: Int, address: String, payment: String, totalCost: Int, products: List<ProductInAPI>) {
-        paymentService.addBill("Bearer $token", totalProduct, address, payment, totalCost, products).enqueue(object :
+    fun addBill(totalProduct: Int, address: String, payment: String, totalCost: Int, products: List<ProductInAPI>) {
+        paymentService.addBill(totalProduct, address, payment, totalCost, products).enqueue(object :
             Callback<AddBillResponse> {
             override fun onResponse(
                 call: Call<AddBillResponse>,
@@ -61,7 +60,7 @@ class PaymentViewModel(
             ) {
                 _addBillResponse.value = response.body()
                 when (response.code()) {
-                    200 -> _resultAddBill.value = response.isSuccessful
+                    200 -> _resultAddBill.value = true
                     else -> _resultAddBill.value = false
                 }
             }

@@ -4,12 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
-import com.example.arfashion.presentation.services.UserService
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.activity_forgot_password.verifyBtn
@@ -20,8 +18,6 @@ import kotlinx.android.synthetic.main.layout_back_save_header.screen_name
 class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var changePasswordViewModel: ForgotPasswordViewModel
-
-    private val userService = UserService.create()
 
     private var dataType: String = ""
 
@@ -35,12 +31,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         screen_name.text = this.getString(R.string.forgot_password_label)
         onNavigateBack()
 
-        changePasswordViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return ForgotPasswordViewModel(userService) as T
-            }
-        })[ForgotPasswordViewModel::class.java]
+        changePasswordViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(ForgotPasswordViewModel::class.java)
 
         initView()
         initViewModel()
