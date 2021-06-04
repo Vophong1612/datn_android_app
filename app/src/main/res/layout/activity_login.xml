@@ -67,8 +67,8 @@
 
         <TextView
             android:id="@+id/passwordLabel"
-            app:layout_constraintBottom_toTopOf="@id/passwordEdt"
-            app:layout_constraintStart_toStartOf="@id/passwordEdt"
+            app:layout_constraintBottom_toTopOf="@id/relative_layout"
+            app:layout_constraintStart_toStartOf="@id/relative_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -77,30 +77,46 @@
             android:textSize="15sp"
             android:fontFamily="@font/sf_pro_text_regular"/>
 
-        <EditText
-            android:id="@+id/passwordEdt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/usernameEdt"
-            tools:ignore="RtlSymmetry"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="26dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="26dp"
-            android:background="@drawable/bg_edt_radius"
-            android:hint="@string/password_edt_hint"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:paddingStart="10dp"
-            android:imeOptions="actionDone"
-            android:fontFamily="@font/sf_pro_text_regular"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/usernameEdt">
+
+            <EditText
+                android:id="@+id/passwordEdt"
+                tools:ignore="RtlSymmetry"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_edt_radius"
+                android:hint="@string/password_edt_hint"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingStart="10dp"
+                android:imeOptions="actionDone"
+                android:fontFamily="@font/sf_pro_text_regular"/>
+
+            <ImageView
+                android:id="@+id/iv_toggle_pass"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/toggle_password_close"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/forgotPasswordBtn"
-            app:layout_constraintStart_toStartOf="@id/passwordEdt"
-            app:layout_constraintTop_toBottomOf="@id/passwordEdt"
+            app:layout_constraintStart_toStartOf="@id/relative_layout"
+            app:layout_constraintTop_toBottomOf="@id/relative_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -112,8 +128,8 @@
 
         <TextView
             android:id="@+id/signUpBtn"
-            app:layout_constraintEnd_toEndOf="@id/passwordEdt"
-            app:layout_constraintTop_toBottomOf="@id/passwordEdt"
+            app:layout_constraintEnd_toEndOf="@id/relative_layout"
+            app:layout_constraintTop_toBottomOf="@id/relative_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

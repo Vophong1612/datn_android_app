@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.services
 
+import com.example.arfashion.presentation.app.models.change_password.UserChangePasswordResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginFacebookResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.loginstatus_code.UserLoginGoogleResponse
@@ -7,6 +8,7 @@ import com.example.arfashion.presentation.app.models.register.*
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface UserService {
@@ -56,6 +58,10 @@ interface UserService {
     @POST("/users/verifyActivatePhone")
     @FormUrlEncoded
     fun verifyActivatePhone(@Field("phone") phone: String, @Field("active_code") active_code: String): Call<UserVerifyActivatePhoneResponse>
+
+    @POST("/users/changePassword")
+    @FormUrlEncoded
+    fun changePassword(@Header("Authorizationtoken") token: String, @Field("newPassword") newPassword: String, @Field("oldPassword") oldPassword: String): Call<UserChangePasswordResponse>
 
     companion object {
 

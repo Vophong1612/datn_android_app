@@ -1,8 +1,11 @@
 package com.example.arfashion.presentation.app.presentation.register
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -58,8 +61,34 @@ class RegisterPhoneUserInfoActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView(intentEmail: Intent) {
+
         phoneEdt.setText(intentEmail.getStringExtra("strPhone"))
+
+        iv_toggle_phone_pass.setOnClickListener {
+            if(iv_toggle_phone_pass.drawable.constantState == getDrawable(R.drawable.toggle_password_close)?.constantState) {
+                iv_toggle_phone_pass.setImageResource(R.drawable.toggle_password_open)
+                passwordEdt.transformationMethod = PasswordTransformationMethod.getInstance()
+                passwordEdt.inputType = InputType.TYPE_CLASS_TEXT
+            } else {
+                iv_toggle_phone_pass.setImageResource(R.drawable.toggle_password_close)
+                passwordEdt.transformationMethod = PasswordTransformationMethod.getInstance()
+                passwordEdt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+        }
+
+        iv_toggle_phone_conf_pass.setOnClickListener {
+            if(iv_toggle_phone_conf_pass.drawable.constantState == getDrawable(R.drawable.toggle_password_close)?.constantState) {
+                iv_toggle_phone_conf_pass.setImageResource(R.drawable.toggle_password_open)
+                confirmPasswordEdt.transformationMethod = PasswordTransformationMethod.getInstance()
+                confirmPasswordEdt.inputType = InputType.TYPE_CLASS_TEXT
+            } else {
+                iv_toggle_phone_conf_pass.setImageResource(R.drawable.toggle_password_close)
+                confirmPasswordEdt.transformationMethod = PasswordTransformationMethod.getInstance()
+                confirmPasswordEdt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+        }
 
         //set event
         check_icon.setOnClickListener {
