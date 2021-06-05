@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
+import com.example.arfashion.presentation.app.presentation.address.AddNewAddressActivity
+import com.example.arfashion.presentation.app.presentation.address.AddressListActivity
 import com.example.arfashion.presentation.app.presentation.forgotPassword.ForgotPasswordActivity
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
 import com.example.arfashion.presentation.app.presentation.register.RegisterEmailOrPhoneActivity
@@ -105,21 +107,7 @@ class LoginActivity : AppCompatActivity() {
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
 
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                }
-            } else {
-                Toast.makeText(this, getString(R.string.incorrect_data_login), Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        loginViewModel.result.observe(this) {
-            if (it) {
-                val response = loginViewModel.loginResponse.value
-                response?.let { userRes ->
-                    userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
-
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, AddressListActivity::class.java)
                     startActivity(intent)
                 }
             } else {
@@ -132,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
                 val response = loginViewModel.loginGoogleResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, AddNewAddressActivity::class.java)
                     startActivity(intent)
                 }
             } else {
