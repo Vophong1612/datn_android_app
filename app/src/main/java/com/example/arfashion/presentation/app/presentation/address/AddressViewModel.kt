@@ -65,7 +65,7 @@ class AddressViewModel(
         get() = _deleteAddressResponse
 
     fun chooseProvince(token: String) {
-        addressService.getProvince(token).enqueue(object : Callback<ResultProvinceResponse> {
+        addressService.getProvince("Bearer $token").enqueue(object : Callback<ResultProvinceResponse> {
             override fun onResponse(
                 call: Call<ResultProvinceResponse>,
                 response: Response<ResultProvinceResponse>
@@ -84,7 +84,7 @@ class AddressViewModel(
     }
 
     fun chooseDistrict(token: String, id: String) {
-        addressService.getDistrict(token, id).enqueue(object : Callback<ResultDistrictResponse> {
+        addressService.getDistrict("Bearer $token", id.toInt()).enqueue(object : Callback<ResultDistrictResponse> {
             override fun onResponse(
                 call: Call<ResultDistrictResponse>,
                 response: Response<ResultDistrictResponse>
@@ -103,7 +103,7 @@ class AddressViewModel(
     }
 
     fun chooseVillage(token: String, id: String) {
-        addressService.getWard(token, id).enqueue(object : Callback<ResultWardResponse> {
+        addressService.getWard("Bearer $token", id.toInt()).enqueue(object : Callback<ResultWardResponse> {
             override fun onResponse(
                 call: Call<ResultWardResponse>,
                 response: Response<ResultWardResponse>
@@ -122,8 +122,8 @@ class AddressViewModel(
     }
 
     fun addAddress(token: String, name: String, email: String, phone: String,
-                        home: String, village: String, district: String, province: String) {
-        addressService.addAddress(token, name, email, phone, home, village, district, province)
+                        home: String, village: Int, district: Int, province: Int) {
+        addressService.addAddress("Bearer $token", name, email, phone, home, village, district, province)
             .enqueue(object : Callback<ResultAddressResponse> {
             override fun onResponse(
                 call: Call<ResultAddressResponse>,
@@ -143,8 +143,8 @@ class AddressViewModel(
     }
 
     fun updateAddress(token: String, id: String, name: String, email: String, phone: String,
-                      is_default: Boolean, home: String, village: String, district: String, province: String) {
-        addressService.updateAddress(token, id, name, email, phone, is_default, home, village, district, province)
+                      is_default: Boolean, home: String, village: Int, district: Int, province: Int) {
+        addressService.updateAddress("Bearer $token", id, name, email, phone, is_default, home, village, district, province)
             .enqueue(object : Callback<ResultAddressResponse> {
                 override fun onResponse(
                     call: Call<ResultAddressResponse>,
@@ -164,7 +164,7 @@ class AddressViewModel(
     }
 
     fun deleteAddress(token: String, id: String) {
-        addressService.deleteAddress(token, id)
+        addressService.deleteAddress("Bearer $token", id)
             .enqueue(object : Callback<ResultAddressResponse> {
                 override fun onResponse(
                     call: Call<ResultAddressResponse>,

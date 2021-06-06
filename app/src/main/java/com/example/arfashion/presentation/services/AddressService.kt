@@ -12,27 +12,30 @@ interface AddressService {
     @GET("/address/province")
     fun getProvince(@Header("Authorization") token: String): Call<ResultProvinceResponse>
 
-    @GET("/address/district/{provinceId}")
-    fun getDistrict(@Header("Authorization") token: String, @Path("provinceId") province_id: String): Call<ResultDistrictResponse>
+    @GET("/address/district")
+    fun getDistrict(@Header("Authorization") token: String, @Query("provinceId") province_id: Int): Call<ResultDistrictResponse>
 
-    @GET("/address/village/{districtId}")
-    fun getWard(@Header("Authorization") token: String, @Path("districtId") district_id: String): Call<ResultWardResponse>
+    @GET("/address/village")
+    fun getWard(@Header("Authorization") token: String, @Query("districtId") district_id: Int): Call<ResultWardResponse>
 
     @POST("/users/address/add")
+    @FormUrlEncoded
     fun addAddress(@Header("Authorization") token: String, @Field("name") name: String,
                    @Field("email") email: String, @Field("phone") phone: String,
-                   @Field("home") home: String, @Field("village") village: String,
-                   @Field("district") district: String, @Field("province") province: String)
+                   @Field("home") home: String, @Field("village") village: Int,
+                   @Field("district") district: Int, @Field("province") province: Int)
     : Call<ResultAddressResponse>
 
     @POST("/users/address/update")
+    @FormUrlEncoded
     fun updateAddress(@Header("Authorization") token: String, @Field("_id") _id: String,
                       @Field("name") name: String, @Field("email") email: String,
                       @Field("phone") phone: String, @Field("is_default") is_default: Boolean,
-                      @Field("home") home: String, @Field("village") village: String,
-                      @Field("district") district: String, @Field("province") province: String): Call<ResultAddressResponse>
+                      @Field("home") home: String, @Field("village") village: Int,
+                      @Field("district") district: Int, @Field("province") province: Int): Call<ResultAddressResponse>
 
     @POST("/users/address/delete")
+    @FormUrlEncoded
     fun deleteAddress(@Header("Authorization") token: String, @Field("_id") _id: String,)
     : Call<ResultAddressResponse>
 

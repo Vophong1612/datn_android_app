@@ -1,21 +1,21 @@
 package com.example.arfashion.presentation.app.presentation.address
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.models.address.AddressResponse
-import java.io.Serializable
 
 
-class AddressListAdapter(private val context: Context, private val isViewPager: Boolean) :
+class AddressListAdapter(private val context: Activity) :
     RecyclerView.Adapter<AddressListAdapter.ViewHolder>() {
 
     private var addressList: MutableList<AddressResponse> = mutableListOf()
@@ -50,20 +50,27 @@ class AddressListAdapter(private val context: Context, private val isViewPager: 
         private val email = view.findViewById<TextView>(R.id.receiver_email)
         private val phone = view.findViewById<TextView>(R.id.receiver_phone)
         private val address = view.findViewById<TextView>(R.id.receiver_address)
+        private val ivChoose = view.findViewById<ImageView>(R.id.iv_choose_address)
 
         init {
-            if (isViewPager) {
-                view.layoutParams = ConstraintLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
+
+            ivChoose.setOnClickListener {
+                //lay ket qua dia chi o day
+                context.finish()
             }
 
             itemView.setOnClickListener {
                 addressClickLister?.invoke(addressList[adapterPosition]._id)
                 val intent = Intent(context, AddNewAddressActivity::class.java)
                 intent.putExtra("mode", "edit")
-                intent.putExtra("obj", addressList[adapterPosition] as Serializable)
+                intent.putExtra("obj.id", addressList[adapterPosition]._id)
+                intent.putExtra("obj.name", addressList[adapterPosition].name)
+                intent.putExtra("obj.email", addressList[adapterPosition].email)
+                intent.putExtra("obj.phone", addressList[adapterPosition].phone)
+                intent.putExtra("obj.home", addressList[adapterPosition].home)
+                intent.putExtra("obj.village", addressList[adapterPosition].village)
+                intent.putExtra("obj.district", addressList[adapterPosition].district)
+                intent.putExtra("obj.province", addressList[adapterPosition].province)
                 context.startActivity(intent)
             }
 
@@ -71,15 +78,15 @@ class AddressListAdapter(private val context: Context, private val isViewPager: 
                 addressClickLister?.invoke(addressList[adapterPosition]._id)
                 displayDialog(addressList[adapterPosition])
             }
+
         }
 
+        @SuppressLint("SetTextI18n")
         fun bindData(res: AddressResponse) {
-
             name.text = res.name
             email.text = res.email
             phone.text = res.phone
             address.text = res.home + ", " + res.village  + ", " + res.district  + ", " + res.province
-
         }
     }
 
@@ -91,7 +98,7 @@ class AddressListAdapter(private val context: Context, private val isViewPager: 
 
         builder.setPositiveButton(
             "YES",
-            DialogInterface.OnClickListener { dialog, which -> // Do nothing but close the dialog
+            DialogInterface.OnClickListener { dialog, _ -> // Do nothing but close the dialog
                 dialog.dismiss()
                 AddNewAddressActivity.userManager.currentUser.credential.accessToken?.let {
                     AddNewAddressActivity.addressViewModel.deleteAddress(
@@ -102,7 +109,7 @@ class AddressListAdapter(private val context: Context, private val isViewPager: 
 
         builder.setNegativeButton(
             "NO",
-            DialogInterface.OnClickListener { dialog, which -> // Do nothing
+            DialogInterface.OnClickListener { dialog, _ -> // Do nothing
                 dialog.dismiss()
             })
 

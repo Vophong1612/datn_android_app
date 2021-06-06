@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.local
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import com.example.arfashion.presentation.data.local.UserStorage
 import com.example.arfashion.presentation.data.model.User
@@ -35,8 +36,14 @@ class UserLocalStorage(private val pref: SharedPreferences) : UserStorage {
             putString(KEY_USER_REFRESH_TOKEN, user.profile.refresh_token.token)
             putString(KEY_USER_IAT,user.profile.refresh_token.iat)
             putString(KEY_USER_EXP,user.profile.refresh_token.exp)
-            putString(KEY_USER_ACCESS_TOKEN, user.credential.accessToken)
         }.apply()
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    override fun saveAccessToken(token: String) {
+        pref.edit().apply{
+            putString(KEY_USER_ACCESS_TOKEN, token)
+        }
     }
 
 }

@@ -106,7 +106,8 @@ class LoginActivity : AppCompatActivity() {
                 val response = loginViewModel.loginResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
-
+                    userStorage.save(userManager.currentUser)
+                    userStorage.saveAccessToken(userRes.accessToken)
                     val intent = Intent(this@LoginActivity, AddressListActivity::class.java)
                     startActivity(intent)
                 }
@@ -120,6 +121,8 @@ class LoginActivity : AppCompatActivity() {
                 val response = loginViewModel.loginGoogleResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    userStorage.save(userManager.currentUser)
+                    userStorage.saveAccessToken(userRes.accessToken)
                     val intent = Intent(this@LoginActivity, AddNewAddressActivity::class.java)
                     startActivity(intent)
                 }
@@ -133,6 +136,8 @@ class LoginActivity : AppCompatActivity() {
                 val response = loginViewModel.loginFacebookResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    userStorage.save(userManager.currentUser)
+                    userStorage.saveAccessToken(userRes.accessToken)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 }

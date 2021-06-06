@@ -11,8 +11,4 @@ data class UserLoginGoogleResponse(
     val user: User,
         @SerializedName("accessToken")
     val accessToken: String = "",
-        @SerializedName("refreshToken")
-    val refreshToken: RefreshToken,
-        @SerializedName("statusCode")
-    val statusCode: String = ""
 )

@@ -1,7 +1,8 @@
 package com.example.arfashion.presentation.app.presentation.address
+
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,16 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
-import com.example.arfashion.presentation.app.models.address.AddressResponse
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.services.AddressService
-import com.example.arfashion.presentation.services.UserService
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_add_new_address.*
 import kotlinx.android.synthetic.main.layout_back_save_header.back_icon
 import kotlinx.android.synthetic.main.layout_back_save_header.screen_name
 import kotlinx.android.synthetic.main.layout_back_save_white_header.*
-import java.util.*
 
 class AddNewAddressActivity : AppCompatActivity() {
 
@@ -40,31 +38,58 @@ class AddNewAddressActivity : AppCompatActivity() {
 
     private var id: String = ""
 
+    private var token: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_address)
         init()
     }
 
+    @SuppressLint("SetTextI18n")
+    override fun onResume() {
+        super.onResume()
+        if(content == "add"){
+            if(ChooseAddressActivity.curr_home_name.isNotEmpty()){
+                addressEdt.setText(ChooseAddressActivity.curr_home_name + ", "
+                        + ChooseAddressActivity.curr_ward_name  + ", "
+                        + ChooseAddressActivity.curr_district_name  + ", "
+                        + ChooseAddressActivity.curr_province_name)
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun init() {
+
         screen_name.text = this.getString(R.string.add_address)
         onNavigateBack()
-        content = intent.getStringExtra("mode").toString()
-        if(content == "add"){
-            rl_default_address.visibility = View.INVISIBLE
-        }else{
-            rl_default_address.visibility = View.VISIBLE
-            val obj: AddressResponse = intent.extras?.get("obj") as AddressResponse
-            id = obj._id
-            fullNameEdt.setText(obj.name)
-            phoneNumberEdt.setText(obj.name)
-            emailEdt.setText(obj.email)
-            addressEdt.setText(obj.home + ", " + obj.village  + ", " + obj.district  + ", " + obj.province)
-        }
 
         pref = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         userStorage = UserLocalStorage(pref)
         userManager = ARFashionUserManager(userStorage).getInstance()
+        token = pref.getString("pref_access_token", "").toString()
+        content = intent.getStringExtra("mode").toString()
+
+        if(content == "add"){
+            rl_default_address.visibility = View.INVISIBLE
+        }else{
+            rl_default_address.visibility = View.VISIBLE
+            val objId = intent.getSerializableExtra("obj.id").toString()
+            val objName = intent.getSerializableExtra("obj.name").toString()
+            val objEmail = intent.getSerializableExtra("obj.email").toString()
+            val objPhone = intent.getSerializableExtra("obj.phone").toString()
+            val objHome = intent.getSerializableExtra("obj.home").toString()
+            val objVillage = intent.getSerializableExtra("obj.village").toString()
+            val objDistrict = intent.getSerializableExtra("obj.district").toString()
+            val objProvince = intent.getSerializableExtra("obj.province").toString()
+
+            id = objId
+            fullNameEdt.setText(objName)
+            phoneNumberEdt.setText(objPhone)
+            emailEdt.setText(objEmail)
+            addressEdt.setText("$objHome, $objVillage, $objDistrict, $objProvince")
+        }
 
         addressViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -78,6 +103,7 @@ class AddNewAddressActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+
         arrowChooseAddress.setOnClickListener {
             val intent = Intent(this, ChooseAddressActivity::class.java)
             startActivity(intent)
@@ -97,19 +123,21 @@ class AddNewAddressActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.invalid_phone), Toast.LENGTH_SHORT).show()
             }else {
                 if(content == "add"){
-                    userManager.currentUser.credential.accessToken?.let { it1 ->
-                        addressViewModel.addAddress(
-                            it1, name,
-                            email, phone, address, address, address, address)
-                    }
+                    addressViewModel.addAddress(
+                            token, name, email, phone,
+                            ChooseAddressActivity.curr_home_name,
+                            ChooseAddressActivity.curr_ward_code,
+                            ChooseAddressActivity.curr_district_code,
+                            ChooseAddressActivity.curr_province_code)
                 }else{
-                    var temp = cb_default_address.isChecked
-                    userManager.currentUser.credential.accessToken?.let { it1 ->
-                        addressViewModel.updateAddress(
-                            it1, name, id,
-                            email, phone, temp,
-                        address, address, address, address)
-                    }
+                    val temp = cb_default_address.isChecked
+                    addressViewModel.updateAddress(
+                            token, name, id, email, phone, temp,
+                            ChooseAddressActivity.curr_home_name,
+                            ChooseAddressActivity.curr_ward_code,
+                            ChooseAddressActivity.curr_district_code,
+                            ChooseAddressActivity.curr_province_code)
+
                 }
             }
         }

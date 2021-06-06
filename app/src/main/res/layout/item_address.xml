@@ -16,6 +16,7 @@
         android:fontFamily="@font/sf_pro_text_bold"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="tower"/>
@@ -27,6 +28,7 @@
         android:textSize="16sp"
         android:layout_marginTop="6dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:textColor="@color/palattes_1"
         android:fontFamily="@font/sf_pro_text_regular"
         app:layout_constraintTop_toBottomOf="@id/receiver_name"
@@ -39,6 +41,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:textColor="@color/palattes_1"
         android:fontFamily="@font/sf_pro_text_regular"
@@ -53,23 +56,37 @@
         android:textSize="16sp"
         android:layout_marginTop="6dp"
         android:layout_marginStart="10dp"
+        android:paddingEnd="10dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/palattes_1"
         android:fontFamily="@font/sf_pro_text_regular"
         app:layout_constraintTop_toBottomOf="@id/receiver_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="District 8, HCM City, VietNam"/>
+        tools:text="District 8, HCM City, VietNam"
+        tools:ignore="RtlSymmetry" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_location"-->
+<!--        android:layout_width="20dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:src="@drawable/ic_location"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/receiver_address"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:tint="@color/palattes_2" />-->
 
     <ImageView
-        android:id="@+id/iv_location"
+        android:id="@+id/iv_choose_address"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/receiver_address"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_check"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/receiver_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/palattes_2" />
 
