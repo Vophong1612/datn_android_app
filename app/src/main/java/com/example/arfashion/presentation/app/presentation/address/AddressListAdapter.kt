@@ -51,6 +51,7 @@ class AddressListAdapter(private val context: Activity) :
         private val phone = view.findViewById<TextView>(R.id.receiver_phone)
         private val address = view.findViewById<TextView>(R.id.receiver_address)
         private val ivChoose = view.findViewById<ImageView>(R.id.iv_choose_address)
+        private val tvDefault = view.findViewById<TextView>(R.id.receiver_default)
 
         init {
 
@@ -68,9 +69,13 @@ class AddressListAdapter(private val context: Activity) :
                 intent.putExtra("obj.email", addressList[adapterPosition].email)
                 intent.putExtra("obj.phone", addressList[adapterPosition].phone)
                 intent.putExtra("obj.home", addressList[adapterPosition].home)
-                intent.putExtra("obj.village", addressList[adapterPosition].village)
-                intent.putExtra("obj.district", addressList[adapterPosition].district)
-                intent.putExtra("obj.province", addressList[adapterPosition].province)
+                intent.putExtra("obj.village", addressList[adapterPosition].village.name)
+                intent.putExtra("obj.villageCode", addressList[adapterPosition].village.code)
+                intent.putExtra("obj.district", addressList[adapterPosition].district.name)
+                intent.putExtra("obj.districtCode", addressList[adapterPosition].district.code)
+                intent.putExtra("obj.province", addressList[adapterPosition].province.name)
+                intent.putExtra("obj.provinceCode", addressList[adapterPosition].province.code)
+                intent.putExtra("obj.isDefault", addressList[adapterPosition].isDefault.toString())
                 context.startActivity(intent)
             }
 
@@ -86,7 +91,9 @@ class AddressListAdapter(private val context: Activity) :
             name.text = res.name
             email.text = res.email
             phone.text = res.phone
-            address.text = res.home + ", " + res.village  + ", " + res.district  + ", " + res.province
+            address.text = res.home + ", " + res.village.name  + ", " + res.district.name  + ", " + res.province.name
+            if(res.isDefault) tvDefault.visibility = View.VISIBLE
+            else tvDefault.visibility = View.INVISIBLE
         }
     }
 
@@ -100,10 +107,12 @@ class AddressListAdapter(private val context: Activity) :
             "YES",
             DialogInterface.OnClickListener { dialog, _ -> // Do nothing but close the dialog
                 dialog.dismiss()
-                AddNewAddressActivity.userManager.currentUser.credential.accessToken?.let {
-                    AddNewAddressActivity.addressViewModel.deleteAddress(
+                AddressListActivity.user.credential.accessToken?.let {
+                    AddressListActivity.addressViewModel.deleteAddress(
                         it,
                         item._id)
+                    addressList.remove(item)
+                    notifyDataSetChanged()
                 }
             })
 

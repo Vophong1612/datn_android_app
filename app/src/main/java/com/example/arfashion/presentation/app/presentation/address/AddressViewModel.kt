@@ -7,6 +7,8 @@ import com.example.arfashion.presentation.app.models.address.ResultAddressRespon
 import com.example.arfashion.presentation.app.models.address.ResultDistrictResponse
 import com.example.arfashion.presentation.app.models.address.ResultProvinceResponse
 import com.example.arfashion.presentation.app.models.address.ResultWardResponse
+import com.example.arfashion.presentation.app.models.login.UserLoginResponse
+import com.example.arfashion.presentation.app.models.profile.ProfileResponse
 import com.example.arfashion.presentation.services.AddressService
 import retrofit2.Call
 import retrofit2.Callback
@@ -63,6 +65,14 @@ class AddressViewModel(
     private val _deleteAddressResponse = MutableLiveData<ResultAddressResponse>()
     val deleteAddressResponse: LiveData<ResultAddressResponse>
         get() = _deleteAddressResponse
+
+    private val _resultLoadAddress = MutableLiveData<Boolean>()
+    val resultLoadAddress : LiveData<Boolean>
+        get() = _resultLoadAddress
+
+    private val _loadAddressResponse = MutableLiveData<ProfileResponse>()
+    val loadAddressResponse: LiveData<ProfileResponse>
+        get() = _loadAddressResponse
 
     fun chooseProvince(token: String) {
         addressService.getProvince("Bearer $token").enqueue(object : Callback<ResultProvinceResponse> {
@@ -179,6 +189,26 @@ class AddressViewModel(
 
                 override fun onFailure(call: Call<ResultAddressResponse>, t: Throwable) {
                     _resultDeleteAddress.value = false
+                }
+            })
+    }
+
+    fun loadAddress(token: String) {
+        addressService.loadAddress("Bearer $token")
+            .enqueue(object : Callback<ProfileResponse> {
+                override fun onResponse(
+                    call: Call<ProfileResponse>,
+                    response: Response<ProfileResponse>
+                ) {
+                    _loadAddressResponse.value = response.body()
+                    when (response.code()) {
+                        200 -> _resultLoadAddress.value = response.isSuccessful
+                        else -> _resultLoadAddress.value = false
+                    }
+                }
+
+                override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                    _resultLoadAddress.value = false
                 }
             })
     }

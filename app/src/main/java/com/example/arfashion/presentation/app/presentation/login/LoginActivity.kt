@@ -57,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var mCallbackManager: CallbackManager
 
+    private lateinit var user: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -85,16 +87,23 @@ class LoginActivity : AppCompatActivity() {
         onNavigateBack()
         mCallbackManager = CallbackManager.Factory.create()
 
-        pref = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
-        userStorage = UserLocalStorage(pref)
-        userManager = ARFashionUserManager(userStorage).getInstance()
-
         loginViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
                 return LoginViewModel(userService) as T
             }
         })[LoginViewModel::class.java]
+
+        pref = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
+        userStorage = UserLocalStorage(pref)
+        userManager = ARFashionUserManager(userStorage).getInstance()
+        user = userStorage.load()
+
+        if(user.credential.accessToken?.isNotEmpty() == true){
+            val intent = Intent(this@LoginActivity, AddressListActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         initView()
         initViewModel()
@@ -107,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
-                    userStorage.saveAccessToken(userRes.accessToken)
+
                     val intent = Intent(this@LoginActivity, AddressListActivity::class.java)
                     startActivity(intent)
                 }
@@ -122,7 +131,6 @@ class LoginActivity : AppCompatActivity() {
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
-                    userStorage.saveAccessToken(userRes.accessToken)
                     val intent = Intent(this@LoginActivity, AddNewAddressActivity::class.java)
                     startActivity(intent)
                 }
@@ -137,7 +145,6 @@ class LoginActivity : AppCompatActivity() {
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
-                    userStorage.saveAccessToken(userRes.accessToken)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 }

@@ -62,8 +62,24 @@
         android:fontFamily="@font/sf_pro_text_regular"
         app:layout_constraintTop_toBottomOf="@id/receiver_email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="District 8, HCM City, VietNam"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/receiver_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/default_address_"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/palattes_2"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        app:layout_constraintTop_toBottomOf="@id/receiver_address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="RtlSymmetry" />
 
 <!--    <ImageView-->

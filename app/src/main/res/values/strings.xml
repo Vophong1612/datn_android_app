@@ -119,6 +119,7 @@
     <string name="retry_ar_test_btn">Retry</string>
 
     <string name="default_address">Default Address</string>
+    <string name="default_address_">* Default Address</string>
     <string name="add_new_address">Add new address</string>
 
     <string-array name="genderList">

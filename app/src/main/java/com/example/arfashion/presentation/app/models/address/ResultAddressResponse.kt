@@ -8,5 +8,5 @@ data class ResultAddressResponse(
     @SerializedName("status_code")
     val status_code: Int,
     @SerializedName("address")
-    val results: AddressResponse
+    val results: List<AddressResponse> = listOf<AddressResponse>()
 )

@@ -5,9 +5,7 @@ import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.loginstatus_code.UserLoginGoogleResponse
 import com.example.arfashion.presentation.app.models.register.*
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserService {
 

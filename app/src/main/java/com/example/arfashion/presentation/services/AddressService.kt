@@ -4,6 +4,7 @@ import com.example.arfashion.presentation.app.models.address.ResultAddressRespon
 import com.example.arfashion.presentation.app.models.address.ResultDistrictResponse
 import com.example.arfashion.presentation.app.models.address.ResultProvinceResponse
 import com.example.arfashion.presentation.app.models.address.ResultWardResponse
+import com.example.arfashion.presentation.app.models.profile.ProfileResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -36,8 +37,10 @@ interface AddressService {
 
     @POST("/users/address/delete")
     @FormUrlEncoded
-    fun deleteAddress(@Header("Authorization") token: String, @Field("_id") _id: String,)
-    : Call<ResultAddressResponse>
+    fun deleteAddress(@Header("Authorization") token: String, @Field("_id") _id: String,): Call<ResultAddressResponse>
+
+    @GET("/users/profile")
+    fun loadAddress(@Header("Authorization") token: String): Call<ProfileResponse>
 
     companion object {
         fun create(): AddressService {

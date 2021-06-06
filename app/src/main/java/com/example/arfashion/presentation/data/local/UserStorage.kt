@@ -6,6 +6,4 @@ interface UserStorage {
     fun load(): User
 
     fun save(user: User)
-
-    fun saveAccessToken(token: String)
 }
