@@ -70,8 +70,8 @@ class AddressViewModel(
     val resultLoadAddress : LiveData<Boolean>
         get() = _resultLoadAddress
 
-    private val _loadAddressResponse = MutableLiveData<ProfileResponse>()
-    val loadAddressResponse: LiveData<ProfileResponse>
+    private val _loadAddressResponse = MutableLiveData<ResultAddressResponse>()
+    val loadAddressResponse: LiveData<ResultAddressResponse>
         get() = _loadAddressResponse
 
     fun chooseProvince(token: String) {
@@ -195,10 +195,10 @@ class AddressViewModel(
 
     fun loadAddress(token: String) {
         addressService.loadAddress("Bearer $token")
-            .enqueue(object : Callback<ProfileResponse> {
+            .enqueue(object : Callback<ResultAddressResponse> {
                 override fun onResponse(
-                    call: Call<ProfileResponse>,
-                    response: Response<ProfileResponse>
+                    call: Call<ResultAddressResponse>,
+                    response: Response<ResultAddressResponse>
                 ) {
                     _loadAddressResponse.value = response.body()
                     when (response.code()) {
@@ -207,7 +207,7 @@ class AddressViewModel(
                     }
                 }
 
-                override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ResultAddressResponse>, t: Throwable) {
                     _resultLoadAddress.value = false
                 }
             })

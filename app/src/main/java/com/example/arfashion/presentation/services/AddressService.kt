@@ -39,8 +39,8 @@ interface AddressService {
     @FormUrlEncoded
     fun deleteAddress(@Header("Authorization") token: String, @Field("_id") _id: String,): Call<ResultAddressResponse>
 
-    @GET("/users/profile")
-    fun loadAddress(@Header("Authorization") token: String): Call<ProfileResponse>
+    @GET("/users/address/list")
+    fun loadAddress(@Header("Authorization") token: String): Call<ResultAddressResponse>
 
     companion object {
         fun create(): AddressService {

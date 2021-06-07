@@ -20,6 +20,4 @@ data class ProfileResponse (
     val gender : Int,
     @SerializedName("account_status")
     val account_status : String,
-    @SerializedName("address")
-    val address : List<AddressResponse> = listOf()
 )

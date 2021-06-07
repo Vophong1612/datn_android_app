@@ -100,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
         user = userStorage.load()
 
         if(user.credential.accessToken?.isNotEmpty() == true){
-            val intent = Intent(this@LoginActivity, AddressListActivity::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

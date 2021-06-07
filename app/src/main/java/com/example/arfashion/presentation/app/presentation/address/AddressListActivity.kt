@@ -99,7 +99,7 @@ class AddressListActivity : AppCompatActivity() {
             if (it) {
                 val response = addressViewModel.loadAddressResponse.value
                 if (response != null) {
-                    addressAdapter.setAddressList(response.address)
+                    addressAdapter.setAddressList(response.results)
                     addressAdapter.notifyDataSetChanged()
                 }
             } else {
