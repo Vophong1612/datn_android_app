@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.register
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -164,6 +165,7 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
                 val response = loginViewModel.loginGoogleResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    userStorage.save(userManager.currentUser)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -177,6 +179,7 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
                 val response = loginViewModel.loginFacebookResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    userStorage.save(userManager.currentUser)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -196,6 +199,7 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("LogNotTimber")
     private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {
         try {
             val account: GoogleSignInAccount? = task?.let {

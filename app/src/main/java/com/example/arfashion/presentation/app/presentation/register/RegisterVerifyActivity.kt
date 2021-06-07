@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.register
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -143,7 +144,6 @@ class RegisterVerifyActivity : AppCompatActivity() {
 
         LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                Log.d("TAG", "Success Login")
                 loginViewModel.loginFacebook(loginResult.accessToken.token.toString(), loginResult.accessToken.userId.toString())
             }
 
@@ -217,6 +217,7 @@ class RegisterVerifyActivity : AppCompatActivity() {
                 val response = loginViewModel.loginGoogleResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    userStorage.save(userManager.currentUser)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -230,6 +231,7 @@ class RegisterVerifyActivity : AppCompatActivity() {
                 val response = loginViewModel.loginFacebookResponse.value
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    userStorage.save(userManager.currentUser)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -249,6 +251,7 @@ class RegisterVerifyActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("LogNotTimber")
     private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {
         try {
             val account: GoogleSignInAccount? = task?.let {

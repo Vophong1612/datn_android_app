@@ -6,14 +6,10 @@ import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.loginstatus_code.UserLoginGoogleResponse
 import com.example.arfashion.presentation.app.models.register.*
 import retrofit2.Call
-<<<<<<< HEAD
-import retrofit2.http.*
-=======
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
 import retrofit2.http.POST
->>>>>>> issue16
 
 interface UserService {
 

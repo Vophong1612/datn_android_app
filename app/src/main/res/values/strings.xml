@@ -60,11 +60,7 @@
     <string name="choose_from_gallery">Choose from gallery</string>
     <string name="resend_active_email">Resend Code</string>
 
-<<<<<<< HEAD
-    <string name="invalid_email">Invalid data. Try again</string>
-=======
     <string name="invalid_email">Invalid email. Try again</string>
->>>>>>> issue16
     <string name="invalid_phone">Invalid phone. Try again</string>
     <string name="invalid_data">Data must not be empty</string>
     <string name="invalid_data_">Invalid input data. Try again</string>

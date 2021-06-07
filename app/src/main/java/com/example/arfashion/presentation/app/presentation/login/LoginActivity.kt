@@ -15,13 +15,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
-<<<<<<< HEAD
 import com.example.arfashion.presentation.app.presentation.address.AddNewAddressActivity
 import com.example.arfashion.presentation.app.presentation.address.AddressListActivity
-import com.example.arfashion.presentation.app.presentation.forgotPassword.ForgotPasswordActivity
-=======
 import com.example.arfashion.presentation.app.presentation.forgot_password.ForgotPasswordActivity
->>>>>>> issue16
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
 import com.example.arfashion.presentation.app.presentation.register.RegisterEmailOrPhoneActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
@@ -122,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
 
-                    val intent = Intent(this@LoginActivity, AddressListActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 }
             } else {
@@ -136,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
                 response?.let { userRes ->
                     userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
-                    val intent = Intent(this@LoginActivity, AddNewAddressActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 }
             } else {
