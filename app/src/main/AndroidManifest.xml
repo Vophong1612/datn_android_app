@@ -26,11 +26,17 @@
 
         <activity android:name=".presentation.app.presentation.product.test.ARTestActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterPhoneUserInfoActivity" />
+<<<<<<< HEAD
         <activity android:name=".presentation.app.presentation.forgotPassword.ChangePasswordActivity" />
         <activity android:name=".presentation.app.presentation.address.AddNewAddressActivity" />
         <activity android:name=".presentation.app.presentation.address.ChooseAddressActivity"/>
         <activity android:name=".presentation.app.presentation.address.AddressListActivity" />
         <activity android:name=".presentation.app.presentation.forgotPassword.ForgotPasswordActivity" />
+=======
+        <activity android:name=".presentation.app.presentation.forgot_password.ChangePasswordForgotActivity" />
+        <activity android:name=".presentation.app.presentation.forgot_password.ForgotPasswordActivity" />
+        <activity android:name=".presentation.app.presentation.forgot_password.VerifyForgotPasswordActivity"/>
+>>>>>>> issue16
         <activity android:name=".presentation.app.presentation.register.RegisterVerifyActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailUserInfoActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailOrPhoneActivity" />

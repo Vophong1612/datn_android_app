@@ -1,8 +1,11 @@
 package com.example.arfashion.presentation.app.presentation.login
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,9 +15,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
+<<<<<<< HEAD
 import com.example.arfashion.presentation.app.presentation.address.AddNewAddressActivity
 import com.example.arfashion.presentation.app.presentation.address.AddressListActivity
 import com.example.arfashion.presentation.app.presentation.forgotPassword.ForgotPasswordActivity
+=======
+import com.example.arfashion.presentation.app.presentation.forgot_password.ForgotPasswordActivity
+>>>>>>> issue16
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
 import com.example.arfashion.presentation.app.presentation.register.RegisterEmailOrPhoneActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
@@ -34,6 +41,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import kotlinx.android.synthetic.main.activity_change_password.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_back_header.*
 import kotlinx.android.synthetic.main.layout_or.*
@@ -76,10 +84,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUI() {
-        val acct = GoogleSignIn.getLastSignedInAccount(application)
-        if (acct != null) {
-
-        }
+        GoogleSignIn.getLastSignedInAccount(application)
     }
 
     private fun init() {
@@ -154,7 +159,20 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView() {
+
+        iv_toggle_pass.setOnClickListener {
+            if(iv_toggle_pass.drawable.constantState == getDrawable(R.drawable.toggle_password_close)?.constantState) {
+                iv_toggle_pass.setImageResource(R.drawable.toggle_password_open)
+                passwordEdt.transformationMethod = PasswordTransformationMethod.getInstance()
+                passwordEdt.inputType = InputType.TYPE_CLASS_TEXT
+            } else {
+                iv_toggle_pass.setImageResource(R.drawable.toggle_password_close)
+                passwordEdt.transformationMethod = PasswordTransformationMethod.getInstance()
+                passwordEdt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+        }
 
         signInBtn.setOnClickListener {
             val username = usernameEdt.text.toString()
@@ -180,7 +198,6 @@ class LoginActivity : AppCompatActivity() {
 
         LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
-                    Log.d("TAG", "Success Login")
                     loginViewModel.loginFacebook(loginResult.accessToken.token.toString(), loginResult.accessToken.userId.toString())
                 }
 
@@ -225,6 +242,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("LogNotTimber")
     private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {
         try {
             val account: GoogleSignInAccount? = task?.let {
@@ -237,7 +255,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         } catch (e: ApiException) {
-            Log.w("TAG", "signInResult:failed code=" + e.statusCode)
+            Log.w("TAG", "si" +
+                    "gnInResult:failed code=" + e.statusCode)
         }
     }
 

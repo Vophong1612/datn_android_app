@@ -1,11 +1,19 @@
 package com.example.arfashion.presentation.services
 
+import com.example.arfashion.presentation.app.models.forgot_password.UserForgotPasswordResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginFacebookResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.loginstatus_code.UserLoginGoogleResponse
 import com.example.arfashion.presentation.app.models.register.*
 import retrofit2.Call
+<<<<<<< HEAD
 import retrofit2.http.*
+=======
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Header
+import retrofit2.http.POST
+>>>>>>> issue16
 
 interface UserService {
 
@@ -54,6 +62,18 @@ interface UserService {
     @POST("/users/verifyActivatePhone")
     @FormUrlEncoded
     fun verifyActivatePhone(@Field("phone") phone: String, @Field("active_code") active_code: String): Call<UserVerifyActivatePhoneResponse>
+
+    @POST("/users/generateCodeForgot")
+    @FormUrlEncoded
+    fun generateCodeForgot(@Field("user_name") user_name: String, @Field("type") type: String): Call<UserForgotPasswordResponse>
+
+    @POST("/users/forgot/validate")
+    @FormUrlEncoded
+    fun validateCodeForgot(@Field("user_name") user_name: String, @Field("code") code: String, @Field("type") type: String): Call<UserForgotPasswordResponse>
+
+    @POST("/users/forgotPassword")
+    @FormUrlEncoded
+    fun changePasswordForgot(@Header("Authorization") token: String, @Field("password") password: String, @Field("confirmPassword") confirmPassword: String): Call<UserForgotPasswordResponse>
 
     companion object {
 

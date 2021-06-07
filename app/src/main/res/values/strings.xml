@@ -60,9 +60,14 @@
     <string name="choose_from_gallery">Choose from gallery</string>
     <string name="resend_active_email">Resend Code</string>
 
+<<<<<<< HEAD
     <string name="invalid_email">Invalid data. Try again</string>
+=======
+    <string name="invalid_email">Invalid email. Try again</string>
+>>>>>>> issue16
     <string name="invalid_phone">Invalid phone. Try again</string>
     <string name="invalid_data">Data must not be empty</string>
+    <string name="invalid_data_">Invalid input data. Try again</string>
     <string name="invalid_password">Password must contain more 6 characters</string>
     <string name="invalid_data_login">Please enter email and password</string>
 
@@ -71,6 +76,7 @@
 
     <string name="register_fail">Fail to register. Try again</string>
     <string name="confirm_password_fail">Password and Confirm Password must be equal. Try again</string>
+    <string name="send_code_successfully">Code has sent to your device. Check it!</string>
 
     <string name="existed_email">Email already existed</string>
     <string name="existed_phone">Existed Phone</string>

@@ -112,6 +112,7 @@ class RegisterVerifyActivity : AppCompatActivity() {
             }
         })[LoginViewModel::class.java]
 
+        initOtp()
         initViewModel()
 
         signUpBtn.setOnClickListener {
