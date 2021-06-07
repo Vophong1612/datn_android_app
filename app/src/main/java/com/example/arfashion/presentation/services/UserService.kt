@@ -1,6 +1,6 @@
 package com.example.arfashion.presentation.services
 
-import com.example.arfashion.presentation.app.models.change_password.UserChangePasswordResponse
+import com.example.arfashion.presentation.app.models.forgot_password.UserForgotPasswordResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginFacebookResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.loginstatus_code.UserLoginGoogleResponse
@@ -59,9 +59,17 @@ interface UserService {
     @FormUrlEncoded
     fun verifyActivatePhone(@Field("phone") phone: String, @Field("active_code") active_code: String): Call<UserVerifyActivatePhoneResponse>
 
-    @POST("/users/changePassword")
+    @POST("/users/generateCodeForgot")
     @FormUrlEncoded
-    fun changePassword(@Header("Authorizationtoken") token: String, @Field("newPassword") newPassword: String, @Field("oldPassword") oldPassword: String): Call<UserChangePasswordResponse>
+    fun generateCodeForgot(@Field("user_name") user_name: String, @Field("type") type: String): Call<UserForgotPasswordResponse>
+
+    @POST("/users/forgot/validate")
+    @FormUrlEncoded
+    fun validateCodeForgot(@Field("user_name") user_name: String, @Field("code") code: String, @Field("type") type: String): Call<UserForgotPasswordResponse>
+
+    @POST("/users/forgotPassword")
+    @FormUrlEncoded
+    fun changePasswordForgot(@Header("Authorization") token: String, @Field("password") password: String, @Field("confirmPassword") confirmPassword: String): Call<UserForgotPasswordResponse>
 
     companion object {
 

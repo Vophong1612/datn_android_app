@@ -26,10 +26,9 @@
 
         <activity android:name=".presentation.app.presentation.product.test.ARTestActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterPhoneUserInfoActivity" />
-        <activity android:name=".presentation.app.presentation.change_password.ChangePasswordActivity" />
-        <activity android:name=".presentation.app.presentation.register.RegisterChooseAddressActivity" />
-        <activity android:name=".presentation.app.presentation.change_password.ForgotPasswordActivity" />
-        <activity android:name=".presentation.app.presentation.change_password.VerifyForgotPasswordActivity"/>
+        <activity android:name=".presentation.app.presentation.forgot_password.ChangePasswordForgotActivity" />
+        <activity android:name=".presentation.app.presentation.forgot_password.ForgotPasswordActivity" />
+        <activity android:name=".presentation.app.presentation.forgot_password.VerifyForgotPasswordActivity"/>
         <activity android:name=".presentation.app.presentation.register.RegisterVerifyActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailUserInfoActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailOrPhoneActivity" />

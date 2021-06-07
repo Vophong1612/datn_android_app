@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.presentation.change_password
+package com.example.arfashion.presentation.app.presentation.forgot_password
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,24 +9,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
-import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.services.UserService
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.activity_forgot_password.verifyBtn
-import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
 
-import kotlinx.android.synthetic.main.layout_back_header.*
-import kotlinx.android.synthetic.main.layout_back_save_header.*
 import kotlinx.android.synthetic.main.layout_back_save_header.back_icon
 import kotlinx.android.synthetic.main.layout_back_save_header.screen_name
-import kotlinx.android.synthetic.main.layout_or.*
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
-    private lateinit var changePasswordViewModel: ChangePasswordViewModel
+    private lateinit var changePasswordViewModel: ForgotPasswordViewModel
 
     private val userService = UserService.create()
+
+    private var dataType: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +38,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
         changePasswordViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return ChangePasswordViewModel(userService) as T
+                return ForgotPasswordViewModel(userService) as T
             }
-        })[ChangePasswordViewModel::class.java]
+        })[ForgotPasswordViewModel::class.java]
 
         initView()
         initViewModel()
@@ -51,13 +48,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        changePasswordViewModel.resultSendCode.observe(this) {
+        changePasswordViewModel.resultGenerateCodeForgot.observe(this) {
             if (it) {
-                val response = changePasswordViewModel.sendCodeResponse.value
+                val response = changePasswordViewModel.generateCodeForgotResponse.value
                 if (response != null) {
                     Toast.makeText(this, getString(R.string.send_code_successfully), Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, VerifyForgotPasswordActivity::class.java)
-                    intent.putExtra("strPhone",Utils.formatPhone(phoneInputEdt.text.toString()))
+                    intent.putExtra("strData", dataInputEdt.text.toString())
+                    intent.putExtra("strType", dataType)
                     startActivity(intent)
                 }
             } else {
@@ -69,16 +67,24 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private fun initView() {
 
         verifyBtn.setOnClickListener {
-            if(phoneInputEdt.text.toString().isEmpty())
-                Toast.makeText(this, getString(R.string.invalid_data), Toast.LENGTH_SHORT).show()
-            else if (Utils.isValidPhone(phoneInputEdt.text.toString()))
-                changePasswordViewModel.sendCode(Utils.formatPhone(phoneInputEdt.text.toString()))
-            else Toast.makeText(this, getString(R.string.invalid_phone), Toast.LENGTH_SHORT).show()
+
+            val input: String = dataInputEdt.text.toString()
+
+            if(Utils.isValidEmail(input)){
+                dataType = "email"
+                changePasswordViewModel.generateCodeForgot(input, "email")
+            }else if(Utils.isValidPhone(dataInputEdt.text.toString())){
+                dataType = "phone"
+                changePasswordViewModel.generateCodeForgot(Utils.formatPhone(input), "phone")
+            }else {
+                if(dataInputEdt.text.toString().isEmpty())
+                    Toast.makeText(this, getString(R.string.invalid_data), Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this, getString(R.string.invalid_data_), Toast.LENGTH_SHORT).show()
+            }
         }
 
         signInBtn.setOnClickListener {
-            val intent = Intent(this@ForgotPasswordActivity, LoginActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
     }
