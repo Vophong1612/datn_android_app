@@ -7,7 +7,7 @@ data class ProductResponse(
     @SerializedName("name") val name : String,
     @SerializedName("price") val price : Int,
     @SerializedName("sizes") val sizes : List<Sizes>,
-    @SerializedName("comments") val comments : List<Comments>,
+    @SerializedName("comments") val comments : List</*Comments*/String>,
     @SerializedName("tags") val tags : List<Tags>,
     @SerializedName("created_at") val created_at : String,
     @SerializedName("updated_at") val updated_at : String,
@@ -23,21 +23,6 @@ data class ProductResponse(
 data class Image (
     @SerializedName("img_banner") val img_banner : String,
     @SerializedName("img_category") val img_category : String
-)
-
-data class Comments (
-    @SerializedName("content") val content : String,
-    @SerializedName("star") val star : Float,
-    @SerializedName("responses") val responses : List<Comments>,
-    @SerializedName("like") val like : Int,
-    @SerializedName("_id") val _id : String,
-    @SerializedName("created_by") val created_by : CreatedBy
-)
-
-data class CreatedBy (
-    @SerializedName("_id") val _id : String,
-    @SerializedName("avatar") val avatar : String,
-    @SerializedName("name") val name : String
 )
 
 data class Details (

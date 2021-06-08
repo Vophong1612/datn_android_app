@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.presentation.product.comment.CommentViewModel
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Comment
@@ -21,7 +23,7 @@ class ProductReviewTabFragment : Fragment() {
         }
     }
 
-    private val productDetailViewModel: ProductDetailViewModel by activityViewModels()
+    private val commentViewModel: CommentViewModel by activityViewModels ()
 
     private lateinit var reviewAdapter: ReviewAdapter
 
@@ -40,12 +42,33 @@ class ProductReviewTabFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        productDetailViewModel.product.observe(viewLifecycleOwner) {
+        commentViewModel.comment.observe(viewLifecycleOwner) {
+            when(it) {
+                is ARResult.Success -> {
+                    it.data.let { list ->
+                        val temp = if (list.size >= 2) {
+                            list.subList(0, 2)
+                        } else {
+                            list
+                        }
+
+                        handleData(temp)
+                    }
+                }
+                is ARResult.Error -> {
+                    Toast.makeText(this.requireContext(), it.throwable.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        commentViewModel.total.observe(viewLifecycleOwner) {
             when (it) {
                 is ARResult.Success -> {
-                    handleData(it.data.comments)
+                    label.text = requireContext().getString(R.string.review_label, it.data)
                 }
-                is ARResult.Error -> { }
+                is ARResult.Error -> {
+                    label.text = requireContext().getString(R.string.review_label, 0)
+                }
             }
         }
     }
@@ -59,8 +82,6 @@ class ProductReviewTabFragment : Fragment() {
         showReviewList()
         viewAllBtn.visible()
         reviewAdapter.setData(comment)
-
-        label.text = requireContext().getString(R.string.review_label, comment.size)
     }
 
     private fun showReviewList() {

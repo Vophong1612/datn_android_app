@@ -21,6 +21,7 @@ import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
+import com.example.arfashion.presentation.app.presentation.product.comment.CommentViewModel
 import com.example.arfashion.presentation.app.presentation.product.test.ARTestActivity
 import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_COLOR
 import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_IMAGE
@@ -44,6 +45,8 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var productTabAdapter: ProductTabAdapter
 
     private val productDetailViewModel: ProductDetailViewModel by viewModels()
+
+    private val commentViewModel: CommentViewModel by viewModels()
 
     private val cartViewModel: CartViewModel by viewModels()
 
@@ -125,6 +128,8 @@ class ProductDetailActivity : AppCompatActivity() {
             when (it) {
                 is ARResult.Success -> {
                     this.product = it.data
+                    commentViewModel.getComment(it.data.id)
+
                     handleData(it.data)
                 }
                 is ARResult.Error -> {

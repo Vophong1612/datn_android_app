@@ -24,9 +24,7 @@ fun ProductResponse.toProduct(): Product {
                 size.name
             )
         },
-        comments.map { comment ->
-            comment.toComment()
-        },
+        comments,
         images.map { image ->
             image.url
         },
@@ -50,16 +48,15 @@ fun Comments.toComment(): Comment =
     Comment(
         content,
         star,
-        like,
         _id,
         Profile(
             id = created_by._id,
             name = created_by.name,
             avatar = created_by.avatar
         ),
-        responses.map {
+        responses?.map {
             it.toComment()
-        },
+        } ?: listOf(),
 //        (parser.parse(created_at)?: Date())
     )
 
@@ -98,9 +95,9 @@ fun ProductByCondition.toProduct(): Product =
         images = images.map {
             it.url
         },
-        tag = tags /*tags.map { tag ->
+        tag = /*tags*/ tags.map { tag ->
             tag.name
-        }*/
+        }
     )
 
 fun Cart.toCart(): CartModel =

@@ -233,7 +233,7 @@ class CartActivity : AppCompatActivity() {
             .setPositiveButton(
                 applicationContext.getString(R.string.delete_alert_yes)
             ) { _, _ ->
-                cartViewModel.removeProduct(product.id, product.sizes[0].id, "Yellow")
+                cartViewModel.removeProduct(product.id, product.sizes[0].id, product.colors[0])
                 cartProductAdapter.deleteProduct(position)
             }
             .setNegativeButton(applicationContext.getString(R.string.delete_alert_cancel), null)
