@@ -39,8 +39,8 @@ class ProductSizeAdapter : RecyclerView.Adapter<ProductSizeAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
-    fun selectedIndex(sizeId: String) {
-        val index = sizesList.indexOfFirst { sizeId == it.id }
+    fun selectedIndex(size: String) {
+        val index = sizesList.indexOfFirst { size == it.name }
         val beforeIndex = selectedIndex
         selectedIndex = index
         notifyItemChanged(beforeIndex)

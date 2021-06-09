@@ -5,7 +5,7 @@ data class Product(
     val name: String = "",
     val colors: List<String> = listOf(),
     val sizes: List<Size> = listOf(),
-    val comments: List</*Comment*/String> = listOf(),
+    val comments: List<String> = listOf(),
     val images: List<String> = listOf(),
     val thumbnail: List<String> = listOf(),
     val prices: Int = 0,

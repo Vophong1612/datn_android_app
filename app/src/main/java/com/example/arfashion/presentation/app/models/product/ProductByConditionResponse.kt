@@ -3,8 +3,14 @@ package com.example.arfashion.presentation.app.models.product
 import com.google.gson.annotations.SerializedName
 
 data class ProductByConditionResponse(
-    @SerializedName("products") val product: List<ProductByCondition>
-)
+    @SerializedName("products") val product: List<ProductByCondition>,
+    @SerializedName("offset") val offset: Int,
+    @SerializedName("limit") val limit: Int,
+    @SerializedName("currentPage") val currentPage: Int,
+    @SerializedName("totalPages") val totalPage: Int,
+    @SerializedName("totalCurrentDocs") val totalCurrentProduct: Int,
+    @SerializedName("totalDocs") val total: Int
+    )
 
 data class ProductByCondition(
     @SerializedName("name") val name : String,
