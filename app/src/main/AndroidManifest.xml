@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ARFashion"
         android:usesCleartextTraffic="true">
+        <activity android:name=".presentation.app.presentation.product.comment.CommentActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -27,11 +28,11 @@
         <activity android:name=".presentation.app.presentation.product.test.ARTestActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterPhoneUserInfoActivity" />
         <activity android:name=".presentation.app.presentation.address.AddNewAddressActivity" />
-        <activity android:name=".presentation.app.presentation.address.ChooseAddressActivity"/>
+        <activity android:name=".presentation.app.presentation.address.ChooseAddressActivity" />
         <activity android:name=".presentation.app.presentation.address.AddressListActivity" />
         <activity android:name=".presentation.app.presentation.forgot_password.ChangePasswordForgotActivity" />
         <activity android:name=".presentation.app.presentation.forgot_password.ForgotPasswordActivity" />
-        <activity android:name=".presentation.app.presentation.forgot_password.VerifyForgotPasswordActivity"/>
+        <activity android:name=".presentation.app.presentation.forgot_password.VerifyForgotPasswordActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterVerifyActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailUserInfoActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailOrPhoneActivity" />

@@ -149,13 +149,10 @@ class FilterDialog : DialogFragment() {
                 R.id.hightToLowRadioBtn -> sortPrice = "desc"
             }
 
-            //priceRange
-            val rangeValue = priceRangeSlider.values
-            val range = rangeValue[0].toInt().toString() + "," + rangeValue[1].toInt().toString()
-
             var slTag = ""
             selectedTag.forEach {
                 slTag += it.name + ","
+
             }
 
             //size

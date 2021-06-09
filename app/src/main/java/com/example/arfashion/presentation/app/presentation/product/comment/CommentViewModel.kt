@@ -20,11 +20,32 @@ class CommentViewModel : ViewModel(){
     val comment: LiveData<ARResult<List<Comment>>>
         get() = _comment
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     private val _total = MutableLiveData<ARResult<Int>>()
     val total : LiveData<ARResult<Int>> = _total
 
-    fun getComment(productId: String) {
-        commentService.getComments(productId).enqueue(object: Callback<GetCommentsResponse> {
+    private val _offset = MutableLiveData<ARResult<Int>>()
+    val offset : LiveData<ARResult<Int>> = _offset
+
+    private val _currentPage = MutableLiveData(0)
+    private val _totalPage = MutableLiveData(0)
+
+    var productId: String = ""
+
+    fun getComment(productId: String, offset: Int = 0, limit: Int = 10) {
+        if (offset != 0){
+            if (_currentPage.value!! >= _totalPage.value!!) {
+                return
+            }
+        } else {
+            reset()
+        }
+        this.productId = productId
+        _loading.value = true
+        commentService.getComments(productId, offset = offset, limit = limit).enqueue(object: Callback<GetCommentsResponse> {
             override fun onResponse(call: Call<GetCommentsResponse>, response: Response<GetCommentsResponse>) {
                 when (response.code()) {
                     200 -> {
@@ -33,20 +54,33 @@ class CommentViewModel : ViewModel(){
                                 comment.toComment()
                             })
                             _total.value = ARResult.Success(it.totals)
+                            _offset.value = ARResult.Success(it.offset + it.limit)
+                            _currentPage.value = it.currentPage
+                            _totalPage.value = it.totalPage
                         }
                     }
                     else ->  {
                         _comment.value = ARResult.Error(Throwable("Can not get comments. Code: ${response.code()}"))
-                        _total.value = ARResult.Error(Throwable("Can not get comments. Code: ${response.code()}"))
+                        _total.value = ARResult.Error(Throwable())
+                        _offset.value = ARResult.Error(Throwable())
                     }
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<GetCommentsResponse>, t: Throwable) {
                 _comment.value = ARResult.Error(t)
                 _total.value = ARResult.Error(t)
+                _offset.value = ARResult.Error(t)
+                _loading.value = false
             }
 
         })
+    }
+
+    private fun reset() {
+        _offset.value = ARResult.Success(0)
+        _totalPage.value = 0
+        _currentPage.value = 0
     }
 }

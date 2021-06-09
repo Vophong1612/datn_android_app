@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.data.model.Comment
+import com.example.arfashion.presentation.data.model.Product
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,6 +25,15 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
         }
 
         notifyDataSetChanged()
+    }
+
+    fun addData(data: List<Comment>) {
+        val start = comments.size
+        val end = start + data.size
+
+        comments.addAll(data)
+
+        notifyItemRangeInserted(start, end)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
