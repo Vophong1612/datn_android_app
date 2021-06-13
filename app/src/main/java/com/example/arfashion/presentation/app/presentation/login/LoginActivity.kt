@@ -15,8 +15,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
-import com.example.arfashion.presentation.app.presentation.address.AddNewAddressActivity
-import com.example.arfashion.presentation.app.presentation.address.AddressListActivity
 import com.example.arfashion.presentation.app.presentation.forgot_password.ForgotPasswordActivity
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
 import com.example.arfashion.presentation.app.presentation.register.RegisterEmailOrPhoneActivity
@@ -66,12 +64,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        init()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        init()
     }
 
     override fun onStart() {
@@ -115,11 +113,16 @@ class LoginActivity : AppCompatActivity() {
             if (it) {
                 val response = loginViewModel.loginResponse.value
                 response?.let { userRes ->
-                    userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    Utils.initData(userRes.user)
+                    userManager.currentUser = User(Profile(userRes.user.id, userRes.user.name,
+                        userRes.user.email, userRes.user.phone, userRes.user.avatar,
+                        userRes.user.gender, userRes.user.birthday), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
+                    userStorage.savePassword(passwordEdt.text.toString())
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Toast.makeText(this, getString(R.string.incorrect_data_login), Toast.LENGTH_SHORT).show()
@@ -130,10 +133,16 @@ class LoginActivity : AppCompatActivity() {
             if (it) {
                 val response = loginViewModel.loginGoogleResponse.value
                 response?.let { userRes ->
-                    userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    Utils.initData(userRes.user)
+                    userManager.currentUser = User(Profile(userRes.user.id, userRes.user.name,
+                        userRes.user.email, userRes.user.phone, userRes.user.avatar,
+                        userRes.user.gender, userRes.user.birthday), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
+                    userStorage.savePassword("")
+
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
@@ -144,10 +153,16 @@ class LoginActivity : AppCompatActivity() {
             if (it) {
                 val response = loginViewModel.loginFacebookResponse.value
                 response?.let { userRes ->
-                    userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    Utils.initData(userRes.user)
+                    userManager.currentUser = User(Profile(userRes.user.id, userRes.user.name,
+                        userRes.user.email, userRes.user.phone, userRes.user.avatar,
+                        userRes.user.gender, userRes.user.birthday), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
+                    userStorage.savePassword("")
+
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()

@@ -27,17 +27,19 @@
         <activity android:name=".presentation.app.presentation.product.test.ARTestActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterPhoneUserInfoActivity" />
         <activity android:name=".presentation.app.presentation.address.AddNewAddressActivity" />
-        <activity android:name=".presentation.app.presentation.address.ChooseAddressActivity"/>
+        <activity android:name=".presentation.app.presentation.address.ChooseAddressActivity" />
         <activity android:name=".presentation.app.presentation.address.AddressListActivity" />
         <activity android:name=".presentation.app.presentation.forgot_password.ChangePasswordForgotActivity" />
         <activity android:name=".presentation.app.presentation.forgot_password.ForgotPasswordActivity" />
-        <activity android:name=".presentation.app.presentation.forgot_password.VerifyForgotPasswordActivity"/>
+        <activity android:name=".presentation.app.presentation.forgot_password.VerifyForgotPasswordActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterVerifyActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailUserInfoActivity" />
         <activity android:name=".presentation.app.presentation.register.RegisterEmailOrPhoneActivity" />
         <activity android:name=".presentation.app.presentation.main.ui.categories.ProductResultActivity" />
         <activity android:name=".presentation.app.presentation.cart.CartActivity" />
         <activity android:name=".presentation.app.presentation.product.detail.ProductDetailActivity" />
+        <activity android:name=".presentation.app.presentation.main.ui.profile.ChangePasswordActivity"/>
+        <activity android:name=".presentation.app.presentation.main.ui.profile.ProfileDetailActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
             android:label="@string/title_activity_main_ativity"

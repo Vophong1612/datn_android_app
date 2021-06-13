@@ -64,6 +64,7 @@
     <string name="invalid_phone">Invalid phone. Try again</string>
     <string name="invalid_data">Data must not be empty</string>
     <string name="invalid_data_">Invalid input data. Try again</string>
+    <string name="invalid_old_password">Invalid old password</string>
     <string name="invalid_password">Password must contain more 6 characters</string>
     <string name="invalid_data_login">Please enter email and password</string>
 
@@ -77,7 +78,7 @@
     <string name="existed_email">Email already existed</string>
     <string name="existed_phone">Existed Phone</string>
 
-    <string name="server_client_id">512036407122-41hbaj45eeuq9lnecl8vs1o4edlgnukh.apps.googleusercontent.com</string>
+    <string name="server_client_id">512036407122-bbrfr7qnps3ct16nc92427frip11t5pe.apps.googleusercontent.com</string>
     <string name="facebook_app_id">518441759182869</string>
     <string name="fb_login_protocol_scheme">fb518441759182869</string>
 
@@ -123,6 +124,15 @@
     <string name="default_address">Default Address</string>
     <string name="default_address_">* Default Address</string>
     <string name="add_new_address">Add new address</string>
+
+    <string name="welcome">Welcome!</string>
+    <string name="favorite_list_label">Favorite</string>
+    <string name="cart_list_label">Cart</string>
+    <string name="order_management_label">Order Management</string>
+    <string name="sign_out">Sign out</string>
+
+    <string name="not_change">This field can not be changed</string>
+    <string name="profile_label">Profile</string>
 
     <string-array name="genderList">
         <item>Male</item>

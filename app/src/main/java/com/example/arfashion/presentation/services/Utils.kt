@@ -2,6 +2,7 @@ package com.example.arfashion.presentation.services
 
 import android.text.TextUtils
 import android.util.Patterns
+import com.example.arfashion.presentation.data.model.Profile
 
 class Utils {
     companion object{
@@ -43,6 +44,20 @@ class Utils {
                 return "84" + res.removeRange(0,1)
             }
             return ""
+        }
+
+        fun initData(user: Profile) {
+            if(user.email.isNullOrEmpty()) user.email = ""
+            if(user.phone.isNullOrEmpty()) user.phone = ""
+            if(user.birthday.isNullOrEmpty()) user.birthday = ""
+        }
+
+        fun formatDate(target: String): String {
+            return target.substring(6, 10) + "-" + target.substring(3,5) + "-" + target.substring(0,2) + "T00:00:00.000Z"
+        }
+
+        fun formatDateToString(target: String): String {
+            return target.substring(8,10) + "/" + target.substring(5,7) + "/" + target.substring(0,4)
         }
     }
 

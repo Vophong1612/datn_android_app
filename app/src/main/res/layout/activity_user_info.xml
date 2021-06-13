@@ -23,9 +23,10 @@
             android:layout_marginTop="15dp" />
 
         <ImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/iv_avatar_detail"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="fitXY"
             android:background="@drawable/bg_frame_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,8 +34,30 @@
             android:layout_marginTop="50dp"/>
 
         <View
-            android:id="@+id/user_info_background"
+            android:id="@+id/v_avatar_detail"
+            android:layout_width="125dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black_50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/back_layout"
+            android:layout_marginTop="145dp"/>
+
+        <ImageView
+            android:id="@+id/iv_avatar_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_layout"
+            android:layout_marginTop="148dp"
+            android:layout_marginStart="80dp"/>
+
+        <View
+            android:id="@+id/user_info_background"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar_detail"
             app:layout_constraintBottom_toBottomOf="@id/v_none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,35 +97,6 @@
             android:fontFamily="@font/sf_pro_text_regular"/>
 
         <TextView
-            android:id="@+id/passwordLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/password_label"
-            android:textColor="@color/palattes_1"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            app:layout_constraintTop_toBottomOf="@id/fullNameEdt"
-            app:layout_constraintStart_toStartOf="@id/passwordEdt"
-            android:fontFamily="@font/sf_pro_text_regular"/>
-
-        <EditText
-            android:id="@+id/passwordEdt"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_edt_radius_pressed"
-            android:hint="@string/password_edt_hint"
-            android:paddingStart="10dp"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@id/user_info_background"
-            app:layout_constraintStart_toStartOf="@id/user_info_background"
-            app:layout_constraintTop_toBottomOf="@id/passwordLabel"
-            tools:ignore="RtlSymmetry"
-            android:fontFamily="@font/sf_pro_text_regular"/>
-
-        <TextView
             android:id="@+id/phoneNumberLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,7 +105,7 @@
             android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
-            app:layout_constraintTop_toBottomOf="@id/passwordEdt"
+            app:layout_constraintTop_toBottomOf="@id/fullNameEdt"
             app:layout_constraintStart_toStartOf="@id/phoneNumberEdt"
             android:fontFamily="@font/sf_pro_text_regular"/>
 
@@ -121,9 +115,10 @@
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_edt_radius_pressed"
+            android:background="@drawable/bg_edt_radius_disabled"
             android:hint="@string/phone_number_edt_hint"
             android:paddingStart="10dp"
+            android:enabled="false"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
@@ -236,54 +231,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/addressLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:text="@string/address_label"
-            android:textColor="@color/palattes_1"
-            android:textSize="15sp"
-            android:fontFamily="@font/sf_pro_text_regular"
-            app:layout_constraintTop_toBottomOf="@id/ll_dob_gender"
-            app:layout_constraintStart_toStartOf="@id/relative_layout_address_register" />
-
-        <RelativeLayout
-            android:id="@+id/relative_layout_address_register"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginStart="5dp"
-            app:layout_constraintEnd_toEndOf="@id/user_info_background"
-            app:layout_constraintStart_toStartOf="@id/user_info_background"
-            app:layout_constraintTop_toBottomOf="@id/ll_dob_gender">
-
-            <EditText
-                android:id="@+id/addressEdt"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="40dp"
-                android:singleLine="true"
-                android:lines="1"
-                android:focusableInTouchMode="true"
-                android:background="@drawable/bg_edt_radius_pressed"
-                android:hint="@string/address_edt_hint"
-                tools:ignore="RtlSymmetry"
-                android:fontFamily="@font/sf_pro_text_regular"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_arrow_forward"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
-                android:layout_centerVertical="true"/>
-
-        </RelativeLayout>
-
-        <TextView
             android:id="@+id/emailLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -292,12 +239,12 @@
             android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
-            app:layout_constraintTop_toBottomOf="@id/relative_layout_address_register"
-            app:layout_constraintStart_toStartOf="@id/emailEdt"
+            app:layout_constraintTop_toBottomOf="@id/ll_dob_gender"
+            app:layout_constraintStart_toStartOf="@id/emailUserEdt"
             android:fontFamily="@font/sf_pro_text_regular"/>
 
         <EditText
-            android:id="@+id/emailEdt"
+            android:id="@+id/emailUserEdt"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
@@ -305,7 +252,6 @@
             android:background="@drawable/bg_edt_radius_pressed"
             android:hint="@string/email_edt_hint"
             android:paddingStart="10dp"
-            android:enabled="false"
             app:layout_constraintEnd_toEndOf="@id/user_info_background"
             app:layout_constraintStart_toStartOf="@id/user_info_background"
             app:layout_constraintTop_toBottomOf="@id/emailLabel"
@@ -314,9 +260,9 @@
 
         <View
             android:id="@+id/v_none"
-            app:layout_constraintTop_toBottomOf="@id/emailEdt"
-            app:layout_constraintStart_toStartOf="@id/emailEdt"
-            app:layout_constraintBottom_toTopOf="@id/emailEdt"
+            app:layout_constraintTop_toBottomOf="@id/emailUserEdt"
+            app:layout_constraintStart_toStartOf="@id/emailUserEdt"
+            app:layout_constraintBottom_toTopOf="@id/emailUserEdt"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_marginEnd="10dp"
@@ -325,7 +271,7 @@
 
         <View
             android:id="@+id/user_info_change_password_background"
-            app:layout_constraintTop_toBottomOf="@id/emailEdt"
+            app:layout_constraintTop_toBottomOf="@id/emailUserEdt"
             app:layout_constraintBottom_toBottomOf="@id/v_none_change_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -357,7 +303,7 @@
             app:layout_constraintStart_toStartOf="@id/user_info_change_password_background"
             app:layout_constraintTop_toBottomOf="@id/changePasswordLabel">
 
-            <EditText
+            <View
                 android:id="@+id/user_changePasswordEdt"
                 tools:ignore="RtlSymmetry"
                 android:layout_width="match_parent"
@@ -371,6 +317,7 @@
                 android:fontFamily="@font/sf_pro_text_regular"/>
 
             <ImageView
+                android:id="@+id/iv_user_transform_change_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_arrow_forward"

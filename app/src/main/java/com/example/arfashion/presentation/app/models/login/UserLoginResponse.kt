@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.models.login
 
+import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.RefreshToken
 import com.example.arfashion.presentation.data.model.User
 import com.google.gson.annotations.SerializedName
@@ -8,7 +9,7 @@ data class UserLoginResponse(
         @SerializedName("message")
         val message: String = "",
         @SerializedName("user")
-        val user: User,
+        val user: Profile,
         @SerializedName("accessToken")
         val accessToken: String = "",
 )

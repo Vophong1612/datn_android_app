@@ -15,13 +15,23 @@ private const val KEY_USER_AVATAR = "pref_user_avatar"
 private const val KEY_USER_GENDER = "pref_user_gender"
 private const val KEY_USER_BIRTHDAY = "pref_user_birthday"
 private const val KEY_USER_STATUS = "pref_user_status"
+private const val KEY_USER_PASSWORD = "pref_user_password"
 
 private const val KEY_USER_ACCESS_TOKEN = "pref_access_token"
 
 class UserLocalStorage(private val pref: SharedPreferences) : UserStorage {
     override fun load(): User {
         //implements here
-        return User(Profile(), Credential(pref.getString(KEY_USER_ACCESS_TOKEN, "").toString()))
+        return User(Profile(
+            pref.getString(KEY_USER_ID, "").toString(),
+            pref.getString(KEY_USER_NAME,"").toString(),
+            pref.getString(KEY_USER_EMAIL, "").toString(),
+            pref.getString(KEY_USER_PHONE, "").toString(),
+            pref.getString(KEY_USER_AVATAR, "").toString(),
+            pref.getInt(KEY_USER_GENDER, 0).toInt(),
+            pref.getString(KEY_USER_BIRTHDAY, "").toString(),
+            pref.getString(KEY_USER_STATUS, "").toString()
+        ), Credential(pref.getString(KEY_USER_ACCESS_TOKEN, "").toString()))
     }
 
     override fun save(user: User) {
@@ -35,6 +45,16 @@ class UserLocalStorage(private val pref: SharedPreferences) : UserStorage {
             putString(KEY_USER_BIRTHDAY, user.profile.birthday)
             putString(KEY_USER_STATUS, user.profile.account_status)
             putString(KEY_USER_ACCESS_TOKEN, user.credential.accessToken)
+        }.apply()
+    }
+
+    override fun loadPassword(): String {
+        return pref.getString(KEY_USER_PASSWORD, "").toString()
+    }
+
+    override fun savePassword(password: String){
+        pref.edit().apply {
+            putString(KEY_USER_PASSWORD, password)
         }.apply()
     }
 

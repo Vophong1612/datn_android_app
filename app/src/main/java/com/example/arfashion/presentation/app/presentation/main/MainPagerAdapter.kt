@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.CategoriesFragment
 import com.example.arfashion.presentation.app.presentation.main.ui.home.HomeFragment
-import com.example.arfashion.presentation.app.presentation.main.ui.profile.NotificationsFragment
+import com.example.arfashion.presentation.app.presentation.main.ui.profile.ProfileFragment
 
 class MainPagerAdapter(
     fragmentManager: FragmentManager,
@@ -21,7 +21,7 @@ class MainPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             TabPosition.Categories.index -> CategoriesFragment.newInstance()
-            TabPosition.Profile.index -> NotificationsFragment.newInstance()
+            TabPosition.Profile.index -> ProfileFragment.newInstance()
             else -> HomeFragment.newInstance()
         }
     }

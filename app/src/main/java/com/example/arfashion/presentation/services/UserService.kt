@@ -4,12 +4,12 @@ import com.example.arfashion.presentation.app.models.forgot_password.UserForgotP
 import com.example.arfashion.presentation.app.models.login.UserLoginFacebookResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.loginstatus_code.UserLoginGoogleResponse
+import com.example.arfashion.presentation.app.models.profile.AvatarResponse
+import com.example.arfashion.presentation.app.models.profile.ProfileResponse
 import com.example.arfashion.presentation.app.models.register.*
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserService {
 
@@ -70,6 +70,25 @@ interface UserService {
     @POST("/users/forgotPassword")
     @FormUrlEncoded
     fun changePasswordForgot(@Header("Authorization") token: String, @Field("password") password: String, @Field("confirmPassword") confirmPassword: String): Call<UserForgotPasswordResponse>
+
+    @POST("/users/changePassword")
+    @FormUrlEncoded
+    fun changePasswordProfile(@Header("Authorization") token: String, @Field("oldPassword") oldPassword: String, @Field("newPassword") newPassword: String, @Field("confirmNewPassword") confirmNewPassword: String): Call<UserForgotPasswordResponse>
+
+    @GET("/users/profile")
+    fun getProfile(@Header("Authorization") token: String): Call<ProfileResponse>
+
+    @POST("/users/updateProfile")
+    @FormUrlEncoded
+    fun updateProfile(@Header("Authorization") token: String,
+                      @Field("name") name: String,
+                      @Field("email") email: String,
+                      @Field("birthday") birthday: String,
+                      @Field("gender") gender: Int): Call<UserLoginResponse>
+
+    @Multipart
+    @POST("/users/uploadAvatar")
+    fun uploadAvatar(@Header("Authorization") token: String, @Part avatar: MultipartBody.Part): Call<AvatarResponse>
 
     companion object {
 
