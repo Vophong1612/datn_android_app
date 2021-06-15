@@ -1,6 +1,5 @@
 package com.example.arfashion.presentation.app.presentation.product.filter
 
-import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,16 +23,7 @@ import com.example.arfashion.presentation.data.model.Category
 import com.example.arfashion.presentation.data.model.Size
 import com.example.arfashion.presentation.data.model.Tag
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.dialog_filter.*
-
-private const val KEY_SHARED_PREFERENCES = "key_shared_preferences_filter_state"
-private const val KEY_CATEGORY_SELECTED = "key_category_selected"
-private const val KEY_SORT_PRICE_SELECTED = "key_sort_price_selected"
-private const val KEY_SIZE_SELECTED = "key_sized_selected"
-private const val KEY_PRICE_RANGE_BELOW = "key_price_range_below"
-private const val KEY_PRICE_RANGE_UP = "key_price_range_up"
-private const val KEY_TAGS_SELECTED = "key_tags_selected"
 
 class FilterDialog : DialogFragment() {
     companion object {
@@ -54,7 +44,7 @@ class FilterDialog : DialogFragment() {
 
     private var size: List<Size>? = listOf()
 
-    private var selectedSizeId: String = ""
+    private var selectedSize: String = ""
 
     private var sortPrice = "asc"
 
@@ -62,9 +52,7 @@ class FilterDialog : DialogFragment() {
 
     private var selectedTag: MutableList<Tag> = mutableListOf()
 
-    private val pref by lazy {
-        requireContext().getSharedPreferences(KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-    }
+    private lateinit var filterController: FilterController
 
     private val gson = GsonBuilder().create()
 
@@ -97,6 +85,9 @@ class FilterDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        filterController = FilterController(requireContext())
+
         productSizeAdapter = ProductSizeAdapter()
         with(sizeList) {
             adapter = productSizeAdapter
@@ -125,8 +116,9 @@ class FilterDialog : DialogFragment() {
 
         clearFilter.setOnClickListener {
             dismiss()
-            categoriesViewModel.filterProduct()
-            pref.edit().clear().apply()
+            filterController.clearFilter()
+            categoriesViewModel.reset()
+            categoriesViewModel.invokeAction()
         }
 
         applyBtn.setOnClickListener {
@@ -137,6 +129,7 @@ class FilterDialog : DialogFragment() {
             button?.let {
                 when (val catName = button.text) {
                     "all" -> {
+                        catId = "all"
                     }
                     else -> {
                         category?.let {
@@ -160,29 +153,30 @@ class FilterDialog : DialogFragment() {
             val rangeValue = priceRangeSlider.values
             val range = rangeValue[0].toInt().toString() + "," + rangeValue[1].toInt().toString()
 
-            var selectedTag = ""
-            this.selectedTag.forEach {
-                selectedTag += it.id + ","
+            var slTag = ""
+            selectedTag.forEach {
+                slTag += it.name + ","
             }
 
             //size
             productSizeAdapter.selectedIndex.let {
                 if (it != -1) {
                     size?.let { list ->
-                        selectedSizeId = list[it].id
+                        selectedSize = list[it].name
                     }
                 }
             }
 
-            categoriesViewModel.filterProduct(
-                categoryId = catId,
-                priceSort = sortPrice,
-                sizeId = selectedSizeId,
-                priceRange = range,
-                tags = selectedTag
+            categoriesViewModel.reset()
+            filterController.saveStateFilter(
+                catId,
+                sortPrice,
+                selectedSize,
+                priceRangeSlider.values[0],
+                priceRangeSlider.values[1],
+                gson.toJson(this.selectedTag)
             )
-
-            saveStatePref()
+            categoriesViewModel.invokeAction()
         }
 
         categoriesViewModel.category.observe(viewLifecycleOwner, {
@@ -203,26 +197,17 @@ class FilterDialog : DialogFragment() {
         })
     }
 
-    private fun saveStatePref() {
-        pref.edit().clear().apply()
-        pref.edit().apply {
-            putString(KEY_CATEGORY_SELECTED, catId)
-            putInt(KEY_SORT_PRICE_SELECTED, sortPriceRadioGroup.checkedRadioButtonId)
-            putString(KEY_SIZE_SELECTED, selectedSizeId)
-            putFloat(KEY_PRICE_RANGE_BELOW, priceRangeSlider.values[0])
-            putFloat(KEY_PRICE_RANGE_UP, priceRangeSlider.values[1])
-            putString(KEY_TAGS_SELECTED, gson.toJson(selectedTag))
-        }.apply()
-    }
-
     private fun setUpView() {
-        val sortPriceSelected = pref.getInt(KEY_SORT_PRICE_SELECTED, -1)
-        if (sortPriceSelected != -1) {
-            sortPriceRadioGroup.check(sortPriceSelected)
+        val sortPriceSelected = filterController.getSortPrice()
+        sortPriceSelected?.let {
+            when (it) {
+                "desc" -> sortPriceRadioGroup.check(R.id.hightToLowRadioBtn)
+                else -> sortPriceRadioGroup.check(R.id.lowToHighRadioBtn)
+            }
         }
 
-        val pricesBelow = pref.getFloat(KEY_PRICE_RANGE_BELOW, 0f)
-        val pricesUp = pref.getFloat(KEY_PRICE_RANGE_UP, 10000000f)
+        val pricesBelow = filterController.getPriceRangeBellow()
+        val pricesUp = filterController.getPriceRangeAbove()
         priceRangeSlider.values = listOf(pricesBelow, pricesUp)
 
     }
@@ -239,14 +224,7 @@ class FilterDialog : DialogFragment() {
     }
 
     private fun initTagSelected() {
-        val type = object : TypeToken<List<Tag>>() {}.type
-        val tagsList: MutableList<Tag> = try {
-            gson.fromJson(pref.getString(KEY_TAGS_SELECTED, null), type)
-                ?: mutableListOf()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            mutableListOf()
-        }
+        val tagsList = filterController.getTagsList()
         if (tagsList.isNotEmpty()) {
             selectedTag.clear()
             selectedTag.addAll(tagsList)
@@ -267,10 +245,9 @@ class FilterDialog : DialogFragment() {
     }
 
     private fun initSizeSelected() {
-        val sizeIdSelected = pref.getString(KEY_SIZE_SELECTED, "")
+        val sizeIdSelected = filterController.getSize()
         sizeIdSelected?.let {
             productSizeAdapter.selectedIndex(it)
-
         }
     }
 
@@ -287,7 +264,7 @@ class FilterDialog : DialogFragment() {
         val all = createRadioButton(getString(R.string.filter_tags_all))
         categoryList.addView(all)
 
-        pref.getString(KEY_CATEGORY_SELECTED, "all")?.let {
+       filterController.getCategory()?.let {
             catId = it
         }
 

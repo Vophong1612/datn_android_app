@@ -36,14 +36,17 @@ class CategoriesViewModel : ViewModel() {
     private val _size = MutableLiveData<ARResult<List<Size>>>()
     val size: LiveData<ARResult<List<Size>>> = _size
 
-    private val _search = MutableLiveData<ARResult<List<Product>>>()
-    val search: LiveData<ARResult<List<Product>>> = _search
-
-    private val _listProductByCategory = MutableLiveData<ARResult<List<Product>>>()
-    val listProductByCategory: LiveData<ARResult<List<Product>>> = _listProductByCategory
-
     private val _filter = MutableLiveData<ARResult<List<Product>>>()
     val filter : LiveData<ARResult<List<Product>>> = _filter
+
+    private val _offset = MutableLiveData<ARResult<Int>>()
+    val offset : LiveData<ARResult<Int>> = _offset
+
+    private val _currentPage = MutableLiveData(0)
+    private val _totalPage = MutableLiveData(0)
+
+    private val _action = MutableLiveData<ARResult<Unit>>()
+    val action : LiveData<ARResult<Unit>> = _action
 
     fun getCategories() {
         _loading.value = true
@@ -119,77 +122,23 @@ class CategoriesViewModel : ViewModel() {
         })
     }
 
-    fun searchByKeyWord(keyword: String) {
-        _loading.value = true
-        productService.getProductByCondition(keyword = keyword)
-            .enqueue(object : Callback<ProductByConditionResponse> {
-                override fun onResponse(
-                    call: Call<ProductByConditionResponse>,
-                    response: Response<ProductByConditionResponse>
-                ) {
-                    _loading.value = false
-                    when (response.code()) {
-                        200 -> {
-                            response.body()?.let {
-                                _search.value = ARResult.Success(it.product.map { product ->
-                                    product.toProduct()
-                                })
-                            }
-                        }
-                        else -> _search.value =
-                            ARResult.Error(Throwable("Fail to search. Code: ${response.code()}"))
-                    }
-                }
-
-                override fun onFailure(call: Call<ProductByConditionResponse>, t: Throwable) {
-                    _loading.value = false
-                    _search.value = ARResult.Error(t)
-                }
-
-            })
-    }
-
-    fun getProductListByCategory(id: String) {
-        _loading.value = true
-        productService.getProductByCondition(categoryId = id)
-            .enqueue(object : Callback<ProductByConditionResponse> {
-                override fun onResponse(
-                    call: Call<ProductByConditionResponse>,
-                    response: Response<ProductByConditionResponse>
-                ) {
-                    _loading.value = false
-                    when (response.code()) {
-                        200 -> {
-                            response.body()?.let {
-                                _listProductByCategory.value =
-                                    ARResult.Success(it.product.map { product ->
-                                        product.toProduct()
-                                    })
-                            }
-                        }
-                        else -> _listProductByCategory.value =
-                            ARResult.Error(Throwable("Fail to get list product by category. Code: ${response.code()}"))
-                    }
-                }
-
-                override fun onFailure(call: Call<ProductByConditionResponse>, t: Throwable) {
-                    _loading.value = false
-                    _listProductByCategory.value = ARResult.Error(t)
-                }
-            })
-    }
-
     fun filterProduct(
         keyword: String = "",
         time: String = "asc",
         categoryId: String = "all",
         priceRange: String = "",
         priceSort: String = "asc",
-        sizeId: String = "",
+        size: String = "",
         tags: String = "",
-        limit: Int = 12,
+        limit: Int = 2,
         offset: Int = 0
     ) {
+        if (offset != 0 && _currentPage.value!! >= _totalPage.value!!) {
+            return
+        }
+        if (offset == 0) {
+            reset()
+        }
         _loading.value = true
         productService.getProductByCondition(
             keyword,
@@ -197,7 +146,7 @@ class CategoriesViewModel : ViewModel() {
             categoryId,
             priceRange,
             priceSort,
-            sizeId,
+            size,
             tags,
             limit,
             offset
@@ -213,10 +162,16 @@ class CategoriesViewModel : ViewModel() {
                                 _filter.value = ARResult.Success(it.product.map { product ->
                                     product.toProduct()
                                 })
+                                _offset.value = ARResult.Success(it.offset + it.limit)
+                                _currentPage.value = it.currentPage
+                                _totalPage.value = it.totalPage
                             }
                         }
-                        else -> _filter.value =
-                            ARResult.Error(Throwable("Fail to search. Code: ${response.code()}"))
+                        else -> {
+                            _filter.value =
+                                ARResult.Error(Throwable("Fail to search. Code: ${response.code()}"))
+                            _offset.value = ARResult.Error(Throwable())
+                        }
                     }
                     _loading.value = false
                 }
@@ -224,8 +179,18 @@ class CategoriesViewModel : ViewModel() {
                 override fun onFailure(call: Call<ProductByConditionResponse>, t: Throwable) {
                     _filter.value = ARResult.Error(t)
                     _loading.value = false
+                    _offset.value = ARResult.Error(t)
                 }
-
             })
+    }
+
+    fun reset() {
+        _offset.value = ARResult.Success(0)
+        _totalPage.value = 0
+        _currentPage.value = 0
+    }
+
+    fun invokeAction(){
+        _action.value = ARResult.Success(Unit)
     }
 }

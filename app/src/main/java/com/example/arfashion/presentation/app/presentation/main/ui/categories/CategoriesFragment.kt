@@ -92,7 +92,7 @@ class CategoriesFragment : Fragment() {
                     offer(it.toString())
                 }
                 awaitClose { cancel() }
-            }.debounce(300)
+            }.debounce(700)
                 .collect {
                     if (it.isNotEmpty()){
                         val intent = Intent(this@CategoriesFragment.requireContext(), ProductResultActivity::class.java)

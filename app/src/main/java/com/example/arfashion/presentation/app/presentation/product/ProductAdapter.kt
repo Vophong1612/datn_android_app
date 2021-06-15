@@ -29,6 +29,15 @@ class ProductAdapter(private val context: Context, private val isViewPager: Bool
         notifyDataSetChanged()
     }
 
+    fun addProducts(products: List<Product>) {
+        val start = this.products.size
+        val end = start + products.size
+
+        this.products.addAll(products)
+
+        notifyItemRangeInserted(start, end)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)

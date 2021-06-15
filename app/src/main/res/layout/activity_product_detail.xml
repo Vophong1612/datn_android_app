@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
-                android:rating="4"
+                tools:rating="4"
                 android:progressTint="@color/rating_item"
                 app:layout_constraintTop_toBottomOf="@id/productName"
                 app:layout_constraintStart_toStartOf="parent"

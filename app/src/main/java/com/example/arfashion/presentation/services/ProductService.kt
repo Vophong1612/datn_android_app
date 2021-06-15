@@ -45,8 +45,8 @@ interface ProductService {
         @Query("priceSort") priceSort: String = "asc",
         @Query("size") sizeId: String = "",
         @Query("tags") tags: String = "",
-        @Query("limit") limit: Int = 12,
-        @Query("offset") offset: Int = 0
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?
     ): Call<ProductByConditionResponse>
 
     @Multipart

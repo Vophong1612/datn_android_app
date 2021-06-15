@@ -12,20 +12,12 @@ class SearchItemOffset(
 
     private val verticalOffset = context.dp(10f)
 
-    private val bottomOffset = context.dp(70f)
-
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        val position = (view.layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
-
         outRect.top = verticalOffset
-
-        if (position == (parent.adapter?.itemCount ?: 0) - 1) {
-            outRect.bottom = bottomOffset
-        }
     }
 }
