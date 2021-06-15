@@ -4,7 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class GetCommentsResponse(
     @SerializedName("comments") val comment: List<Comments>,
-    @SerializedName("totalDocs") val totals: Int
+    @SerializedName("totalDocs") val totals: Int,
+    @SerializedName("offset") val offset: Int,
+    @SerializedName("limit") val limit: Int,
+    @SerializedName("currentPage") val currentPage: Int,
+    @SerializedName("totalPages") val totalPage: Int,
+    @SerializedName("totalCurrentDocs") val totalCurrentProduct: Int,
 )
 
 data class Comments(

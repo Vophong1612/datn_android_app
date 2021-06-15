@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.product.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
+import com.example.arfashion.presentation.app.presentation.product.comment.CommentActivity
 import com.example.arfashion.presentation.app.presentation.product.comment.CommentViewModel
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
@@ -45,15 +48,7 @@ class ProductReviewTabFragment : Fragment() {
         commentViewModel.comment.observe(viewLifecycleOwner) {
             when(it) {
                 is ARResult.Success -> {
-                    it.data.let { list ->
-                        val temp = if (list.size >= 2) {
-                            list.subList(0, 2)
-                        } else {
-                            list
-                        }
-
-                        handleData(temp)
-                    }
+                    handleData(it.data)
                 }
                 is ARResult.Error -> {
                     Toast.makeText(this.requireContext(), it.throwable.message, Toast.LENGTH_SHORT).show()
@@ -70,6 +65,12 @@ class ProductReviewTabFragment : Fragment() {
                     label.text = requireContext().getString(R.string.review_label, 0)
                 }
             }
+        }
+
+        viewAllBtn.setOnClickListener {
+            val intent = Intent(requireContext(), CommentActivity::class.java)
+            intent.putExtra(KEY_PRODUCT_ID, commentViewModel.productId)
+            startActivity(intent)
         }
     }
 
