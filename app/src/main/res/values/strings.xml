@@ -1,0 +1,146 @@
+<resources>
+    <string name="app_name">ARFashion</string>
+
+    <string name="or">Or</string>
+
+    <string name="username_label">Username</string>
+    <string name="username_edt_hint"><font size="12">Enter username here</font></string>
+    <string name="password_label">Password</string>
+    <string name="password_edt_hint"><font size="12">Enter password here</font></string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up_">Sign Up!</string>
+    <string name="select_address">Select Address</string>
+    <string name="add_address">Add Address</string>
+    <string name="choose_address">Choose Address</string>
+
+    <string name="email_label">Email</string>
+    <string name="email_edt_hint"><font size="12">Enter your email or phone here</font></string>
+    <string name="continue_btn">Continue</string>
+    <string name="sign_in_register">Sign In!</string>
+    <string name="verify_btn">Verify</string>
+
+    <string name="price">%1$d VND</string>
+    <string name="default_price">&lt;strike> %1$d VND &lt;/strike> </string>
+    <string name="sale_tag">sale</string>
+    <string name="title_activity_main_ativity">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_category">Categories</string>
+    <string name="title_profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="clear_search_button">Hủy</string>
+
+    <string name="current_password_label">Current password</string>
+    <string name="current_password_edt_hint"><font size="12">Enter current password here</font></string>
+    <string name="new_password_label">New password</string>
+    <string name="new_password_edt_hint"><font size="12">Enter new password here</font></string>
+    <string name="confirm_password_label">Confirm password</string>
+    <string name="confirm_password_edt_hint"><font size="12">Enter confirm password here</font></string>
+    <string name="forgot_password_label">Forgot password</string>
+    <string name="user_info">Your Profile</string>
+    <string name="full_name_label">Full Name</string>
+    <string name="full_name_edt_hint"><font size="12">Enter fullname here</font></string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="phone_number_edt_hint"><font size="12">Enter phone number here</font></string>
+    <string name="birthday_label">Birthday</string>
+    <string name="birthday_edt_hint"><font size="12">Choose date</font></string>
+    <string name="gender_label">Gender</string>
+    <string name="address_label">Address</string>
+    <string name="address_edt_hint"><font size="12">Choose address here</font></string>
+    <string name="change_password_label">Change Password</string>
+    <string name="choose_from_device_label">Choose from your device</string>
+    <string name="choose_from_camera_label">Camera</string>
+    <string name="province_label">Province</string>
+    <string name="district_label">District</string>
+    <string name="ward_label">Ward</string>
+    <string name="street_label">Street Name</string>
+    <string name="street_name_edt_hint"><font size="12">Enter street name here</font></string>
+    <string name="choose_from_camera">Camera</string>
+    <string name="choose_from_gallery">Choose from gallery</string>
+    <string name="resend_active_email">Resend Code</string>
+
+    <string name="invalid_email">Invalid email. Try again</string>
+    <string name="invalid_phone">Invalid phone. Try again</string>
+    <string name="invalid_data">Data must not be empty</string>
+    <string name="invalid_data_">Invalid input data. Try again</string>
+    <string name="invalid_password">Password must contain more 6 characters</string>
+    <string name="invalid_data_login">Please enter email and password</string>
+
+    <string name="incorrect_data_login">Email or password is incorrect</string>
+    <string name="incorrect_active_code">Incorrect active code</string>
+
+    <string name="register_fail">Fail to register. Try again</string>
+    <string name="confirm_password_fail">Password and Confirm Password must be equal. Try again</string>
+    <string name="send_code_successfully">Code has sent to your device. Check it!</string>
+
+    <string name="existed_email">Email already existed</string>
+    <string name="existed_phone">Existed Phone</string>
+
+    <string name="server_client_id">512036407122-41hbaj45eeuq9lnecl8vs1o4edlgnukh.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">518441759182869</string>
+    <string name="fb_login_protocol_scheme">fb518441759182869</string>
+
+    <string name="best_seller_label">Best Seller</string>
+    <string name="recommed_for_you_text">Recommed for you</string>
+    <string name="ar_test">AR Test</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="product_desciption_tab">Desciption</string>
+    <string name="product_review_tab">Review</string>
+    <string name="related_product">Related Product</string>
+    <string name="total_rating">(%1$d)</string>
+    <string name="review_label">%1$d Review(s)</string>
+    <string name="view_all">View all…</string>
+    <string name="no_review_alert">Be the first to review this product !</string>
+    <string name="no_related_product_alert">Not available !</string>
+    <string name="selected_image_dialog_title">Choose your picture</string>
+    <string name="selected_image_dialog_take_image_option">Take image</string>
+    <string name="selected_image_dialog_from_gallery_option">Choose from galary</string>
+    <string name="selected_image_dialog_cancel_option">Cancel</string>
+    <string name="access_storage_denied">Can not access to storage</string>
+    <string name="prepare_stream_error">Cannot connect to camera. Please check the installation and try again.</string>
+
+    <string name="categories_man">Man</string>
+    <string name="categories_kid">Kid</string>
+    <string name="category_woman">Woman</string>
+    <string name="category_could_not_be_found">Category could not be found !</string>
+    <string name="product_could_not_be_found">Product could not be found !</string>
+    <string name="tag_could_not_be_found"> Not Tag available !</string>
+    <string name="sort_by">Sort by:</string>
+
+    <string name="cart_screen_name">Cart</string>
+    <string name="select_all">Select all</string>
+    <string name="buy_now">Buy now</string>
+    <string name="total_prices">Total: %1$d VND</string>
+    <string name="cart_size">Size: %1$s</string>
+    <string name="cart_color">Color: %1$s</string>
+    <string name="delete_alert_yes">Yes</string>
+    <string name="delete_alert_cancel">Cancel</string>
+    <string name="cart_is_empty">Cart is Empty !</string>
+    <string name="ar_test_your_result">Your Result</string>
+    <string name="retry_ar_test_btn">Retry</string>
+
+    <string name="default_address">Default Address</string>
+    <string name="default_address_">* Default Address</string>
+    <string name="add_new_address">Add new address</string>
+
+    <string-array name="genderList">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string name="filter_category_label">Category</string>
+    <string name="filter_sort_price">Sort Price</string>
+    <string name="filter_price_low_to_hight">Low - Hight</string>
+    <string name="filter_price_high_to_low">High - Low</string>
+    <string name="filter_price_range_label">Price</string>
+    <string name="filter_size">Size</string>
+    <string name="filter_tags_all">All</string>
+    <string name="filter_tags">Tags</string>
+    <string name="filter_apply_btn">Apply</string>
+    <string name="clear_filter">Clear filter</string>
+    <string-array name="filter_range_slider_values">
+        <item>0</item>
+        <item>3000000</item>
+    </string-array>
+</resources>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray">
+
+        <include
+            android:id="@+id/back_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/layout_back_save_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="15dp" />
+
+        <View
+            android:id="@+id/user_info_background"
+            app:layout_constraintTop_toBottomOf="@id/back_layout"
+            app:layout_constraintBottom_toBottomOf="@id/v_none"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/fullNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/full_name_label"
+            android:textColor="@color/palattes_1"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/user_info_background"
+            app:layout_constraintStart_toStartOf="@id/fullNameEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <EditText
+            android:id="@+id/fullNameEdt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_edt_radius_pressed"
+            android:hint="@string/full_name_edt_hint"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="@id/user_info_background"
+            app:layout_constraintStart_toStartOf="@id/user_info_background"
+            app:layout_constraintTop_toBottomOf="@id/fullNameLabel"
+            tools:ignore="RtlSymmetry"
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <TextView
+            android:id="@+id/passwordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password_label"
+            android:textColor="@color/palattes_1"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toBottomOf="@id/fullNameEdt"
+            app:layout_constraintStart_toStartOf="@id/relative_layout_password"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_password"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="@id/user_info_background"
+            app:layout_constraintStart_toStartOf="@id/user_info_background"
+            app:layout_constraintTop_toBottomOf="@id/passwordLabel">
+
+        <EditText
+            android:id="@+id/passwordEdt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/bg_edt_radius_pressed"
+            android:hint="@string/password_edt_hint"
+            android:paddingStart="10dp"
+            android:inputType="textPassword"
+            tools:ignore="RtlSymmetry"
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+            <ImageView
+                android:id="@+id/iv_toggle_phone_pass"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/toggle_password_close"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/confirmPasswordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_password_label"
+            android:textColor="@color/palattes_1"
+            android:textSize="15sp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toBottomOf="@id/relative_layout_password"
+            app:layout_constraintStart_toStartOf="@id/relative_layout_conf_pass" />
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_conf_pass"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="@id/user_info_background"
+            app:layout_constraintStart_toStartOf="@id/user_info_background"
+            app:layout_constraintTop_toBottomOf="@id/confirmPasswordLabel">
+
+            <EditText
+            android:id="@+id/confirmPasswordEdt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/bg_edt_radius_pressed"
+            android:hint="@string/confirm_password_edt_hint"
+            android:paddingStart="10dp"
+            android:inputType="textPassword"
+            tools:ignore="RtlSymmetry"
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+            <ImageView
+                android:id="@+id/iv_toggle_phone_conf_pass"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/toggle_password_close"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/phoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_number_label"
+            android:textColor="@color/palattes_1"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toBottomOf="@id/relative_layout_conf_pass"
+            app:layout_constraintStart_toStartOf="@id/phoneEdt"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <EditText
+            android:id="@+id/phoneEdt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_edt_radius_pressed"
+            android:hint="@string/phone_number_edt_hint"
+            android:paddingStart="10dp"
+            android:enabled="false"
+            app:layout_constraintEnd_toEndOf="@id/user_info_background"
+            app:layout_constraintStart_toStartOf="@id/user_info_background"
+            app:layout_constraintTop_toBottomOf="@id/phoneLabel"
+            tools:ignore="RtlSymmetry"
+            android:singleLine="true"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:id="@+id/v_none"
+            app:layout_constraintTop_toBottomOf="@id/phoneEdt"
+            app:layout_constraintStart_toStartOf="@id/phoneEdt"
+            app:layout_constraintBottom_toTopOf="@id/phoneEdt"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+
+
