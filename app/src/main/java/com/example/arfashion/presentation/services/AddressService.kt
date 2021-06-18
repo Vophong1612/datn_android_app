@@ -1,9 +1,6 @@
 package com.example.arfashion.presentation.services
 
-import com.example.arfashion.presentation.app.models.address.ResultAddressResponse
-import com.example.arfashion.presentation.app.models.address.ResultDistrictResponse
-import com.example.arfashion.presentation.app.models.address.ResultProvinceResponse
-import com.example.arfashion.presentation.app.models.address.ResultWardResponse
+import com.example.arfashion.presentation.app.models.address.*
 import com.example.arfashion.presentation.app.models.profile.ProfileResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -40,7 +37,7 @@ interface AddressService {
     fun deleteAddress(@Header("Authorization") token: String, @Field("_id") _id: String,): Call<ResultAddressResponse>
 
     @GET("/users/address/list")
-    fun loadAddress(@Header("Authorization") token: String): Call<ResultAddressResponse>
+    fun loadAddress(@Header("Authorization") token: String): Call<LoadAddressListResponse>
 
     companion object {
         fun create(): AddressService {

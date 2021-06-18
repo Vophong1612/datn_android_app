@@ -19,8 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ARFashion"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.app.presentation.bill.BillActivity"></activity>
-        <activity android:name=".presentation.app.presentation.product.comment.CommentActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -40,6 +38,9 @@
         <activity android:name=".presentation.app.presentation.main.ui.categories.ProductResultActivity" />
         <activity android:name=".presentation.app.presentation.cart.CartActivity" />
         <activity android:name=".presentation.app.presentation.product.detail.ProductDetailActivity" />
+        <activity android:name=".presentation.app.presentation.bill.BillActivity"></activity>
+        <activity android:name=".presentation.app.presentation.payment.PaymentActivity"></activity>
+        <activity android:name=".presentation.app.presentation.product.comment.CommentActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
             android:label="@string/title_activity_main_ativity"
