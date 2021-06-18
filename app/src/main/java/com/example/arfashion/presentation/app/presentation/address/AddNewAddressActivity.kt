@@ -55,16 +55,23 @@ class AddNewAddressActivity : AppCompatActivity() {
                         + ChooseAddressActivity.curr_district_name  + ", "
                         + ChooseAddressActivity.curr_province_name)
             }
-        }else{
-            if(ChooseAddressActivity.curr_home_name.isNotEmpty()){
-                addressEdt.setText(ChooseAddressActivity.curr_home_name + ", "
-                        + ChooseAddressActivity.curr_ward_name  + ", "
-                        + ChooseAddressActivity.curr_district_name  + ", "
+        }else {
+            if (ChooseAddressActivity.curr_home_name == intent.getSerializableExtra("obj.home").toString()) {
+                ChooseAddressActivity.curr_home_name =
+                    intent.getSerializableExtra("obj.home").toString()
+                ChooseAddressActivity.curr_ward_name =
+                    intent.getSerializableExtra("obj.village").toString()
+                ChooseAddressActivity.curr_district_name =
+                    intent.getSerializableExtra("obj.district").toString()
+                ChooseAddressActivity.curr_province_name =
+                    intent.getSerializableExtra("obj.province").toString()
+
+            }
+            addressEdt.setText(
+                ChooseAddressActivity.curr_home_name + ", "
+                        + ChooseAddressActivity.curr_ward_name + ", "
+                        + ChooseAddressActivity.curr_district_name + ", "
                         + ChooseAddressActivity.curr_province_name)
-            }else addressEdt.setText(intent.getSerializableExtra("obj.home").toString() + ", " +
-                    intent.getSerializableExtra("obj.village").toString() + ", " +
-                    intent.getSerializableExtra("obj.district").toString() + ", " +
-                    intent.getSerializableExtra("obj.province").toString())
         }
     }
 

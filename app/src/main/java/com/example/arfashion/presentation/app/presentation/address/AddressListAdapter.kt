@@ -63,6 +63,7 @@ class AddressListAdapter(private val context: Activity) :
                 PaymentActivity.paymentAddress =
                     addressList[adapterPosition].home +  ", " +  addressList[adapterPosition].village.name  + ", " +  addressList[adapterPosition].district.name  + ", " +  addressList[adapterPosition].province.name
                 PaymentActivity.paymentDefault = addressList[adapterPosition].isDefault
+                PaymentActivity.paymentId = addressList[adapterPosition]._id
                 context.finish()
             }
 

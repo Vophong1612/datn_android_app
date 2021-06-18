@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.arfashion.presentation.app.models.payment.AddBillResponse
 import com.example.arfashion.presentation.app.models.payment.PaymentMethodResponse
+import com.example.arfashion.presentation.app.models.payment.ProductInAPI
 import com.example.arfashion.presentation.app.models.payment.ProductInBill
 import com.example.arfashion.presentation.services.PaymentService
 import retrofit2.Call
@@ -51,7 +52,7 @@ class PaymentViewModel(
         })
     }
 
-    fun addBill(token: String, totalProduct: Int, address: String, payment: String, totalCost: Int, products: List<ProductInBill>) {
+    fun addBill(token: String, totalProduct: Int, address: String, payment: String, totalCost: Int, products: List<ProductInAPI>) {
         paymentService.addBill("Bearer $token", totalProduct, address, payment, totalCost, products).enqueue(object :
             Callback<AddBillResponse> {
             override fun onResponse(

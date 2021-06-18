@@ -155,7 +155,11 @@
     <string name="total_payment">Total payment</string>
     <string name="default_money">200,000d</string>
 
-    <string name="alert_payment">Purchase means you agree to our <b> Terms of using </b></string>
+    <string name="alert_payment">Purchase means you agree to our <b>Terms of using</b></string>
     <string name="alert_must_be_choose">You must be choose at least one product</string>
+    <string name="alert_must_be_choose_method">You must be choose one payment method</string>
+    <string name="alert_must_be_choose_address">You must be choose receiver address</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 
 </resources>

@@ -6,5 +6,6 @@ data class PaymentItem(
     @SerializedName("_id")
     val _id: String = "",
     @SerializedName("name")
-    val name: String = ""
+    val name: String = "",
+    var isChosen: Boolean
 )

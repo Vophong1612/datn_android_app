@@ -138,8 +138,10 @@ class CartActivity : AppCompatActivity() {
         cartProductAdapter.selectCbClickEvent = { product, isChecked ->
             if (isChecked) {
                 cartViewModel.updateTotalPrice(product.priceSale * product.total)
+                product.isCartCheck = true
             } else {
                 cartViewModel.updateTotalPrice(-product.priceSale * product.total)
+                product.isCartCheck = false
             }
         }
         cartProductAdapter.deleteProductClickEvent = { product, position ->
@@ -181,7 +183,6 @@ class CartActivity : AppCompatActivity() {
         buyNowBtn.setOnClickListener {
            if(isChosen){
                val intent = Intent(this, PaymentActivity::class.java)
-               cartProductAdapter.notifyDataSetChanged()
                temp = cartProductAdapter.getData()
                startActivity(intent)
            }else Toast.makeText(this, getString(R.string.alert_must_be_choose), Toast.LENGTH_SHORT).show()
@@ -199,12 +200,12 @@ class CartActivity : AppCompatActivity() {
 
         val priceStartIndex = messageSpan.indexOf(priceText)
         val priceEndIndex = priceStartIndex + priceText.length
-//        messageSpan.setSpan(
-//            ForegroundColorSpan(getColor(R.color.palattes_2)),
-//            priceStartIndex,
-//            priceEndIndex,
-//            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//        )
+        messageSpan.setSpan(
+            ForegroundColorSpan(getColor(R.color.palattes_2)),
+            priceStartIndex,
+            priceEndIndex,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
         isChosen = price > 0
         return messageSpan
@@ -253,7 +254,7 @@ class CartActivity : AppCompatActivity() {
                 applicationContext.getString(R.string.delete_alert_yes)
             ) { _, _ ->
                 cartViewModel.removeProduct(product.id, product.sizes[0].id, product.colors[0])
-//                cartProductAdapter.deleteProduct(position)
+                cartProductAdapter.deleteProduct(position)
             }
             .setNegativeButton(applicationContext.getString(R.string.delete_alert_cancel), null)
             .setIcon(android.R.drawable.ic_dialog_alert)
