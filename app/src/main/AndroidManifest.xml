@@ -19,8 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ARFashion"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.app.presentation.bill.BillActivity"></activity>
-        <activity android:name=".presentation.app.presentation.product.comment.CommentActivity" />
+        <activity android:name=".presentation.app.presentation.product.comment.CommentActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

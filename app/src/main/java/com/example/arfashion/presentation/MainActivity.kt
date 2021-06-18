@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.arfashion.R
-import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.app.presentation.main.MainActivity
 import com.example.arfashion.presentation.app.presentation.register.RegisterEmailOrPhoneActivity
@@ -27,11 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         homeBtn.setOnClickListener {
             val intent = Intent(this@MainActivity, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-        billBtn.setOnClickListener {
-            val intent = Intent(this@MainActivity, BillActivity::class.java)
             startActivity(intent)
         }
     }
