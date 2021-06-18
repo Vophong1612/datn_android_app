@@ -143,4 +143,12 @@
         <item>0</item>
         <item>3000000</item>
     </string-array>
+
+    <string name="order_management_screen_name">Order Management</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_bill_text_label">Your Bill</string>
+    <string name="show_more_product_button">Show more</string>
+    <string name="total_payment">Total Payment:</string>
+    <string name="buy_again_button">Buy Again</string>
+    <string name="no_bill_by_status">You have no %1$s bill !</string>
 </resources>
