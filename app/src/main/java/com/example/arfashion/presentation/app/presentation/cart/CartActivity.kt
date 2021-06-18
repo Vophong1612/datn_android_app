@@ -1,10 +1,12 @@
 package com.example.arfashion.presentation.app.presentation.cart
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.ContextThemeWrapper
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Cart
@@ -26,12 +29,19 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 class CartActivity : AppCompatActivity() {
 
     private val cartViewModel: CartViewModel by viewModels()
 
     private lateinit var cartProductAdapter: CartProductAdapter
+
+    private var isChosen: Boolean = false
+
+    companion object{
+        var temp: List<Product> = listOf()
+    }
 
     init {
         lifecycleScope.launchWhenCreated {
@@ -167,6 +177,15 @@ class CartActivity : AppCompatActivity() {
         refreshLayout.setOnRefreshListener {
             cartViewModel.getCart()
         }
+
+        buyNowBtn.setOnClickListener {
+           if(isChosen){
+               val intent = Intent(this, PaymentActivity::class.java)
+               cartProductAdapter.notifyDataSetChanged()
+               temp = cartProductAdapter.getData()
+               startActivity(intent)
+           }else Toast.makeText(this, getString(R.string.alert_must_be_choose), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun generateTotalPrice(price: Int): CharSequence {
@@ -180,14 +199,14 @@ class CartActivity : AppCompatActivity() {
 
         val priceStartIndex = messageSpan.indexOf(priceText)
         val priceEndIndex = priceStartIndex + priceText.length
-        messageSpan.setSpan(
-            ForegroundColorSpan(
-                applicationContext.getColor(R.color.palattes_2)
-            ),
-            priceStartIndex,
-            priceEndIndex,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+//        messageSpan.setSpan(
+//            ForegroundColorSpan(getColor(R.color.palattes_2)),
+//            priceStartIndex,
+//            priceEndIndex,
+//            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//        )
+
+        isChosen = price > 0
         return messageSpan
     }
 
@@ -234,7 +253,7 @@ class CartActivity : AppCompatActivity() {
                 applicationContext.getString(R.string.delete_alert_yes)
             ) { _, _ ->
                 cartViewModel.removeProduct(product.id, product.sizes[0].id, product.colors[0])
-                cartProductAdapter.deleteProduct(position)
+//                cartProductAdapter.deleteProduct(position)
             }
             .setNegativeButton(applicationContext.getString(R.string.delete_alert_cancel), null)
             .setIcon(android.R.drawable.ic_dialog_alert)

@@ -4,18 +4,22 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.models.address.AddressResponse
+import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.AddressService
 import kotlinx.android.synthetic.main.activity_address_list.*
+import kotlinx.android.synthetic.main.activity_payment.*
 import kotlinx.android.synthetic.main.layout_back_header.back_icon
 import kotlinx.android.synthetic.main.layout_back_header.screen_name
 
@@ -43,9 +47,15 @@ class AddressListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        setStatus(View.VISIBLE)
         user.credential.accessToken?.let {
             addressViewModel.loadAddress(it)
         }
+    }
+
+    private fun setStatus(display: Int) {
+        loadListBar.visibility = display
+        v_waiting_load_list.visibility = display
     }
 
     private fun init() {
@@ -75,6 +85,9 @@ class AddressListActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
         }
 
+        addressAdapter.setAddressList(PaymentActivity.receiverAddressList)
+        addressAdapter.notifyDataSetChanged()
+
         iv_add_address.setOnClickListener {
             val intent = Intent(this, AddNewAddressActivity::class.java)
             intent.putExtra("mode","add")
@@ -90,8 +103,6 @@ class AddressListActivity : AppCompatActivity() {
                     Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
                     finish()
                 }
-            } else {
-                Toast.makeText(this, "Failure !", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -99,14 +110,15 @@ class AddressListActivity : AppCompatActivity() {
             if (it) {
                 val response = addressViewModel.loadAddressResponse.value
                 if (response != null) {
-                    addressAdapter.setAddressList(response.results)
-                    addressAdapter.notifyDataSetChanged()
+                    PaymentActivity.receiverAddressList.toMutableList().clear()
+                    addressAdapter.setAddressList(response.results.toMutableList().reversed())
+                    setStatus(View.GONE)
                 }
+
             } else {
                 Toast.makeText(this, "Failure !", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     private fun onNavigateBack() {

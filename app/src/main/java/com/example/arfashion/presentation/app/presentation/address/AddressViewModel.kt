@@ -3,10 +3,7 @@ package com.example.arfashion.presentation.app.presentation.address
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.arfashion.presentation.app.models.address.ResultAddressResponse
-import com.example.arfashion.presentation.app.models.address.ResultDistrictResponse
-import com.example.arfashion.presentation.app.models.address.ResultProvinceResponse
-import com.example.arfashion.presentation.app.models.address.ResultWardResponse
+import com.example.arfashion.presentation.app.models.address.*
 import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.profile.ProfileResponse
 import com.example.arfashion.presentation.services.AddressService
@@ -70,8 +67,8 @@ class AddressViewModel(
     val resultLoadAddress : LiveData<Boolean>
         get() = _resultLoadAddress
 
-    private val _loadAddressResponse = MutableLiveData<ResultAddressResponse>()
-    val loadAddressResponse: LiveData<ResultAddressResponse>
+    private val _loadAddressResponse = MutableLiveData<LoadAddressListResponse>()
+    val loadAddressResponse: LiveData<LoadAddressListResponse>
         get() = _loadAddressResponse
 
     fun chooseProvince(token: String) {
@@ -195,10 +192,10 @@ class AddressViewModel(
 
     fun loadAddress(token: String) {
         addressService.loadAddress("Bearer $token")
-            .enqueue(object : Callback<ResultAddressResponse> {
+            .enqueue(object : Callback<LoadAddressListResponse> {
                 override fun onResponse(
-                    call: Call<ResultAddressResponse>,
-                    response: Response<ResultAddressResponse>
+                    call: Call<LoadAddressListResponse>,
+                    response: Response<LoadAddressListResponse>
                 ) {
                     _loadAddressResponse.value = response.body()
                     when (response.code()) {
@@ -207,7 +204,7 @@ class AddressViewModel(
                     }
                 }
 
-                override fun onFailure(call: Call<ResultAddressResponse>, t: Throwable) {
+                override fun onFailure(call: Call<LoadAddressListResponse>, t: Throwable) {
                     _resultLoadAddress.value = false
                 }
             })

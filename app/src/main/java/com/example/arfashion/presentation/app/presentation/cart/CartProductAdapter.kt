@@ -35,6 +35,10 @@ class CartProductAdapter : RecyclerView.Adapter<CartProductAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
+    fun getData(): List<Product>{
+        return data
+    }
+
     fun selectAll(isSelect: Boolean) {
         data.forEach { product ->
             product.isCartCheck = isSelect

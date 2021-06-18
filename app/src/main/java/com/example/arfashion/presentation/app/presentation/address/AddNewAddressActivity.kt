@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
+import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.AddressService
@@ -24,8 +26,6 @@ import kotlinx.android.synthetic.main.layout_back_save_white_header.*
 class AddNewAddressActivity : AppCompatActivity() {
 
     private lateinit var addressViewModel: AddressViewModel
-
-    private lateinit var userManager: ARFashionUserManager
 
     private val addressService = AddressService.create()
 
@@ -56,12 +56,15 @@ class AddNewAddressActivity : AppCompatActivity() {
                         + ChooseAddressActivity.curr_province_name)
             }
         }else{
-            if(ChooseAddressActivity.curr_ward_code != -1){
+            if(ChooseAddressActivity.curr_home_name.isNotEmpty()){
                 addressEdt.setText(ChooseAddressActivity.curr_home_name + ", "
                         + ChooseAddressActivity.curr_ward_name  + ", "
                         + ChooseAddressActivity.curr_district_name  + ", "
                         + ChooseAddressActivity.curr_province_name)
-            }
+            }else addressEdt.setText(intent.getSerializableExtra("obj.home").toString() + ", " +
+                    intent.getSerializableExtra("obj.village").toString() + ", " +
+                    intent.getSerializableExtra("obj.district").toString() + ", " +
+                    intent.getSerializableExtra("obj.province").toString())
         }
     }
 
@@ -91,7 +94,7 @@ class AddNewAddressActivity : AppCompatActivity() {
             val objIsDefault = intent.getSerializableExtra("obj.isDefault").toString()
 
             ChooseAddressActivity.curr_home_name = objHome
-            if(ChooseAddressActivity.curr_ward_code != -1){
+            if(ChooseAddressActivity.curr_ward_code == -1){
                 ChooseAddressActivity.curr_ward_code = intent.getSerializableExtra("obj.villageCode").toString().toInt()
                 ChooseAddressActivity.curr_district_code = intent.getSerializableExtra("obj.districtCode").toString().toInt()
                 ChooseAddressActivity.curr_province_code = intent.getSerializableExtra("obj.provinceCode").toString().toInt()
@@ -101,7 +104,7 @@ class AddNewAddressActivity : AppCompatActivity() {
             fullNameEdt.setText(objName)
             phoneNumberEdt.setText(objPhone)
             emailEdt.setText(objEmail)
-            addressEdt.setText("$objHome, $objVillage, $objDistrict, $objProvince")
+
             if(objIsDefault.toBoolean())
                 cb_default_address.isChecked = true
         }
@@ -163,6 +166,7 @@ class AddNewAddressActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
         addressViewModel.resultAddAddress.observe(this) {
             if (it) {
                 val response = addressViewModel.addAddressResponse.value

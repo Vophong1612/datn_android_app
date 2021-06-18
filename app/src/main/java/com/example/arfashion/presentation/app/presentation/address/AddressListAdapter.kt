@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.models.address.AddressResponse
+import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 
 
 class AddressListAdapter(private val context: Activity) :
@@ -56,7 +57,12 @@ class AddressListAdapter(private val context: Activity) :
         init {
 
             ivChoose.setOnClickListener {
-                //lay ket qua dia chi o day
+                PaymentActivity.paymentName = addressList[adapterPosition].name
+                PaymentActivity.paymentEmail = addressList[adapterPosition].email
+                PaymentActivity.paymentPhone = addressList[adapterPosition].phone
+                PaymentActivity.paymentAddress =
+                    addressList[adapterPosition].home +  ", " +  addressList[adapterPosition].village.name  + ", " +  addressList[adapterPosition].district.name  + ", " +  addressList[adapterPosition].province.name
+                PaymentActivity.paymentDefault = addressList[adapterPosition].isDefault
                 context.finish()
             }
 
@@ -104,23 +110,24 @@ class AddressListAdapter(private val context: Activity) :
         builder.setMessage("Are you sure to delete address?")
 
         builder.setPositiveButton(
-            "YES",
-            DialogInterface.OnClickListener { dialog, _ -> // Do nothing but close the dialog
-                dialog.dismiss()
-                AddressListActivity.user.credential.accessToken?.let {
-                    AddressListActivity.addressViewModel.deleteAddress(
-                        it,
-                        item._id)
-                    addressList.remove(item)
-                    notifyDataSetChanged()
-                }
-            })
+            "YES"
+        ) { dialog, _ -> // Do nothing but close the dialog
+            dialog.dismiss()
+            AddressListActivity.user.credential.accessToken?.let {
+                AddressListActivity.addressViewModel.deleteAddress(
+                    it,
+                    item._id
+                )
+                addressList.remove(item)
+                notifyDataSetChanged()
+            }
+        }
 
         builder.setNegativeButton(
-            "NO",
-            DialogInterface.OnClickListener { dialog, _ -> // Do nothing
-                dialog.dismiss()
-            })
+            "NO"
+        ) { dialog, _ -> // Do nothing
+            dialog.dismiss()
+        }
 
         val alert: AlertDialog = builder.create()
         alert.show()
