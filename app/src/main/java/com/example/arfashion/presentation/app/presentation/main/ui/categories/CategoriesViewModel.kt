@@ -130,7 +130,7 @@ class CategoriesViewModel : ViewModel() {
         priceSort: String = "asc",
         size: String = "",
         tags: String = "",
-        limit: Int = 2,
+        limit: Int = 12,
         offset: Int = 0
     ) {
         if (offset != 0 && _currentPage.value!! >= _totalPage.value!!) {

@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.services
 
+import com.example.arfashion.presentation.app.models.bill.BillItemResponse
 import com.example.arfashion.presentation.app.models.cart.Cart
 import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.app.models.product.*
@@ -121,4 +122,26 @@ fun Tags.toTag(): Tag =
     Tag(
         id = _id,
         name = name
+    )
+
+fun BillItemResponse.toBill() =
+    Bill(
+        totalCost = totalCost,
+        totalProduct = totalProduct,
+        note = note,
+        id = _id,
+        products = products.map { product ->
+            Product(
+                colors = listOf(product.color),
+                prices = product.price,
+                sizes = listOf(product.size.let { Size(it._id, it.name) }),
+                total = product.total,
+                name = product.name,
+                id = product._id,
+                images = listOf(product.image)
+            )
+        },
+        address = address,
+        payment = Payment(payment._id, payment.name),
+        billStatus = BillStatus(status._id, status.name)
     )
