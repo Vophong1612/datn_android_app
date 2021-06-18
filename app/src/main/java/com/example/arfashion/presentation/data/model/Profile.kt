@@ -1,14 +1,24 @@
 package com.example.arfashion.presentation.data.model
 
+import androidx.annotation.Nullable
+import com.google.gson.annotations.SerializedName
+
 data class Profile (
+    @SerializedName("_id")
     val id: String = "",
+    @SerializedName("name")
     val name: String = "",
-    val email: String = "",
-    val phone: String = "",
+    @SerializedName("email")
+    var email: String = "",
+    @SerializedName("phone")
+    var phone: String = "",
+    @SerializedName("avatar")
     val avatar: String? = "",
+    @SerializedName("gender")
     val gender: Int = -1,
-    val birthday: String = "",
+    @SerializedName("birthday")
+    var birthday: String = "",
+    @SerializedName("account_status")
     val account_status: String = "",
-    val refresh_token: RefreshToken = RefreshToken("","","")
 
 )

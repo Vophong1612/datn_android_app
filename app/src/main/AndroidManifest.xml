@@ -41,6 +41,8 @@
         <activity android:name=".presentation.app.presentation.bill.BillActivity"></activity>
         <activity android:name=".presentation.app.presentation.payment.PaymentActivity"></activity>
         <activity android:name=".presentation.app.presentation.product.comment.CommentActivity" />
+        <activity android:name=".presentation.app.presentation.main.ui.profile.ChangePasswordActivity"/>
+        <activity android:name=".presentation.app.presentation.main.ui.profile.ProfileDetailActivity" />
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
             android:label="@string/title_activity_main_ativity"

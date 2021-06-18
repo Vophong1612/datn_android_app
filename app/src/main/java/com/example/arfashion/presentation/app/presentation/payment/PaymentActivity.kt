@@ -29,6 +29,7 @@ import com.example.arfashion.presentation.app.presentation.address.AddNewAddress
 import com.example.arfashion.presentation.app.presentation.address.AddressListActivity
 import com.example.arfashion.presentation.app.presentation.address.AddressListAdapter
 import com.example.arfashion.presentation.app.presentation.address.AddressViewModel
+import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.Product
@@ -277,7 +278,8 @@ class PaymentActivity : AppCompatActivity() {
                 val response = paymentViewModel.addBillResponse.value
                 if (response != null) {
                     Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-
+                    val intent = Intent(this, BillActivity::class.java)
+                    startActivity(intent)
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()

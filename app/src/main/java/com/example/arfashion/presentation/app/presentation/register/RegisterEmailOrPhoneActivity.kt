@@ -164,10 +164,16 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
             if (it) {
                 val response = loginViewModel.loginGoogleResponse.value
                 response?.let { userRes ->
-                    userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    Utils.initData(userRes.user)
+                    userManager.currentUser = User(Profile(userRes.user.id, userRes.user.name,
+                        userRes.user.email, userRes.user.phone, userRes.user.avatar,
+                        userRes.user.gender, userRes.user.birthday), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
+                    userStorage.savePassword("")
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
@@ -178,10 +184,16 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
             if (it) {
                 val response = loginViewModel.loginFacebookResponse.value
                 response?.let { userRes ->
-                    userManager.currentUser = User(Profile(), Credential(userRes.accessToken))
+                    Utils.initData(userRes.user)
+                    userManager.currentUser = User(Profile(userRes.user.id, userRes.user.name,
+                        userRes.user.email, userRes.user.phone, userRes.user.avatar,
+                        userRes.user.gender, userRes.user.birthday), Credential(userRes.accessToken))
                     userStorage.save(userManager.currentUser)
+                    userStorage.savePassword("")
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()

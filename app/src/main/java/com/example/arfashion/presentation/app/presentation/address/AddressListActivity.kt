@@ -16,6 +16,7 @@ import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.models.address.AddressResponse
 import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
+import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.AddressService
 import kotlinx.android.synthetic.main.activity_address_list.*
@@ -29,6 +30,7 @@ class AddressListActivity : AppCompatActivity() {
         lateinit var addressViewModel: AddressViewModel
 
         lateinit var user: User
+
     }
 
     private val addressService = AddressService.create()

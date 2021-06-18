@@ -15,6 +15,7 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
+import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.AddressService
 import com.example.arfashion.presentation.services.Utils

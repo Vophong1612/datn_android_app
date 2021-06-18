@@ -1,5 +1,7 @@
 package com.example.arfashion.presentation.app.presentation.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
@@ -10,12 +12,20 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.presentation.main.ui.home.HomeFragment
 import com.example.arfashion.presentation.data.ARFashionUserManager
+import com.example.arfashion.presentation.data.credential.Credential
+import com.example.arfashion.presentation.data.model.Profile
+import com.example.arfashion.presentation.data.model.User
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var userManager: ARFashionUserManager
+
     private lateinit var userStorage: UserLocalStorage
+
     private lateinit var pref: SharedPreferences
+
+    private lateinit var user: User
 
     private lateinit var mainPagerAdapter: MainPagerAdapter
 
@@ -56,5 +66,39 @@ class MainActivity : AppCompatActivity() {
             mainPager.currentItem = TabPosition.Categories.index
             nav_view.setItemSelected(R.id.navigation_category)
         }
+    }
+
+    override fun onBackPressed() {
+        pref = this.getSharedPreferences("user", MODE_PRIVATE)
+        userStorage = UserLocalStorage(pref)
+        userManager = ARFashionUserManager(userStorage).getInstance()
+        user = userStorage.load()
+
+        if(!user.credential.accessToken.isNullOrEmpty()){
+            quit()
+        }
+    }
+
+    private fun quit() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Confirm")
+        builder.setMessage("Are you sure to quit app?")
+
+        builder.setPositiveButton(
+            "YES",
+            DialogInterface.OnClickListener { dialog, _ -> // Do nothing but close the dialog
+                dialog.dismiss()
+               finish()
+            })
+
+        builder.setNegativeButton(
+            "NO",
+            DialogInterface.OnClickListener { dialog, _ -> // Do nothing
+                dialog.dismiss()
+            })
+
+        val alert: AlertDialog = builder.create()
+        alert.show()
     }
 }
