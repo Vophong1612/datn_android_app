@@ -1,21 +1,11 @@
 package com.example.arfashion.presentation.app.presentation.product.test
 
 import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
@@ -37,47 +27,7 @@ const val KEY_PRODUCT_IMAGE = "key_bundle_product_image"
 
 class ARTestActivity : AppCompatActivity() {
 
-    companion object {
-        private const val CAMERA_PERMISSION_CODE = 100
-        private const val STORAGE_PERMISSION_CODE = 101
-    }
-
-    private lateinit var takeImageResultLauncher: ActivityResultLauncher<Intent>
-
-    private lateinit var chooseImageResultLauncher: ActivityResultLauncher<Intent>
-
     private val arTestViewModel by viewModels<ARTestViewModel>()
-
-    private val cameraPermissionGrantedRunnable = Runnable {
-        val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        takeImageResultLauncher.launch(takePicture)
-    }
-
-    private val galleryPermissionGrantedRunnable = Runnable {
-        val pickImage = Intent().also {
-            it.type = "image/*"
-            it.action = Intent.ACTION_GET_CONTENT
-        }
-        chooseImageResultLauncher.launch(pickImage)
-    }
-
-    private val galleryPermissionDeniedRunnable =
-        Runnable {
-            Toast.makeText(
-                this,
-                this.getString(R.string.access_storage_denied),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-    private val cameraPermissionDeniedRunnable =
-        Runnable {
-            Toast.makeText(
-                this,
-                this.getString(R.string.prepare_stream_error),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
 
     private var productId: String = ""
 
@@ -86,6 +36,8 @@ class ARTestActivity : AppCompatActivity() {
     private var productImage: String = ""
 
     private var imgBody: File? = null
+
+    private lateinit var loadImageController: LoadImageController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +86,20 @@ class ARTestActivity : AppCompatActivity() {
             test()
         }
 
+        loadImageController = LoadImageController(this, applicationContext, contentResolver)
+
+        loadImageController.takeImageResultListener = { file, bitmap ->
+            showUserImage()
+            userImg.setImageBitmap(bitmap)
+            imgBody = file
+        }
+
+        loadImageController.chooseImageResultListener = { file, uri ->
+            showUserImage()
+            userImg.setImageURI(uri)
+            imgBody = file
+        }
+
         Glide.with(productImg)
             .load(productImage)
             .placeholder(R.drawable.img_default_category)
@@ -142,39 +108,6 @@ class ARTestActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        takeImageResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    it.data?.let { data ->
-                        val bitmap = data.extras?.get("data") as Bitmap
-                        showUserImage()
-                        userImg.setImageBitmap(bitmap)
-
-                        val tempUri = getImageUri(bitmap)
-                        getPathFromURI(tempUri)?.let { path ->
-                            imgBody = File(path)
-                        }
-                    }
-                }
-            }
-
-        chooseImageResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    it.data?.let { data ->
-                        val selectedImageUri: Uri? = data.data
-                        selectedImageUri?.let {
-                            getPathFromURI(selectedImageUri)?.let { path ->
-                                imgBody = File(path)
-
-                                showUserImage()
-                                userImg.setImageURI(selectedImageUri)
-                            }
-                        }
-                    }
-                }
-            }
-
         arTestViewModel.result.observe(this, {
             when (it) {
                 is ARResult.Success -> {
@@ -200,28 +133,6 @@ class ARTestActivity : AppCompatActivity() {
             .into(resultImg)
     }
 
-    private fun getImageUri(bitmap: Bitmap): Uri {
-        val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path: String =
-            MediaStore.Images.Media.insertImage(contentResolver, bitmap, "Title", null)
-        return Uri.parse(path)
-    }
-
-    private fun getPathFromURI(uri: Uri): String? {
-        var res: String? = null
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor: Cursor? = contentResolver.query(uri, projection, null, null, null)
-        cursor?.let {
-            if (it.moveToFirst()) {
-                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                res = it.getString(columnIndex)
-            }
-        }
-        cursor?.close()
-        return res
-    }
-
     private fun showUserImage() {
         userImg.visible()
         addUserImgIcon.gone()
@@ -244,28 +155,16 @@ class ARTestActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            CAMERA_PERMISSION_CODE -> runPermissionRunnable(
+            LoadImageController.CAMERA_PERMISSION_CODE -> loadImageController.runPermissionRunnable(
                 grantResults,
-                cameraPermissionGrantedRunnable,
-                cameraPermissionDeniedRunnable
+                loadImageController.cameraPermissionGrantedRunnable,
+                loadImageController.cameraPermissionDeniedRunnable
             )
-            STORAGE_PERMISSION_CODE -> runPermissionRunnable(
+            LoadImageController.STORAGE_PERMISSION_CODE -> loadImageController.runPermissionRunnable(
                 grantResults,
-                galleryPermissionGrantedRunnable,
-                galleryPermissionDeniedRunnable
+                loadImageController.galleryPermissionGrantedRunnable,
+                loadImageController.galleryPermissionDeniedRunnable
             )
-        }
-    }
-
-    private fun runPermissionRunnable(
-        grantResults: IntArray,
-        runnableGranted: Runnable,
-        runnableDenied: Runnable
-    ) {
-        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            runnableGranted.run()
-        } else {
-            runnableDenied.run()
         }
     }
 
@@ -275,12 +174,12 @@ class ARTestActivity : AppCompatActivity() {
             .setItems(R.array.pick_image) { dialog, item ->
                 when (item) {
                     0 -> {
-                        checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE)
+                        loadImageController.checkPermission(Manifest.permission.CAMERA, LoadImageController.CAMERA_PERMISSION_CODE)
                     }
                     1 -> {
-                        checkPermission(
+                        loadImageController.checkPermission(
                             Manifest.permission.READ_EXTERNAL_STORAGE,
-                            STORAGE_PERMISSION_CODE
+                            LoadImageController.STORAGE_PERMISSION_CODE
                         )
                     }
                     else -> dialog.dismiss()
@@ -289,23 +188,8 @@ class ARTestActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun checkPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                permission
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
-        } else {
-            when (requestCode) {
-                CAMERA_PERMISSION_CODE -> cameraPermissionGrantedRunnable.run()
-                STORAGE_PERMISSION_CODE -> galleryPermissionGrantedRunnable.run()
-            }
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        takeImageResultLauncher.unregister()
+        loadImageController.clearRegister()
     }
 }
