@@ -92,7 +92,6 @@ class LoginActivity : AppCompatActivity() {
         if(user.credential.accessToken?.isNotEmpty() == true){
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         initView()
@@ -113,7 +112,6 @@ class LoginActivity : AppCompatActivity() {
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
             } else {
                 Toast.makeText(this, getString(R.string.incorrect_data_login), Toast.LENGTH_SHORT).show()
@@ -133,7 +131,6 @@ class LoginActivity : AppCompatActivity() {
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
@@ -153,7 +150,6 @@ class LoginActivity : AppCompatActivity() {
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()

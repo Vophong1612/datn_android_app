@@ -10,7 +10,7 @@
         android:id="@+id/view_user_general"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/palattes_2"
+        android:background="@color/palattes_3"
         app:layout_constraintBottom_toBottomOf="@id/v_user_none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="50dp"
-        android:background="@color/dark_gray"
+        android:background="@color/light_gray"
         app:layout_constraintTop_toTopOf="@id/v_user_none" />
 
     <RelativeLayout
@@ -106,7 +106,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_favorite"
+            android:src="@drawable/bg_favourite"
             app:tint="@color/red" />
 
         <TextView
@@ -127,7 +127,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="50dp"
-        android:background="@color/dark_gray"
+        android:background="@color/light_gray"
         app:layout_constraintTop_toTopOf="@id/rl_user_favorite" />
 
     <RelativeLayout
@@ -149,7 +149,7 @@
             android:layout_height="25dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_cart"
-            app:tint="@color/red" />
+            app:tint="@color/palattes_2" />
 
         <TextView
             android:id="@+id/tv_user_cart"
@@ -169,7 +169,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="50dp"
-        android:background="@color/dark_gray"
+        android:background="@color/light_gray"
         app:layout_constraintTop_toTopOf="@id/v_line_2" />
 
     <RelativeLayout
@@ -211,7 +211,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="50dp"
-        android:background="@color/dark_gray"
+        android:background="@color/light_gray"
         app:layout_constraintTop_toTopOf="@id/v_line_3" />
 
     <TextView

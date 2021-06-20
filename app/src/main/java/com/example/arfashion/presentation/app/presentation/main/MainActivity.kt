@@ -82,21 +82,21 @@ class MainActivity : AppCompatActivity() {
     private fun quit() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
-        builder.setTitle("Confirm")
-        builder.setMessage("Are you sure to quit app?")
+        builder.setTitle(getString(R.string.dialog_confirm))
+        builder.setMessage(getString(R.string.alert_exit_app))
 
         builder.setPositiveButton(
-            "YES",
-            DialogInterface.OnClickListener { dialog, _ -> // Do nothing but close the dialog
-                dialog.dismiss()
-               finish()
-            })
+            getString(R.string.dialog_yes)
+        ) { dialog, _ -> // Do nothing but close the dialog
+            dialog.dismiss()
+            finishAffinity()
+        }
 
         builder.setNegativeButton(
-            "NO",
-            DialogInterface.OnClickListener { dialog, _ -> // Do nothing
-                dialog.dismiss()
-            })
+            getString(R.string.dialog_no)
+        ) { dialog, _ -> // Do nothing
+            dialog.dismiss()
+        }
 
         val alert: AlertDialog = builder.create()
         alert.show()

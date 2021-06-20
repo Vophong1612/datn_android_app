@@ -48,6 +48,14 @@ class Utils {
             return ""
         }
 
+        fun formatPhoneToNormal(target: String?): String {
+            val res: String? = target
+            if (res != null) {
+                return "0" + res.removeRange(0,2)
+            }
+            return ""
+        }
+
         fun formatPrice(target: Int?): String {
 
             val format: NumberFormat = NumberFormat.getCurrencyInstance()
@@ -60,16 +68,21 @@ class Utils {
         fun initData(user: Profile) {
             if(user.email.isNullOrEmpty()) user.email = ""
             if(user.phone.isNullOrEmpty()) user.phone = ""
+            if(user.gender.toString().isNullOrEmpty()) user.gender = -1
             if(user.birthday.isNullOrEmpty()) user.birthday = ""
+            if(user.avatar.isNullOrEmpty()) user.avatar = ""
         }
 
         fun formatDate(target: String): String {
-            return target.substring(6, 10) + "-" + target.substring(3,5) + "-" + target.substring(0,2) + "T00:00:00.000Z"
+            if(target.isNotEmpty())
+                return target.substring(6, 10) + "-" + target.substring(3,5) + "-" + target.substring(0,2) + "T00:00:00.000Z"
+            return target
         }
 
         fun formatDateToString(target: String): String {
-            return target.substring(8,10) + "/" + target.substring(5,7) + "/" + target.substring(0,4)
-
+            if(target.isNotEmpty())
+                return target.substring(8,10) + "/" + target.substring(5,7) + "/" + target.substring(0,4)
+            return target
         }
     }
 

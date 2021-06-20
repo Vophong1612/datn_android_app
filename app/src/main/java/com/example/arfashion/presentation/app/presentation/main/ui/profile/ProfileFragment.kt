@@ -23,6 +23,7 @@ import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
+import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.fragment_profile_tab.*
 
 class ProfileFragment : Fragment() {
@@ -104,9 +105,21 @@ class ProfileFragment : Fragment() {
             if (it) {
                 val response = profileViewModel.getProfileResponse.value
                 if (response != null) {
+                    var resEmail: String = response.email
+                    var resPhone: String = response.phone
+                    var resAvt: String = response.avatar
+                    var resBirthday: String = response.birthday
+                    var resGender: Int = response.gender
+
+                    if(response.email.isNullOrBlank()) resEmail = ""
+                    if(response.phone.isNullOrBlank()) resPhone = ""
+                    if(response.avatar.isNullOrBlank()) resAvt = ""
+                    if(response.birthday.isNullOrBlank()) resBirthday = ""
+                    if(response.gender.toString().isNullOrBlank()) resGender = -1
+
                     userManager.currentUser = User(com.example.arfashion.presentation.data.model.Profile(
-                        response._id, response.name, response.email, response.phone, response.avatar,
-                        response.gender, response.birthday, response.account_status
+                        response._id, response.name, resEmail, resPhone,
+                        resAvt, resGender, resBirthday, response.account_status
                     ), Credential(user.credential.accessToken))
                     userStorage.save(userManager.currentUser)
                     user = userStorage.load()
@@ -135,22 +148,22 @@ class ProfileFragment : Fragment() {
     private fun logOut() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
 
-        builder.setTitle("Confirm")
-        builder.setMessage("Are you sure to sign out?")
+        builder.setTitle(getString(R.string.dialog_confirm))
+        builder.setMessage(getString(R.string.alert_sign_out))
 
         builder.setPositiveButton(
-            "YES",
-            DialogInterface.OnClickListener { dialog, _ -> // Do nothing but close the dialog
-                dialog.dismiss()
-               userStorage.save(User(Profile(), Credential()))
-                this.requireActivity().finish()
-            })
+            getString(R.string.dialog_yes)
+        ) { dialog, _ -> // Do nothing but close the dialog
+            dialog.dismiss()
+            userStorage.save(User(Profile(), Credential()))
+            this.requireActivity().finish()
+        }
 
         builder.setNegativeButton(
-            "NO",
-            DialogInterface.OnClickListener { dialog, _ -> // Do nothing
-                dialog.dismiss()
-            })
+            getString(R.string.dialog_no)
+        ) { dialog, _ -> // Do nothing
+            dialog.dismiss()
+        }
 
         val alert: AlertDialog = builder.create()
         alert.show()
