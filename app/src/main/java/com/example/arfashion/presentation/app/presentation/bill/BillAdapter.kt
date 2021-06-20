@@ -2,6 +2,7 @@ package com.example.arfashion.presentation.app.presentation.bill
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.data.model.Bill
 import com.example.arfashion.presentation.data.model.Product
+import com.google.gson.Gson
 
 class BillAdapter(private val context: Context) : RecyclerView.Adapter<BillAdapter.ViewHolder>() {
 
@@ -57,11 +59,19 @@ class BillAdapter(private val context: Context) : RecyclerView.Adapter<BillAdapt
         private val price = view.findViewById<TextView>(R.id.item_price)
         private val total = view.findViewById<TextView>(R.id.item_totalProduct)
         private val totalPayment = view.findViewById<TextView>(R.id.totalPaymentValue)
+        private val showMoreProduct = view.findViewById<TextView>(R.id.showMoreProduct)
 
         init {
             itemView.setOnClickListener {
                 itemViewClickListener?.invoke()
             }
+
+            showMoreProduct.setOnClickListener {
+                val intent = Intent(context, DetailBillActivity::class.java)
+                intent.putExtra("detailBill", Gson().toJson(data[adapterPosition]))
+                context.startActivity(intent)
+            }
+
         }
 
         @SuppressLint("SetTextI18n")
