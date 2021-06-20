@@ -3,14 +3,15 @@ package com.example.arfashion.presentation.app.presentation.product.detail
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
@@ -39,11 +40,11 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private lateinit var productTabAdapter: ProductTabAdapter
 
-    private val productDetailViewModel: ProductDetailViewModel by viewModels()
+    private lateinit var productDetailViewModel: ProductDetailViewModel
 
-    private val commentViewModel: CommentViewModel by viewModels()
+    private lateinit var commentViewModel: CommentViewModel
 
-    private val cartViewModel: CartViewModel by viewModels()
+    private lateinit var cartViewModel: CartViewModel
 
     private lateinit var thumbnailAdapter: ThumbnailAdapter
 
@@ -54,16 +55,6 @@ class ProductDetailActivity : AppCompatActivity() {
     private var product: Product? = null
 
     private var productId: String? = ""
-
-    init {
-        lifecycleScope.launchWhenCreated {
-            productId = intent.extras?.getString(KEY_PRODUCT_ID)
-            productId?.let {
-                productDetailViewModel.getProductDetail(it)
-                productDetailViewModel.getRelatedProduct(it)
-            }
-        }
-    }
 
     @ExperimentalCoroutinesApi
     @FlowPreview
@@ -78,6 +69,16 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun initData() {
+        productDetailViewModel = ViewModelProvider(this@ProductDetailActivity, MyViewModelFactory(applicationContext)).get(ProductDetailViewModel::class.java)
+        commentViewModel = ViewModelProvider(this@ProductDetailActivity, MyViewModelFactory(applicationContext)).get(CommentViewModel::class.java)
+        cartViewModel = ViewModelProvider(this@ProductDetailActivity, MyViewModelFactory(applicationContext)).get(CartViewModel::class.java)
+
+        productId = intent.extras?.getString(KEY_PRODUCT_ID)
+        productId?.let {
+            productDetailViewModel.getProductDetail(it)
+            productDetailViewModel.getRelatedProduct(it)
+        }
+
         thumbnailAdapter = ThumbnailAdapter()
         thumbnailAdapter.thumbnailClickListener = {
             product?.images?.get(it)?.let { image ->

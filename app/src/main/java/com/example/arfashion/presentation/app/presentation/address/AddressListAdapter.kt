@@ -3,7 +3,6 @@ package com.example.arfashion.presentation.app.presentation.address
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.models.address.AddressResponse
 import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
-
 
 class AddressListAdapter(private val context: Activity) :
     RecyclerView.Adapter<AddressListAdapter.ViewHolder>() {
@@ -61,7 +59,7 @@ class AddressListAdapter(private val context: Activity) :
                 PaymentActivity.paymentEmail = addressList[adapterPosition].email
                 PaymentActivity.paymentPhone = addressList[adapterPosition].phone
                 PaymentActivity.paymentAddress =
-                    addressList[adapterPosition].home +  ", " +  addressList[adapterPosition].village.name  + ", " +  addressList[adapterPosition].district.name  + ", " +  addressList[adapterPosition].province.name
+                    addressList[adapterPosition].home + ", " + addressList[adapterPosition].village.name + ", " + addressList[adapterPosition].district.name + ", " + addressList[adapterPosition].province.name
                 PaymentActivity.paymentDefault = addressList[adapterPosition].isDefault
                 PaymentActivity.paymentId = addressList[adapterPosition]._id
                 context.finish()
@@ -98,8 +96,9 @@ class AddressListAdapter(private val context: Activity) :
             name.text = res.name
             email.text = res.email
             phone.text = res.phone
-            address.text = res.home + ", " + res.village.name  + ", " + res.district.name  + ", " + res.province.name
-            if(res.isDefault) tvDefault.visibility = View.VISIBLE
+            address.text =
+                res.home + ", " + res.village.name + ", " + res.district.name + ", " + res.province.name
+            if (res.isDefault) tvDefault.visibility = View.VISIBLE
             else tvDefault.visibility = View.INVISIBLE
         }
     }
@@ -114,14 +113,11 @@ class AddressListAdapter(private val context: Activity) :
             "YES"
         ) { dialog, _ -> // Do nothing but close the dialog
             dialog.dismiss()
-            AddressListActivity.user.credential.accessToken?.let {
-                AddressListActivity.addressViewModel.deleteAddress(
-                    it,
-                    item._id
-                )
-                addressList.remove(item)
-                notifyDataSetChanged()
-            }
+            AddressListActivity.addressViewModel.deleteAddress(
+                item._id
+            )
+            addressList.remove(item)
+            notifyDataSetChanged()
         }
 
         builder.setNegativeButton(

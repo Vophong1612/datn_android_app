@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.main.ui.categories
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,8 +21,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoriesViewModel : ViewModel() {
-    private val productService = ProductService.create()
+class CategoriesViewModel (context: Context) : ViewModel() {
+    private val productService = ProductService.create(context)
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>

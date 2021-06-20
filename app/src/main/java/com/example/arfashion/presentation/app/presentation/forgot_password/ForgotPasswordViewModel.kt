@@ -1,18 +1,17 @@
 package com.example.arfashion.presentation.app.presentation.forgot_password
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.arfashion.presentation.app.models.forgot_password.UserForgotPasswordResponse
-import com.example.arfashion.presentation.app.models.register.*
 import com.example.arfashion.presentation.services.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ForgotPasswordViewModel (
-    private val userService: UserService
-) : ViewModel() {
+class ForgotPasswordViewModel (context: Context) : ViewModel() {
+    private val userService = UserService.create(context)
 
     private val _resultGenerateCodeForgot = MutableLiveData<Boolean>()
     val resultGenerateCodeForgot: LiveData<Boolean>

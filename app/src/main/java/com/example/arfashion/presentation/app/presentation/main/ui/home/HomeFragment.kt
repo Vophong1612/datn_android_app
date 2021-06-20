@@ -7,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.*
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.HomeToCategoriesShareViewModel
-import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
-import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
 import com.example.arfashion.presentation.app.widget.indicator.PagerIndicatorController
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Carousel
@@ -42,11 +40,11 @@ class HomeFragment : Fragment() {
 
     private lateinit var carouselAdapter: CarouselAdapter
 
-    private val homeViewModel by viewModels<HomeViewModel> ()
+    private lateinit var homeViewModel: HomeViewModel
 
     private val homeToCategoriesShareViewModel: HomeToCategoriesShareViewModel by activityViewModels()
 
-    private val cartViewModel: CartViewModel by viewModels (ownerProducer = {this})
+    private lateinit var cartViewModel: CartViewModel
 
     private lateinit var bestSellerPagerIndicatorController : PagerIndicatorController
 
@@ -62,6 +60,9 @@ class HomeFragment : Fragment() {
 
     init {
         lifecycleScope.launchWhenCreated {
+            homeViewModel = ViewModelProvider(this@HomeFragment, MyViewModelFactory(requireContext())).get(HomeViewModel::class.java)
+            cartViewModel = ViewModelProvider(this@HomeFragment, MyViewModelFactory(requireContext())).get(CartViewModel::class.java)
+
             homeViewModel.getCarouselList()
             cartViewModel.getCart()
         }

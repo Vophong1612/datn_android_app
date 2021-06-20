@@ -1,42 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
 
-    <ScrollView
+    <View
+        android:id="@+id/headerBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/back_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/back_layout"
+        layout="@layout/layout_back_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_layout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/consLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <include
-                android:id="@+id/back_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                layout="@layout/layout_back_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="15dp"
-                android:paddingBottom="10dp"/>
-
             <RelativeLayout
                 android:id="@+id/rl_payment_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/back_layout">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/iv_payment_location"
@@ -51,9 +63,9 @@
                     android:id="@+id/iv_payment_choose"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_arrow_next"
                     app:tint="@color/dark_gray" />
 
@@ -61,84 +73,84 @@
                     android:id="@+id/receive_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="@string/receive_address"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@id/iv_payment_location"/>
+                    android:layout_toEndOf="@id/iv_payment_location"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:text="@string/receive_address"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/payment_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="true"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:layout_below="@id/receive_address"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_toEndOf="@id/iv_payment_location"
-                    android:layout_below="@id/receive_address"
-                    tools:text="tower"
-                    android:visibility="invisible"/>
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:textAllCaps="true"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    tools:text="tower" />
 
                 <TextView
                     android:id="@+id/payment_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:layout_marginEnd="10dp"
-                    android:textColor="@color/palattes_1"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:layout_toEndOf="@id/iv_payment_location"
                     android:layout_below="@id/payment_name"
-                    tools:text="(+84)335160976"
-                    android:visibility="invisible"/>
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/iv_payment_location"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:textColor="@color/palattes_1"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    tools:text="(+84)335160976" />
 
                 <TextView
                     android:id="@+id/payment_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:layout_marginEnd="10dp"
-                    android:textColor="@color/palattes_1"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:layout_toEndOf="@id/iv_payment_location"
                     android:layout_below="@id/payment_phone"
-                    tools:text="abc@xyz.com"
-                    android:visibility="invisible"/>
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/iv_payment_location"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:textColor="@color/palattes_1"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    tools:text="abc@xyz.com" />
 
                 <TextView
                     android:id="@+id/payment_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/palattes_1"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:layout_toEndOf="@id/iv_payment_location"
                     android:layout_below="@id/payment_email"
-                    tools:text="District 8, HCM City, VietNam"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toEndOf="@id/iv_payment_location"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:paddingEnd="10dp"
+                    android:textColor="@color/palattes_1"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
                     tools:ignore="RtlSymmetry"
-                    android:visibility="invisible"/>
+                    tools:text="District 8, HCM City, VietNam" />
 
                 <TextView
                     android:id="@+id/receiver_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="@string/default_lbl"
-                    android:layout_marginTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/palattes_2"
-                    android:fontFamily="@font/sf_pro_text_semibold"
-                    android:layout_toEndOf="@id/payment_name"
                     android:layout_below="@id/receive_address"
-                    tools:ignore="RtlSymmetry"
-                    android:visibility="invisible"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toEndOf="@id/payment_name"
+                    android:fontFamily="@font/sf_pro_text_semibold"
+                    android:paddingEnd="10dp"
+                    android:text="@string/default_lbl"
+                    android:textColor="@color/palattes_2"
+                    android:textSize="15sp"
+                    android:visibility="invisible"
+                    tools:ignore="RtlSymmetry" />
 
             </RelativeLayout>
 
@@ -146,20 +158,20 @@
                 android:id="@+id/linear_layout_products"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rl_payment_address"
-                android:orientation="vertical">
+                app:layout_constraintTop_toBottomOf="@id/rl_payment_address">
 
                 <RelativeLayout
                     android:id="@+id/rl_payment_products"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="20dp"
-                    android:paddingBottom="10dp"
-                    android:background="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/payment_products_List">
 
                     <ImageView
@@ -168,33 +180,33 @@
                         android:layout_height="20dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_badge"/>
+                        android:src="@drawable/ic_badge" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:text="@string/products"
-                        android:fontFamily="@font/sf_pro_text_bold"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_toEndOf="@id/iv_products"/>
+                        android:layout_toEndOf="@id/iv_products"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:text="@string/products"
+                        android:textSize="15sp" />
 
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/dark_gray"/>
+                    android:background="@color/dark_gray" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/payment_products_List"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:paddingStart="15dp"
                     android:paddingTop="5dp"
-                    android:background="@color/white"
                     android:visibility="visible"
                     tools:ignore="RtlSymmetry" />
 
@@ -204,10 +216,10 @@
                 android:id="@+id/rl_payment_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear_layout_products">
 
                 <ImageView
@@ -223,37 +235,37 @@
                     android:id="@+id/payment_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="@string/payment"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@id/iv_payment_total"/>
+                    android:layout_toEndOf="@id/iv_payment_total"
+                    android:fontFamily="@font/sf_pro_text_bold"
+                    android:text="@string/payment"
+                    android:textSize="15sp" />
 
                 <LinearLayout
                     android:id="@+id/linear_layout_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentEnd="true">
+                    android:layout_alignParentEnd="true"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/payment_method"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:text="@string/choose_payment_methods"
-                        android:fontFamily="@font/sf_pro_text_regular"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"/>
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/choose_payment_methods"
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:id="@+id/iv_payment_total_choose"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_arrow_next"
                         app:tint="@color/dark_gray" />
 
@@ -263,47 +275,47 @@
                     android:id="@+id/payment_total_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="@string/total_ordering"
-                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:layout_below="@id/payment_lbl"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_toEndOf="@id/iv_payment_total"
-                    android:layout_below="@id/payment_lbl" />
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/total_ordering"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/payment_total_cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="@string/total_payment"
-                    android:layout_marginEnd="10dp"
+                    android:layout_below="@id/payment_total_order"
                     android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@color/palattes_1"
-                    android:fontFamily="@font/sf_pro_text_regular"
                     android:layout_toEndOf="@id/iv_payment_total"
-                    android:layout_below="@id/payment_total_order" />
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:text="@string/total_payment"
+                    android:textColor="@color/palattes_1"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/payment_money_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:layout_below="@id/linear_layout_payment"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@id/linear_layout_payment" />
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="80dp"
                     android:layout_height="1dp"
-                    android:background="@color/dark_gray"
+                    android:layout_below="@id/payment_money_order"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_below="@id/payment_money_order"/>
+                    android:background="@color/dark_gray" />
 
                 <TextView
                     android:id="@+id/payment_money_cost"
@@ -319,69 +331,66 @@
                     android:textSize="15sp" />
 
             </RelativeLayout>
-
-            <View
-                android:id="@+id/v_purchase"
-                app:layout_constraintTop_toBottomOf="@id/rl_payment_total"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@color/white"/>
-
-            <TextView
-                android:id="@+id/tv_terms"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/v_purchase"
-                app:layout_constraintBottom_toBottomOf="@id/v_purchase"
-                android:layout_width="wrap_content"
-                android:singleLine="true"
-                android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="5dp"
-                android:gravity="center"
-                android:text="@string/alert_payment"
-                android:textSize="10sp"
-                android:fontFamily="@font/sf_pro_text_regular"
-                tools:ignore="SmallSp" />
-
-            <TextView
-                android:id="@+id/tv_purchase"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/v_purchase"
-                app:layout_constraintBottom_toBottomOf="@id/v_purchase"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:background="@color/palattes_2"
-                android:gravity="center"
-                android:text="@string/purchase"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:fontFamily="@font/sf_pro_text_bold"/>
-
-            <View
-                android:id="@+id/v_waiting_load_payment"
-                android:layout_width="match_parent"
-                android:layout_height="1000dp"
-                android:background="@color/black_25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <ProgressBar
-                android:id="@+id/loadBar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="150dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
+
+    <View
+        android:id="@+id/v_purchase"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_terms"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/alert_payment"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_purchase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_purchase" />
+
+    <TextView
+        android:id="@+id/tv_purchase"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@color/palattes_2"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:gravity="center"
+        android:text="@string/purchase"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_purchase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_purchase" />
+
+    <View
+        android:id="@+id/v_waiting_load_payment"
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:background="@color/black_25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loadBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

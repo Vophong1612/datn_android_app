@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.services
 
+import android.content.Context
 import com.example.arfashion.presentation.app.models.forgot_password.UserForgotPasswordResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginFacebookResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginResponse
@@ -92,8 +93,8 @@ interface UserService {
 
     companion object {
 
-        fun create(): UserService {
-            val networkProvider = NetworkProvider.newInstance()
+        fun create(context: Context): UserService {
+            val networkProvider = NetworkProvider.newInstance(context)
             return networkProvider.getService(UserService::class.java)
         }
     }

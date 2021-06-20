@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.services
 
+import android.content.Context
 import com.example.arfashion.presentation.app.models.cart.CartResponse
 import com.example.arfashion.presentation.app.models.cart.UpdateCartResponse
 import retrofit2.Call
@@ -31,8 +32,8 @@ interface CartService {
     ) : Call<Boolean>
 
     companion object {
-        fun create(): CartService {
-            val networkProvider = NetworkProvider.newInstance()
+        fun create(context: Context): CartService {
+            val networkProvider = NetworkProvider.newInstance(context)
             return networkProvider.getService(CartService::class.java)
         }
     }

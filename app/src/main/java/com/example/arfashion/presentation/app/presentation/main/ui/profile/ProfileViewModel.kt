@@ -1,23 +1,21 @@
 package com.example.arfashion.presentation.app.presentation.main.ui.profile
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.arfashion.presentation.app.models.forgot_password.UserForgotPasswordResponse
-import com.example.arfashion.presentation.app.models.login.UserLoginFacebookResponse
 import com.example.arfashion.presentation.app.models.login.UserLoginResponse
 import com.example.arfashion.presentation.app.models.profile.AvatarResponse
 import com.example.arfashion.presentation.app.models.profile.ProfileResponse
-import com.example.arfashion.presentation.services.AddressService
 import com.example.arfashion.presentation.services.UserService
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileViewModel(
-    private val userService: UserService
-) : ViewModel() {
+class ProfileViewModel(context: Context) : ViewModel() {
+    private val userService = UserService.create(context)
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"

@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.data
@@ -41,10 +42,11 @@ class CategoriesFragment : Fragment() {
         CategoryAdapter()
     }
 
-    private val categoryViewModel by viewModels<CategoriesViewModel>()
+    private lateinit var categoryViewModel: CategoriesViewModel
 
     init {
         lifecycleScope.launchWhenCreated {
+            categoryViewModel = ViewModelProvider(requireActivity(), MyViewModelFactory(requireContext())).get(CategoriesViewModel::class.java)
             categoryViewModel.getCategories()
         }
     }

@@ -7,12 +7,10 @@ import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
-import com.example.arfashion.presentation.services.UserService
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register_email_user_info.*
@@ -25,8 +23,6 @@ class RegisterEmailUserInfoActivity : AppCompatActivity() {
 
     private lateinit var registerViewModel: RegisterViewModel
 
-    private val userService = UserService.create()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_email_user_info)
@@ -37,12 +33,8 @@ class RegisterEmailUserInfoActivity : AppCompatActivity() {
         screen_name.text = this.getString(R.string.sign_up)
         onNavigateBack()
 
-        registerViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return RegisterViewModel(userService) as T
-            }
-        })[RegisterViewModel::class.java]
+        registerViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(
+            RegisterViewModel::class.java)
 
         initView(intent)
         initViewModel()

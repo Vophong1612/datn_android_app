@@ -3,11 +3,11 @@ package com.example.arfashion.presentation.app.presentation.product.comment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.detail.ReviewAdapter
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.layout_back_header.*
 
 class CommentActivity : AppCompatActivity() {
 
-    private val commentViewModel: CommentViewModel by viewModels()
+    private lateinit var commentViewModel: CommentViewModel
 
     private lateinit var reviewAdapter: ReviewAdapter
 
@@ -33,6 +33,9 @@ class CommentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
+
+        commentViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(
+            CommentViewModel::class.java)
 
         productId = intent.extras?.getString(KEY_PRODUCT_ID)
 

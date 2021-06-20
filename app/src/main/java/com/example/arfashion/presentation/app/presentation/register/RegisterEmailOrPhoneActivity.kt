@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.app.presentation.login.LoginViewModel
@@ -20,7 +19,6 @@ import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
-import com.example.arfashion.presentation.services.UserService
 import com.example.arfashion.presentation.services.Utils
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -48,8 +46,6 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
     private val codeSignInGoogle: Int = 100
 
     private lateinit var mGoogleSignInClient : GoogleSignInClient
-
-    private val userService = UserService.create()
 
     private lateinit var pref: SharedPreferences
 
@@ -128,19 +124,10 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
         onNavigateBack()
         mCallbackManager = CallbackManager.Factory.create()
 
-        registerViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return RegisterViewModel(userService) as T
-            }
-        })[RegisterViewModel::class.java]
+        registerViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(
+            RegisterViewModel::class.java)
 
-        loginViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return LoginViewModel(userService) as T
-            }
-        })[LoginViewModel::class.java]
+        loginViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(LoginViewModel::class.java)
 
         initViewModel()
     }

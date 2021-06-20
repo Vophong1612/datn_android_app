@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -24,33 +23,17 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.local.UserLocalStorage
-import com.example.arfashion.presentation.app.presentation.forgot_password.ForgotPasswordViewModel
-import com.example.arfashion.presentation.app.presentation.forgot_password.VerifyForgotPasswordActivity
-import com.example.arfashion.presentation.app.presentation.login.LoginViewModel
-import com.example.arfashion.presentation.app.presentation.product.test.ARTestActivity
-import com.example.arfashion.presentation.app.presentation.register.RegisterVerifyActivity
-import com.example.arfashion.presentation.app.presentation.register.RegisterViewModel
 import com.example.arfashion.presentation.data.ARFashionUserManager
-import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.User
-import com.example.arfashion.presentation.services.UserService
 import com.example.arfashion.presentation.services.Utils
-import com.facebook.CallbackManager
-import com.facebook.Profile
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import kotlinx.android.synthetic.main.activity_forgot_password.*
-import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
 import kotlinx.android.synthetic.main.activity_user_info.*
-import kotlinx.android.synthetic.main.fragment_profile_tab.*
 import kotlinx.android.synthetic.main.layout_back_save_header.*
-import kotlinx.android.synthetic.main.layout_before_test.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -113,8 +96,6 @@ class ProfileDetailActivity : AppCompatActivity() {
 
     private lateinit var profileViewModel: ProfileViewModel
 
-    private val userService = UserService.create()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_info)
@@ -131,13 +112,7 @@ class ProfileDetailActivity : AppCompatActivity() {
         userManager = ARFashionUserManager(userStorage).getInstance()
         user = userStorage.load()
 
-        profileViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return ProfileViewModel(userService) as T
-            }
-        })[ProfileViewModel::class.java]
-
+        profileViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(ProfileViewModel::class.java)
 
         initView()
         initViewModel()

@@ -3,11 +3,12 @@ package com.example.arfashion.presentation.app.presentation.product.test
 import android.Manifest
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.visible
@@ -27,7 +28,7 @@ const val KEY_PRODUCT_IMAGE = "key_bundle_product_image"
 
 class ARTestActivity : AppCompatActivity() {
 
-    private val arTestViewModel by viewModels<ARTestViewModel>()
+    private lateinit var arTestViewModel : ARTestViewModel
 
     private var productId: String = ""
 
@@ -42,6 +43,9 @@ class ARTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ar_test)
+
+        arTestViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(
+            ARTestViewModel::class.java)
 
         getDataFromIntent()
 

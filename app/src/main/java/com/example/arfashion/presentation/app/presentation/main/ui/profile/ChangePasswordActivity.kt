@@ -1,28 +1,21 @@
 package com.example.arfashion.presentation.app.presentation.main.ui.profile
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.local.UserLocalStorage
-import com.example.arfashion.presentation.app.presentation.forgot_password.ForgotPasswordViewModel
-import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.User
-import com.example.arfashion.presentation.services.UserService
-import kotlinx.android.synthetic.main.activity_change_forgot_password.*
 import kotlinx.android.synthetic.main.activity_change_password.*
 import kotlinx.android.synthetic.main.layout_back_save_header.*
-import java.io.File
 
 class ChangePasswordActivity : AppCompatActivity() {
 
@@ -35,8 +28,6 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var pref: SharedPreferences
 
     private lateinit var profileViewModel: ProfileViewModel
-
-    private val userService = UserService.create()
 
     private var password: String = ""
 
@@ -56,12 +47,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         user = userStorage.load()
         password = userStorage.loadPassword()
 
-        profileViewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return ProfileViewModel(userService) as T
-            }
-        })[ProfileViewModel::class.java]
+        profileViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(ProfileViewModel::class.java)
 
         initView()
         initViewModel()

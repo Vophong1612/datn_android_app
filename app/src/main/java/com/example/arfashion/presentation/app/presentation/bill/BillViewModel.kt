@@ -1,5 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.bill
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,8 +15,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BillViewModel : ViewModel() {
-    private val billService = BillService.create()
+class BillViewModel (context: Context) : ViewModel() {
+    private val billService = BillService.create(context)
 
     private val _billStatus = MutableLiveData<ARResult<List<BillStatus>>>()
     val billStatus: LiveData<ARResult<List<BillStatus>>>
