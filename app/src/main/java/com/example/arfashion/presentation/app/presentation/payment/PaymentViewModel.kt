@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.arfashion.presentation.app.models.bill.AddBillRequest
 import com.example.arfashion.presentation.app.models.payment.AddBillResponse
 import com.example.arfashion.presentation.app.models.payment.PaymentMethodResponse
 import com.example.arfashion.presentation.app.models.payment.ProductInAPI
@@ -51,8 +52,8 @@ class PaymentViewModel(context: Context) : ViewModel() {
         })
     }
 
-    fun addBill(totalProduct: Int, address: String, payment: String, totalCost: Int, products: MutableList<ProductInAPI>) {
-        paymentService.addBill(totalProduct, address, payment, totalCost, products).enqueue(object :
+    fun addBill(addBillRequest: AddBillRequest) {
+        paymentService.addBill(addBillRequest).enqueue(object :
             Callback<AddBillResponse> {
             override fun onResponse(
                 call: Call<AddBillResponse>,
