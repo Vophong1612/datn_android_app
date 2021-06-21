@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var bestSellerProductAdapter: ProductAdapter
 
-    //TODO: recommendProductAdapter
+    private lateinit var newestProductAdapter: ProductAdapter
 
     private lateinit var carouselAdapter: CarouselAdapter
 
@@ -46,7 +46,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var cartViewModel: CartViewModel
 
-    private lateinit var bestSellerPagerIndicatorController : PagerIndicatorController
+    private lateinit var bestSellerPagerIndicatorController: PagerIndicatorController
+
+    private lateinit var newestProductPagerIndicatorController: PagerIndicatorController
 
     private lateinit var carouselPagerIndicatorController: PagerIndicatorController
 
@@ -60,10 +62,18 @@ class HomeFragment : Fragment() {
 
     init {
         lifecycleScope.launchWhenCreated {
-            homeViewModel = ViewModelProvider(this@HomeFragment, MyViewModelFactory(requireContext())).get(HomeViewModel::class.java)
-            cartViewModel = ViewModelProvider(this@HomeFragment, MyViewModelFactory(requireContext())).get(CartViewModel::class.java)
+            homeViewModel =
+                ViewModelProvider(this@HomeFragment, MyViewModelFactory(requireContext())).get(
+                    HomeViewModel::class.java
+                )
+            cartViewModel =
+                ViewModelProvider(this@HomeFragment, MyViewModelFactory(requireContext())).get(
+                    CartViewModel::class.java
+                )
 
             homeViewModel.getCarouselList()
+            homeViewModel.getBestSellerProduct()
+            homeViewModel.getNewestProduct()
             cartViewModel.getCart()
         }
     }
@@ -71,9 +81,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bestSellerProductAdapter = ProductAdapter(requireContext(), true)
         bestSellerPager.adapter = bestSellerProductAdapter
-        bestSellerPagerIndicatorController = PagerIndicatorController(bestSellerPager, bestSellerSlide) {
+        bestSellerPagerIndicatorController =
+            PagerIndicatorController(bestSellerPager, bestSellerSlide) {
+                it.checkItemsAre<Product>()?.let { products ->
+                    bestSellerProductAdapter.setProducts(products)
+                }
+            }
+
+        newestProductAdapter = ProductAdapter(requireContext(), true)
+        newestPager.adapter = newestProductAdapter
+        newestProductPagerIndicatorController = PagerIndicatorController(newestPager, newestSlide) {
             it.checkItemsAre<Product>()?.let { products ->
-                bestSellerProductAdapter.setProducts(products)
+                newestProductAdapter.setProducts(products)
             }
         }
 
@@ -85,57 +104,31 @@ class HomeFragment : Fragment() {
             }
         }
 
-        //TODO: connect api, observer data here
-        //TODO: Hard code, remove
-        val products = listOf(
-            Product(
-                id = "605a279c928cf217986aad9d",
-                name = "Áo 1",
-                tag = listOf("T-Shirt"),
-                images = listOf("https://product.hstatic.net/200000053174/product/4apkh006trt-295k_7cb61b16ced4411a81da614a5f544759_master.jpg"),
-                prices = 300000,
-                priceSale = /*Sales(100000, Date(2021, 12, 31))*/ 100000
-            ),
-            Product(
-                id = "605a279c928cf217986aad9d",
-                name = "Quần 1" ,
-                tag = listOf("Pan"),
-                images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
-                prices = 500000,
-                priceSale = 500000
-            ),
-            Product(
-                id = "605a279c928cf217986aad9d",
-                name ="Quần 1" ,
-                tag = listOf("Pan"),
-                images = listOf("https://product.hstatic.net/200000053174/product/quan_au_nam_biluxury3_a1d8b22461134565b4a09cd90dc58666_master.jpg"),
-                prices = 500000,
-                priceSale = 500000
-            ),
-            Product(
-                id = "605a279c928cf217986aad9d",
-                name ="Áo 2" ,
-                tag = listOf("T-Shirt"),
-                images = listOf("https://product.hstatic.net/200000053174/product/4apkh007ttt_-_295k_5db812b469f84e2aa34a51a79a460dad_master.jpg"),
-                prices = 300000,
-                priceSale = /*Sales(50000, Date(2021, 12, 31))*/ 50000
-            ),
-        )
-
-        val temp = if (products.size > 4) {
-            products.subList(0, 3)
-        } else {
-            products
+        homeViewModel.bestSellerProduct.observe(viewLifecycleOwner) {
+            when (it) {
+                is ARResult.Success -> handleBestProductData(it.data)
+                is ARResult.Error -> {
+                    bestSellerGroup.gone()
+                }
+            }
         }
-        //end TODO
-        bestSellerPagerIndicatorController.handleData(temp)
+
+        homeViewModel.newestProduct.observe(viewLifecycleOwner) {
+            when (it) {
+                is ARResult.Success -> handleNewestProductData(it.data)
+                is ARResult.Error -> {
+                    newestGroup.gone()
+                }
+            }
+        }
 
         homeViewModel.carousel.observe(viewLifecycleOwner, {
             when (it) {
                 is ARResult.Success -> {
                     handleCarouselData(it.data)
                 }
-                is ARResult.Error -> {}
+                is ARResult.Error -> {
+                }
             }
         })
 
@@ -177,6 +170,35 @@ class HomeFragment : Fragment() {
         bestSellerProductAdapter.productClickLister = {
             this.requireContext().openProductDetailActivity(it)
         }
+
+        newestProductAdapter.productClickLister = {
+            this.requireContext().openProductDetailActivity(it)
+        }
+    }
+
+    private fun handleNewestProductData(data: List<Product>) {
+        if (data.isEmpty()) {
+            bestSellerGroup.gone()
+            return
+        }
+
+        newestGroup.visible()
+        newestProductPagerIndicatorController.handleData(data)
+    }
+
+    private fun handleBestProductData(data: List<Product>) {
+        if (data.isEmpty()) {
+            bestSellerGroup.gone()
+            return
+        }
+
+        bestSellerGroup.visible()
+        val temp = if (data.size > 4) {
+            data.subList(0, 3)
+        } else {
+            data
+        }
+        bestSellerPagerIndicatorController.handleData(temp)
     }
 
     private fun handleCarouselData(carousels: List<Carousel>) {

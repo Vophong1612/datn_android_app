@@ -94,7 +94,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:maxHeight="130dp"
-                    app:layout_constraintBottom_toTopOf="@id/recommendGroup"
+                    app:layout_constraintBottom_toTopOf="@id/newestGroup"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/bestSellerGroup" />
@@ -111,7 +111,7 @@
                     app:layout_constraintStart_toStartOf="@id/carousel" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/recommendGroup"
+                    android:id="@+id/newestGroup"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -123,23 +123,23 @@
                     app:layout_constraintTop_toBottomOf="@id/carousel">
 
                     <TextView
-                        android:id="@+id/recommentLabel"
+                        android:id="@+id/newestLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/sf_pro_text_bold"
-                        android:text="@string/recommed_for_you_text"
+                        android:text="@string/newest_text"
                         android:textAllCaps="true"
                         android:textColor="@color/palattes_2"
                         android:textSize="15sp"
-                        app:layout_constraintBottom_toTopOf="@id/recommendPager"
+                        app:layout_constraintBottom_toTopOf="@id/newestPager"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/recommendPager"
+                        android:id="@+id/newestPager"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="15dp"
@@ -148,17 +148,17 @@
                         app:layout_constraintDimensionRatio="1:1.38"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/recommentLabel" />
+                        app:layout_constraintTop_toBottomOf="@id/newestLabel" />
 
                     <com.example.arfashion.presentation.app.widget.indicator.IndicatorSlideView
-                        android:id="@+id/recommendSlide"
+                        android:id="@+id/newestSlide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/recommendPager"
-                        app:layout_constraintStart_toStartOf="@id/recommendPager"
-                        app:layout_constraintTop_toBottomOf="@id/recommendPager" />
+                        app:layout_constraintEnd_toEndOf="@id/newestPager"
+                        app:layout_constraintStart_toStartOf="@id/newestPager"
+                        app:layout_constraintTop_toBottomOf="@id/newestPager" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

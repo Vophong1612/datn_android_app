@@ -60,21 +60,6 @@ fun Comments.toComment(): Comment =
         (parser.parse(createdAt)?: Date())
     )
 
-//fun RelatedProductResponse.toProduct(): Product =
-//    Product(id = id,
-//        name = name,
-//        prices = price,
-//        priceSale = if (priceSale.isNotEmpty()) {
-//            price - priceSale[0].discount
-//        } else price,
-//        images = images.map {
-//            it.url
-//        },
-//        tag = tags.map { tag ->
-//            tag.name
-//        }
-//    )
-
 fun CategoriesResponse.toCategory(): Category =
     Category(
         name = name,
@@ -95,7 +80,21 @@ fun ProductByCondition.toProduct(): Product =
         images = images.map {
             it.url
         },
-        tag = /*tags*/ tags.map { tag ->
+        tag = tags.map { tag ->
+            tag.name
+        }
+    )
+
+fun ProductAtHome.toProduct(): Product =
+    Product(
+        id = id,
+        name = name,
+        prices = price,
+        priceSale = priceSale,
+        images = images.map {
+            it.url
+        },
+        tag = tags.map { tag ->
             tag.name
         }
     )
