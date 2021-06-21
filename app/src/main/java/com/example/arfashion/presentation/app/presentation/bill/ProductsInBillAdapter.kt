@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.data.model.Product
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 
 class ProductsInBillAdapter(private val context: Activity) :
     RecyclerView.Adapter<ProductsInBillAdapter.ViewHolder>() {
@@ -66,7 +67,7 @@ class ProductsInBillAdapter(private val context: Activity) :
                 size.text = context.getString(R.string.cart_size, res.sizes[0].name)
             }
             totalProduct.text = "x " + res.total
-            price.text = context.getString(R.string.price, res.prices)
+            price.text = context.getString(R.string.price, res.prices.standardFormat())
             Glide.with(image)
                 .load(res.images[0])
                 .into(image)

@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.data.model.Bill
-import com.example.arfashion.presentation.services.Utils
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_detail_bill.*
 import kotlinx.android.synthetic.main.layout_back_header.*
@@ -47,8 +47,8 @@ class DetailBillActivity : AppCompatActivity() {
                 bill.address.district.name + ", " +
                 bill.address.province.name
         detail_bill_method.text = bill.payment.name
-        detail_bill_money_order.text = Utils.formatPrice(bill.totalCost) + " VND"
-        detail_bill_money_cost.text = Utils.formatPrice(bill.totalCost) + " VND"
+        detail_bill_money_order.text = detail_bill_money_order.context.getString(R.string.price, bill.totalCost.standardFormat())
+        detail_bill_money_cost.text = detail_bill_money_order.context.getString(R.string.price, bill.totalCost.standardFormat())
 
         productAdapter = ProductsInBillAdapter((this))
         with(detail_bill_products_List){

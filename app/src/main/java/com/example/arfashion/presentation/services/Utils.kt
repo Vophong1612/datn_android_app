@@ -2,9 +2,10 @@ package com.example.arfashion.presentation.services
 
 import android.text.TextUtils
 import android.util.Patterns
-import java.text.NumberFormat
-import java.util.*
 import com.example.arfashion.presentation.data.model.Profile
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 class Utils {
     companion object{
@@ -56,15 +57,6 @@ class Utils {
             return ""
         }
 
-        fun formatPrice(target: Int): String {
-
-            val format: NumberFormat = NumberFormat.getCurrencyInstance()
-            format.maximumFractionDigits = 0
-            format.currency = Currency.getInstance("EUR")
-
-            return format.format(target).removeRange(0, 1)
-        }
-
         fun initData(user: Profile) {
             if(user.email.isNullOrEmpty()) user.email = ""
             if(user.phone.isNullOrEmpty()) user.phone = ""
@@ -85,6 +77,24 @@ class Utils {
             if(target.isNotEmpty())
                 return target.substring(8,10) + "/" + target.substring(5,7) + "/" + target.substring(0,4)
             return target
+        }
+
+        fun Int.standardFormat(): String {
+            return this.toLong().standardFormat()
+        }
+
+        fun Long.standardFormat(): String {
+            return getDecimalFormat().format(this)
+        }
+
+        private fun getDecimalFormat(): DecimalFormat {
+            val df = DecimalFormat("###,###.#")
+            val decimalFormatSymbols = DecimalFormatSymbols()
+            decimalFormatSymbols.decimalSeparator = '.'
+
+            df.decimalFormatSymbols = decimalFormatSymbols
+            df.roundingMode = RoundingMode.FLOOR
+            return df
         }
     }
 

@@ -23,7 +23,7 @@ import com.example.arfashion.presentation.app.presentation.address.AddressListAc
 import com.example.arfashion.presentation.app.presentation.address.AddressViewModel
 import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
-import com.example.arfashion.presentation.services.Utils
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 import kotlinx.android.synthetic.main.activity_payment.*
 import kotlinx.android.synthetic.main.layout_back_header.*
 
@@ -110,7 +110,7 @@ class PaymentActivity : AppCompatActivity() {
 
         getProducts()
 
-        payment_money_order.text = Utils.formatPrice(totalMoney) + "đ"
+        payment_money_order.text = payment_money_order.context.getString(R.string.price, totalMoney.standardFormat())
 
         payment_money_cost.text = payment_money_order.text
 
@@ -167,7 +167,7 @@ class PaymentActivity : AppCompatActivity() {
         }
 
         //setting text values
-        val methodAdapter = PaymentMethodsAdapter(this)
+        val methodAdapter = PaymentMethodsAdapter()
         with(recyclerViewList) {
             this?.adapter = methodAdapter
             this?.layoutManager = LinearLayoutManager(this!!.context)
@@ -214,7 +214,7 @@ class PaymentActivity : AppCompatActivity() {
                     chosenProducts.add(
                         ProductInBill(
                             item.id, item.name, item.images[0], item.colors[0], item.sizes[0].name,
-                            item.priceSale.toString(), item.total.toString()
+                            item.priceSale, item.total.toString()
                         )
                     )
                     postAPIProducts.add(
@@ -227,7 +227,7 @@ class PaymentActivity : AppCompatActivity() {
                     chosenProducts.add(
                         ProductInBill(
                             item.id, item.name, item.images[0], item.colors[0], item.sizes[0].name,
-                            item.prices.toString(), item.total.toString()
+                            item.prices, item.total.toString()
                         )
                     )
                     postAPIProducts.add(

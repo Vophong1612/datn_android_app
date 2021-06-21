@@ -1,7 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.payment
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.models.payment.PaymentItem
 
-class PaymentMethodsAdapter(private val context: Activity) :
-    RecyclerView.Adapter<PaymentMethodsAdapter.ViewHolder>() {
+class PaymentMethodsAdapter : RecyclerView.Adapter<PaymentMethodsAdapter.ViewHolder>() {
 
     private var methodList: MutableList<PaymentItem> = mutableListOf()
 

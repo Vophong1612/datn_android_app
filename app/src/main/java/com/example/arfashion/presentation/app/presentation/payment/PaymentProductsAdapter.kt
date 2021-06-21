@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.models.payment.ProductInBill
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
+import kotlinx.android.synthetic.main.activity_payment.*
 
 class PaymentProductsAdapter(private val context: Activity) :
     RecyclerView.Adapter<PaymentProductsAdapter.ViewHolder>() {
@@ -60,7 +62,7 @@ class PaymentProductsAdapter(private val context: Activity) :
             color.text = context.getString(R.string.color_lbl) + res.color
             size.text = context.getString(R.string.size_lbl) + res.size
             totalProduct.text = "x " + res.total.toString()
-            price.text = res.price.toString() + " VND"
+            price.text = price.context.getString(R.string.price, res.price.standardFormat())
             Glide.with(image)
                 .load(res.image)
                 .into(image)

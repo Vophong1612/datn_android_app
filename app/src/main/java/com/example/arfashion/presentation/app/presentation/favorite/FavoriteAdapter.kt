@@ -15,8 +15,7 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.models.favorite.FavoriteItem
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.detail.ProductDetailActivity
-import com.example.arfashion.presentation.data.model.Product
-import com.example.arfashion.presentation.services.Utils
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 
 class FavoriteAdapter(private val context: Activity) :
     RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
@@ -75,12 +74,12 @@ class FavoriteAdapter(private val context: Activity) :
             name.text = res.name
             if(res.priceSale == res.price){
                 //only show priceSale
-                priceSale.text =  Utils.formatPrice(res.priceSale) + "VND"
+                priceSale.text =  priceSale.context.getString(R.string.price, res.priceSale.standardFormat())
                 defaultPrice.visibility = View.GONE
             }else{
                 //show both
-                priceSale.text =  Utils.formatPrice(res.priceSale) + "VND"
-                context.getString(R.string.default_price, Utils.formatPrice(res.price)) + "VND"
+                priceSale.text =  priceSale.context.getString(R.string.price, res.priceSale.standardFormat())
+                context.getString(R.string.default_price, res.price.standardFormat())
             }
             Glide.with(image)
                 .load(res.images[0].url)

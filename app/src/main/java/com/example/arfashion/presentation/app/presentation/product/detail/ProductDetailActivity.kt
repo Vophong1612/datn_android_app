@@ -16,7 +16,6 @@ import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.models.favorite.FavoriteItem
 import com.example.arfashion.presentation.app.openProductDetailActivity
-import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.favorite.FavoriteViewModel
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
@@ -32,6 +31,7 @@ import com.example.arfashion.presentation.app.presentation.product.test.KEY_PROD
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Product
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 import kotlinx.android.synthetic.main.activity_login.refreshLayout
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.layout_back_header.*
@@ -275,19 +275,19 @@ class ProductDetailActivity : AppCompatActivity() {
         if (product.isSale) {
             productPrice.text = applicationContext.getString(
                 R.string.price,
-                product.priceSale
+                product.priceSale.standardFormat()
             )
             defaultPrice.visible()
             defaultPrice.text = HtmlCompat.fromHtml(
                 applicationContext.getString(
                     R.string.default_price,
-                    product.prices
+                    product.prices.standardFormat()
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
         } else {
             productPrice.text = applicationContext.getString(
                 R.string.price,
-                product.prices
+                product.prices.standardFormat()
             )
             defaultPrice.gone()
         }

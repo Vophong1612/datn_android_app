@@ -14,7 +14,7 @@ data class ProductInBill (
     @SerializedName("size")
     val size: String = "",
     @SerializedName("price")
-    val price: String = "",
+    val price: Int = 0,
     @SerializedName("total")
     val total: String = "",
 )
