@@ -81,7 +81,9 @@ class ProductsInDetailBillAdapter(private val context: Activity) :
             Glide.with(image)
                 .load(res.images[0])
                 .into(image)
-
+            if(DetailBillActivity.statusBill == "Confirmed"){
+                rating.visibility = View.GONE
+            }
         }
     }
 }
