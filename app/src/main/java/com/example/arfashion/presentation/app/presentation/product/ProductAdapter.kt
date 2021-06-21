@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.data.model.Product
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 
 class ProductAdapter(private val context: Context, private val isViewPager: Boolean) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
@@ -84,15 +85,15 @@ class ProductAdapter(private val context: Context, private val isViewPager: Bool
                 defaultPrice.visibility = View.VISIBLE
                 saleTag.visibility = View.VISIBLE
                 defaultPrice.text = HtmlCompat.fromHtml(
-                    context.getString(R.string.default_price, product.prices),
+                    context.getString(R.string.default_price, product.prices.standardFormat()),
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
                 price.text =
-                    context.getString(R.string.price, product.priceSale)
+                    context.getString(R.string.price, product.priceSale.standardFormat())
             } else {
                 defaultPrice.visibility = View.GONE
                 saleTag.visibility = View.GONE
-                price.text = context.getString(R.string.price, product.prices)
+                price.text = context.getString(R.string.price, product.prices.standardFormat())
             }
         }
     }

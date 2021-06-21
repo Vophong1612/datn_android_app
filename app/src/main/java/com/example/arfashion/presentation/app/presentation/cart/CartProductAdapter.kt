@@ -12,9 +12,9 @@ import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.data.model.Product
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 import it.sephiroth.android.library.numberpicker.NumberPicker
 import it.sephiroth.android.library.numberpicker.doOnProgressChanged
-import it.sephiroth.android.library.numberpicker.doOnStopTrackingTouch
 
 class CartProductAdapter : RecyclerView.Adapter<CartProductAdapter.ViewHolder>() {
 
@@ -118,10 +118,10 @@ class CartProductAdapter : RecyclerView.Adapter<CartProductAdapter.ViewHolder>()
                 }
             }
 
-            price.text = price.context.getString(R.string.price, data.priceSale)
+            price.text = price.context.getString(R.string.price, data.priceSale.standardFormat())
             if (data.isSale) {
                 defaultPrice.text = HtmlCompat.fromHtml(
-                    defaultPrice.context.getString(R.string.default_price, data.prices),
+                    defaultPrice.context.getString(R.string.default_price, data.prices.standardFormat()),
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             } else {

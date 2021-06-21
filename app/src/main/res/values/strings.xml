@@ -21,8 +21,8 @@
     <string name="sign_in_register">Sign In!</string>
     <string name="verify_btn">Verify</string>
 
-    <string name="price">%1$d VND</string>
-    <string name="default_price">&lt;strike> %1$d VND &lt;/strike> </string>
+    <string name="price">%1$s VND</string>
+    <string name="default_price">&lt;strike> %1$s VND &lt;/strike> </string>
     <string name="sale_tag">sale</string>
     <string name="title_activity_main_ativity">MainActivity</string>
     <string name="title_home">Home</string>
@@ -113,7 +113,7 @@
     <string name="cart_screen_name">Cart</string>
     <string name="select_all">Select all</string>
     <string name="buy_now">Buy now</string>
-    <string name="total_prices">Total: %1$d VND</string>
+    <string name="total_prices">Total: %1$s VND</string>
     <string name="cart_size">Size: %1$s</string>
     <string name="cart_color">Color: %1$s</string>
     <string name="delete_alert_yes">Yes</string>

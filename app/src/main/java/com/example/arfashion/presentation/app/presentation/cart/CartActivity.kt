@@ -20,6 +20,7 @@ import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Cart
 import com.example.arfashion.presentation.data.model.Product
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 import kotlinx.android.synthetic.main.activity_cart.*
 import kotlinx.android.synthetic.main.layout_back_header.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,7 +31,6 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
-import java.io.Serializable
 
 class CartActivity : AppCompatActivity() {
 
@@ -171,10 +171,10 @@ class CartActivity : AppCompatActivity() {
     private fun generateTotalPrice(price: Int): CharSequence {
         val totalPriceText = applicationContext.getString(
             R.string.total_prices,
-            price
+            price.standardFormat()
         )
 
-        val priceText = "$price VND"
+        val priceText = "${price.standardFormat()} VND"
         val messageSpan = SpannableString(totalPriceText)
 
         val priceStartIndex = messageSpan.indexOf(priceText)

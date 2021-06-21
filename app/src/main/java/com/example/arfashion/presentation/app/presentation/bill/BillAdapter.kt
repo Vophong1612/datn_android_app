@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.data.model.Bill
-import com.example.arfashion.presentation.data.model.Product
+import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 import com.google.gson.Gson
 
 class BillAdapter(private val context: Context) : RecyclerView.Adapter<BillAdapter.ViewHolder>() {
@@ -80,7 +80,7 @@ class BillAdapter(private val context: Context) : RecyclerView.Adapter<BillAdapt
                 val firstProduct = data.products[0]
                 name.text = firstProduct.name
                 total.text = "x " + firstProduct.total
-                price.text = context.getString(R.string.price, firstProduct.prices)
+                price.text = context.getString(R.string.price, firstProduct.prices.standardFormat())
                 if (firstProduct.images.isNotEmpty()) {
                     Glide.with(imageProduct)
                         .load(firstProduct.images[0])
@@ -93,7 +93,7 @@ class BillAdapter(private val context: Context) : RecyclerView.Adapter<BillAdapt
                     color.text = context.getString(R.string.cart_color, firstProduct.colors[0])
                 }
             }
-            totalPayment.text = context.getString(R.string.price, data.totalCost)
+            totalPayment.text = context.getString(R.string.price, data.totalCost.standardFormat())
         }
     }
 }
