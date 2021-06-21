@@ -51,7 +51,7 @@ class PaymentViewModel(context: Context) : ViewModel() {
         })
     }
 
-    fun addBill(totalProduct: Int, address: String, payment: String, totalCost: Int, products: List<ProductInAPI>) {
+    fun addBill(totalProduct: Int, address: String, payment: String, totalCost: Int, products: MutableList<ProductInAPI>) {
         paymentService.addBill(totalProduct, address, payment, totalCost, products).enqueue(object :
             Callback<AddBillResponse> {
             override fun onResponse(
@@ -65,7 +65,7 @@ class PaymentViewModel(context: Context) : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<AddBillResponse>, t: Throwable) {
+            override fun onFailure(cll: Call<AddBillResponse>, t: Throwable) {
                 _resultAddBill.value = false
             }
         })

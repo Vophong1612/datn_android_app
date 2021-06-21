@@ -1,6 +1,5 @@
 package com.example.arfashion.presentation.data.model
 
-import androidx.annotation.Nullable
 import com.google.gson.annotations.SerializedName
 
 data class Profile (
@@ -13,9 +12,9 @@ data class Profile (
     @SerializedName("phone")
     var phone: String = "",
     @SerializedName("avatar")
-    val avatar: String? = "",
+    var avatar: String? = "",
     @SerializedName("gender")
-    val gender: Int = -1,
+    var gender: Int = -1,
     @SerializedName("birthday")
     var birthday: String = "",
     @SerializedName("account_status")

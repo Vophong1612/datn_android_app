@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginStart="20dp"
+    android:paddingStart="10dp"
     android:layout_marginEnd="20dp"
-    android:background="@color/white">
+    android:background="@drawable/bg_item_method">
 
     <RadioButton
         android:id="@+id/item_rb"

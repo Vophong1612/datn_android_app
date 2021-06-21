@@ -274,11 +274,11 @@ class ProfileDetailActivity : AppCompatActivity() {
     private fun showAvatarUploadingDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
-        builder.setTitle("Confirm")
-        builder.setMessage("Are you sure to upload this avatar?")
+        builder.setTitle(getString(R.string.dialog_confirm))
+        builder.setMessage(getString(R.string.alert_upload_avt))
 
         builder.setPositiveButton(
-            "YES"
+            getString(R.string.dialog_yes)
         ) { dialog, _ -> // Do nothing but close the dialog
             dialog.dismiss()
             imgAvatar?.let {
@@ -295,7 +295,7 @@ class ProfileDetailActivity : AppCompatActivity() {
         }
 
         builder.setNegativeButton(
-            "NO"
+            getString(R.string.dialog_no)
         ) { dialog, _ -> // Do nothing
             dialog.dismiss()
             if (!user.profile.avatar.isNullOrEmpty()) {
@@ -311,7 +311,7 @@ class ProfileDetailActivity : AppCompatActivity() {
 
     private fun setDataField() {
 
-        phoneNumberEdt.setText(user.profile.phone)
+        phoneNumberEdt.setText(Utils.formatPhoneToNormal(user.profile.phone))
         emailUserEdt.setText(user.profile.email)
         fullNameEdt.setText(user.profile.name)
         birthdayEdt.setText(Utils.formatDateToString(user.profile.birthday))

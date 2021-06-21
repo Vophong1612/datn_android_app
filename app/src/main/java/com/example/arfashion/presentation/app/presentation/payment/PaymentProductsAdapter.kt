@@ -57,10 +57,10 @@ class PaymentProductsAdapter(private val context: Activity) :
         @SuppressLint("SetTextI18n")
         fun bindData(res: ProductInBill) {
             name.text = res.name
-            color.text = "Color: " + res.color
-            size.text = "Size: " + res.size
+            color.text = context.getString(R.string.color_lbl) + res.color
+            size.text = context.getString(R.string.size_lbl) + res.size
             totalProduct.text = "x " + res.total.toString()
-            price.text = res.price.toString() + " d"
+            price.text = res.price.toString() + " VND"
             Glide.with(image)
                 .load(res.image)
                 .into(image)

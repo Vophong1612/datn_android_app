@@ -3,9 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="330dp"
     android:paddingBottom="15dp"
+    android:background="@color/backgroundColor"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center"
+        android:text="@string/payment_method_lbl"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rl_payment_method"
@@ -13,16 +28,19 @@
         android:layout_height="wrap_content"
         android:paddingStart="15dp"
         android:paddingTop="5dp"
-        android:background="@color/white"
+        android:background="@color/backgroundColor"
         android:visibility="visible"
-        tools:ignore="MissingConstraints,RtlSymmetry" />
+        tools:ignore="MissingConstraints,RtlSymmetry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
 
     <LinearLayout
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/rl_payment_method"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -32,7 +50,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/palattes_2"
+            android:background="@drawable/bg_sign_in_btn"
             android:gravity="center"
             android:text="@string/cancel"
             android:textColor="@color/white"
@@ -45,7 +63,8 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
-            android:background="@color/palattes_2"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_sign_in_btn"
             android:gravity="center"
             android:text="@string/ok"
             android:textColor="@color/white"

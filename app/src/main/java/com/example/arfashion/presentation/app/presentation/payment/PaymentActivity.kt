@@ -24,8 +24,6 @@ import com.example.arfashion.presentation.app.presentation.address.AddressListAc
 import com.example.arfashion.presentation.app.presentation.address.AddressViewModel
 import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
-import com.example.arfashion.presentation.data.ARFashionUserManager
-import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_payment.*
 import kotlinx.android.synthetic.main.layout_back_header.*
@@ -70,12 +68,14 @@ class PaymentActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        payment_name.text = paymentName
-        payment_email.text = paymentEmail
-        payment_phone.text = paymentPhone
-        payment_address.text = paymentAddress
-        if (paymentDefault) receiver_default.visibility = View.VISIBLE
-        else receiver_default.visibility = View.INVISIBLE
+        if(!paymentName.isNullOrEmpty()){
+            payment_name.text = paymentName
+            payment_email.text = paymentEmail
+            payment_phone.text = paymentPhone
+            payment_address.text = paymentAddress
+            if (paymentDefault) receiver_default.visibility = View.VISIBLE
+            else receiver_default.visibility = View.INVISIBLE
+        }
     }
 
     private fun init() {
@@ -129,7 +129,7 @@ class PaymentActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                payment_name.text.toString().isEmpty() -> {
+                payment_address.text.toString().isEmpty() -> {
                     Toast.makeText(
                         this,
                         getString(R.string.alert_must_be_choose_address),
@@ -194,7 +194,6 @@ class PaymentActivity : AppCompatActivity() {
             else {
                 messageBoxInstance.dismiss()
                 payment_method.text = methodName
-                iv_payment_total_choose.visibility = View.GONE
             }
         }
 
@@ -300,6 +299,15 @@ class PaymentActivity : AppCompatActivity() {
                         payment_address.visibility = View.VISIBLE
                         receiver_default.visibility = View.VISIBLE
                     }
+                }
+                if(payment_name.text.isEmpty()){
+                    payment_name.visibility = View.VISIBLE
+                    payment_email.visibility = View.VISIBLE
+                    payment_phone.visibility = View.VISIBLE
+                    payment_address.visibility = View.VISIBLE
+                    payment_name.text = getString(R.string.tv_no_default_address)
+                    payment_phone.text = getString(R.string.tv_choose_address)
+                    receiver_default.visibility = View.INVISIBLE
                 }
             } else {
                 Toast.makeText(this, "Failure !", Toast.LENGTH_SHORT).show()

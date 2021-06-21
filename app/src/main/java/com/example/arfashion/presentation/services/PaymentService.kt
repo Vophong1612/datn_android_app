@@ -13,7 +13,7 @@ interface PaymentService {
     @FormUrlEncoded
     fun addBill(@Field("totalProduct") totalProduct: Int,
                 @Field("address") address: String,  @Field("payment") payment: String,
-                @Field("totalCost") totalCost: Int, @Field("products") products: List<ProductInAPI>): Call<AddBillResponse>
+                @Field("totalCost") totalCost: Int, @Field("products") products: MutableList<ProductInAPI>): Call<AddBillResponse>
 
     @GET("/payments/list")
     fun getPaymentMethods(): Call<PaymentMethodResponse>
