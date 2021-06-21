@@ -227,10 +227,6 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         //todo: this is hardcode, remove here and in xml
-        billBtn.setOnClickListener {
-            val intent = Intent(this@ProductDetailActivity, BillActivity::class.java)
-            startActivity(intent)
-        }
         ratingButton.setOnClickListener {
             val intent = Intent(this@ProductDetailActivity, RatingActivity::class.java)
             intent.putExtra(KEY_RATING_PRODUCT_ID, productId)

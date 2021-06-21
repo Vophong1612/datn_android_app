@@ -53,4 +53,10 @@ interface ProductService {
     @Multipart
     @POST("/products/testAR")
     fun testAR(@Part body: MultipartBody.Part, @Part("color") color: RequestBody, @Part("_id") id: RequestBody) : Call<ARTestResponse>
+
+    @GET("/products/getPopularProduct")
+    fun getPopularProduct(): Call<GetProductAtHomeResponse>
+
+    @GET("/products/getNewestProduct")
+    fun getNewestProduct(@Query("offset") offset: Int, @Query("limit") limit: Int): Call<GetProductAtHomeResponse>
 }
