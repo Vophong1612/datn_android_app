@@ -74,22 +74,21 @@ interface UserService {
 
     @POST("/users/changePassword")
     @FormUrlEncoded
-    fun changePasswordProfile(@Header("Authorization") token: String, @Field("oldPassword") oldPassword: String, @Field("newPassword") newPassword: String, @Field("confirmNewPassword") confirmNewPassword: String): Call<UserForgotPasswordResponse>
+    fun changePasswordProfile(@Field("oldPassword") oldPassword: String, @Field("newPassword") newPassword: String, @Field("confirmNewPassword") confirmNewPassword: String): Call<UserForgotPasswordResponse>
 
     @GET("/users/profile")
-    fun getProfile(@Header("Authorization") token: String): Call<ProfileResponse>
+    fun getProfile(): Call<ProfileResponse>
 
     @POST("/users/updateProfile")
     @FormUrlEncoded
-    fun updateProfile(@Header("Authorization") token: String,
-                      @Field("name") name: String,
+    fun updateProfile(@Field("name") name: String,
                       @Field("email") email: String,
                       @Field("birthday") birthday: String,
                       @Field("gender") gender: Int): Call<UserLoginResponse>
 
     @Multipart
     @POST("/users/uploadAvatar")
-    fun uploadAvatar(@Header("Authorization") token: String, @Part avatar: MultipartBody.Part): Call<AvatarResponse>
+    fun uploadAvatar(@Part avatar: MultipartBody.Part): Call<AvatarResponse>
 
     companion object {
 

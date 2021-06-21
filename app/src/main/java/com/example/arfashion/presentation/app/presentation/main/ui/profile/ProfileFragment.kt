@@ -1,7 +1,6 @@
 package com.example.arfashion.presentation.app.presentation.main.ui.profile
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -19,11 +18,11 @@ import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartActivity
+import com.example.arfashion.presentation.app.presentation.favorite.FavoriteActivity
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
-import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.fragment_profile_tab.*
 
 class ProfileFragment : Fragment() {
@@ -61,7 +60,8 @@ class ProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        user.credential.accessToken?.let { profileViewModel.getProfile(it) }
+
+        profileViewModel.getProfile()
         initView()
         initViewModel()
     }
@@ -69,7 +69,8 @@ class ProfileFragment : Fragment() {
     private fun initView() {
 
         rl_user_favorite.setOnClickListener {
-
+            val intent = Intent(this.requireContext(), FavoriteActivity::class.java)
+            startActivity(intent)
         }
 
         rl_user_cart.setOnClickListener {
@@ -86,7 +87,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileViewModel = ViewModelProvider(this, MyViewModelFactory(requireContext())).get(ProfileViewModel::class.java)
+        profileViewModel = ViewModelProvider(this, MyViewModelFactory(this.requireContext())).get(ProfileViewModel::class.java)
 
         pref = this.requireContext().getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
         userStorage = UserLocalStorage(pref)
@@ -117,7 +118,7 @@ class ProfileFragment : Fragment() {
                     if(response.birthday.isNullOrBlank()) resBirthday = ""
                     if(response.gender.toString().isNullOrBlank()) resGender = -1
 
-                    userManager.currentUser = User(com.example.arfashion.presentation.data.model.Profile(
+                    userManager.currentUser = User(Profile(
                         response._id, response.name, resEmail, resPhone,
                         resAvt, resGender, resBirthday, response.account_status
                     ), Credential(user.credential.accessToken))

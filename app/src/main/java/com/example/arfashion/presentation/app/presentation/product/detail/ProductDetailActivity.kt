@@ -7,15 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.models.favorite.FavoriteItem
 import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
+import com.example.arfashion.presentation.app.presentation.favorite.FavoriteViewModel
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
 import com.example.arfashion.presentation.app.presentation.product.comment.*
@@ -47,6 +50,8 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private lateinit var productDetailViewModel: ProductDetailViewModel
 
+    private lateinit var favoriteViewModel: FavoriteViewModel
+
     private lateinit var commentViewModel: CommentViewModel
 
     private lateinit var cartViewModel: CartViewModel
@@ -61,6 +66,8 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private var productId: String? = ""
 
+    private var favoritesList: List<FavoriteItem> = listOf()
+
     @ExperimentalCoroutinesApi
     @FlowPreview
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,21 +81,22 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        productDetailViewModel = ViewModelProvider(
-            this@ProductDetailActivity, MyViewModelFactory(
-                applicationContext
+        productDetailViewModel =
+            ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(
+                ProductDetailViewModel::class.java
             )
-        ).get(ProductDetailViewModel::class.java)
         commentViewModel = ViewModelProvider(
-            this@ProductDetailActivity, MyViewModelFactory(
-                applicationContext
-            )
+            this,
+            MyViewModelFactory(applicationContext)
         ).get(CommentViewModel::class.java)
         cartViewModel = ViewModelProvider(
-            this@ProductDetailActivity, MyViewModelFactory(
-                applicationContext
-            )
+            this,
+            MyViewModelFactory(applicationContext)
         ).get(CartViewModel::class.java)
+        favoriteViewModel = ViewModelProvider(
+            this,
+            MyViewModelFactory(applicationContext)
+        ).get(FavoriteViewModel::class.java)
 
         productId = intent.extras?.getString(KEY_PRODUCT_ID)
         productId?.let {
@@ -172,6 +180,49 @@ class ProductDetailActivity : AppCompatActivity() {
                 is ARResult.Error -> {
                     Toast.makeText(this, it.throwable.message, Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+
+        favoriteViewModel.resultGetFavorites.observe(this) {
+            if (it) {
+                val response = favoriteViewModel.getFavoritesResponse.value
+                if (response != null) {
+                    favoritesList = response.favourites
+                    favoritesList.forEach { item ->
+                        if (item.id == productId) {
+                            //init icon checked
+                            favouriteIcon.isSelected = true
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        favoriteViewModel.resultAddToFavorite.observe(this) {
+            if (it) {
+                val response = favoriteViewModel.addToFavoriteResponse.value
+                if (response != null) {
+                    //init icon checked
+                    favouriteIcon.isSelected = true
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        favoriteViewModel.resultDeleteFromFavorite.observe(this) {
+            if (it) {
+                val response = favoriteViewModel.deleteFromFavoriteResponse.value
+                if (response != null) {
+                    //init icon unchecked
+                    favouriteIcon.isSelected = false
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                favouriteIcon.isSelected = false
             }
         }
 
@@ -261,6 +312,8 @@ class ProductDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        favoriteViewModel.getFavorites()
+
         ARTestBtn.setOnClickListener {
             val intent = Intent(applicationContext, ARTestActivity::class.java)
             intent.putExtra(KEY_PRODUCT_ID, productId)
@@ -277,9 +330,9 @@ class ProductDetailActivity : AppCompatActivity() {
                 awaitClose { cancel() }
             }.debounce(300)
                 .collect {
-                    favouriteIcon.isSelected = it
-                    //todo: check isSelected: if false then call remove favourite API else otherwise call add favourite API
-
+                    if (favouriteIcon.isSelected) {
+                        productId?.let { it1 -> favoriteViewModel.deleteFromFavorite(it1) }
+                    } else productId?.let { it1 -> favoriteViewModel.addToFavorite(it1) }
                 }
         }
 

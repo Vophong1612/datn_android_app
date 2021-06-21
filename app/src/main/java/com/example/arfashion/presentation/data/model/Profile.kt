@@ -8,15 +8,15 @@ data class Profile (
     @SerializedName("name")
     val name: String = "",
     @SerializedName("email")
-    var email: String = "",
+    var email: String? = "",
     @SerializedName("phone")
-    var phone: String = "",
+    var phone: String? = "",
     @SerializedName("avatar")
     var avatar: String? = "",
     @SerializedName("gender")
     var gender: Int = -1,
     @SerializedName("birthday")
-    var birthday: String = "",
+    var birthday: String? = "",
     @SerializedName("account_status")
     val account_status: String = "",
 
