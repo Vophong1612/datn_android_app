@@ -47,18 +47,17 @@ fun ProductResponse.toProduct(): Product {
 
 fun Comments.toComment(): Comment =
     Comment(
+        title,
         content,
         star,
+        images,
         _id,
         Profile(
             id = created_by._id,
             name = created_by.name,
             avatar = created_by.avatar
         ),
-        responses?.map {
-            it.toComment()
-        } ?: listOf(),
-//        (parser.parse(created_at)?: Date())
+        (parser.parse(createdAt)?: Date())
     )
 
 //fun RelatedProductResponse.toProduct(): Product =

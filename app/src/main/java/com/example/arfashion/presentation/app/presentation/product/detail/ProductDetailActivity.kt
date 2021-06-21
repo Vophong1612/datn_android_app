@@ -14,10 +14,15 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.openProductDetailActivity
+import com.example.arfashion.presentation.app.presentation.bill.BillActivity
 import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
-import com.example.arfashion.presentation.app.presentation.product.comment.CommentViewModel
+import com.example.arfashion.presentation.app.presentation.product.comment.*
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_ID
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_IMAGE
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_NAME
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.RatingActivity
 import com.example.arfashion.presentation.app.presentation.product.test.ARTestActivity
 import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_COLOR
 import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_IMAGE
@@ -69,9 +74,21 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        productDetailViewModel = ViewModelProvider(this@ProductDetailActivity, MyViewModelFactory(applicationContext)).get(ProductDetailViewModel::class.java)
-        commentViewModel = ViewModelProvider(this@ProductDetailActivity, MyViewModelFactory(applicationContext)).get(CommentViewModel::class.java)
-        cartViewModel = ViewModelProvider(this@ProductDetailActivity, MyViewModelFactory(applicationContext)).get(CartViewModel::class.java)
+        productDetailViewModel = ViewModelProvider(
+            this@ProductDetailActivity, MyViewModelFactory(
+                applicationContext
+            )
+        ).get(ProductDetailViewModel::class.java)
+        commentViewModel = ViewModelProvider(
+            this@ProductDetailActivity, MyViewModelFactory(
+                applicationContext
+            )
+        ).get(CommentViewModel::class.java)
+        cartViewModel = ViewModelProvider(
+            this@ProductDetailActivity, MyViewModelFactory(
+                applicationContext
+            )
+        ).get(CartViewModel::class.java)
 
         productId = intent.extras?.getString(KEY_PRODUCT_ID)
         productId?.let {
@@ -124,7 +141,7 @@ class ProductDetailActivity : AppCompatActivity() {
             when (it) {
                 is ARResult.Success -> {
                     this.product = it.data
-                    commentViewModel.getComment(it.data.id, 0, 2)
+                    commentViewModel.getComment(it.data.id, 0, 1)
 
                     handleData(it.data)
                 }
@@ -156,6 +173,23 @@ class ProductDetailActivity : AppCompatActivity() {
                     Toast.makeText(this, it.throwable.message, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        //todo: this is hardcode, remove here and in xml
+        billBtn.setOnClickListener {
+            val intent = Intent(this@ProductDetailActivity, BillActivity::class.java)
+            startActivity(intent)
+        }
+        ratingButton.setOnClickListener {
+            val intent = Intent(this@ProductDetailActivity, RatingActivity::class.java)
+            intent.putExtra(KEY_RATING_PRODUCT_ID, productId)
+            intent.putExtra(KEY_RATING_PRODUCT_NAME, product?.name)
+            product?.images?.let {
+                if (it.isNotEmpty()) {
+                    intent.putExtra(KEY_RATING_PRODUCT_IMAGE, product?.images?.get(0))
+                }
+            }
+            startActivity(intent)
         }
     }
 

@@ -100,6 +100,7 @@
     <string name="selected_image_dialog_cancel_option">Cancel</string>
     <string name="access_storage_denied">Can not access to storage</string>
     <string name="prepare_stream_error">Cannot connect to camera. Please check the installation and try again.</string>
+    <string name="attach_image_review">Attach %1$d image(s)</string>
 
     <string name="categories_man">Man</string>
     <string name="categories_kid">Kid</string>
@@ -194,5 +195,13 @@
     <string name="size_lbl">Size: </string>
 
     <string name="detail_bill_lbl">Detail Bill</string>
+
+    <string name="rating_screen_name">Rating</string>
+    <string name="title_comment_hint"><font size="10">Title of comment</font></string>
+    <string name="content_comment_hint"><font size="10">Your comment</font></string>
+    <string name="chip_good_quality">Good Quality</string>
+    <string name="chip_good_package">Good Package</string>
+    <string name="chip_quick_delivery">Quick Delivery</string>
+    <string name="chip_perfect_product">Perfect Product</string>
 
 </resources>

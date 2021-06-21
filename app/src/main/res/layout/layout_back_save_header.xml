@@ -22,7 +22,6 @@
         android:layout_height="match_parent"
         android:textSize="20sp"
         android:padding="5dp"
-        android:text="Tên màn hình"
         android:gravity="center_vertical"
         android:textColor="@color/palattes_1"
         app:layout_constraintStart_toEndOf="@id/back_icon"

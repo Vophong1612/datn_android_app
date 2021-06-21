@@ -9,11 +9,13 @@
     <color name="transparent">#00000000</color>
     <color name="backgroundColor">#F2F2F2</color>
 
-<!--    main color -->
+    <!--    main color -->
     <color name="palattes_1">#FF383E56</color>
     <color name="palattes_1_75">#BF383E56</color>
     <color name="palattes_1_50">#80383E56</color>
+    <color name="palattes_1_25">#40383E56</color>
     <color name="palattes_2">#FFF69E7B</color>
+    <color name="palattes_2_50">#BFF69E7B</color>
     <color name="palattes_3">#FFEEDAD1</color>
     <color name="palattes_4">#FFD4B5B0</color>
     <color name="palattes_5">#EEDAD1</color>
@@ -24,6 +26,7 @@
     <color name="black_25">#40000000</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
     <color name="white_75">#BFFFFFFF</color>
     <color name="grey_text">#FFC2C9D1</color>
 
