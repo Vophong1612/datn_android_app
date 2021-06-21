@@ -29,11 +29,13 @@ import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.local.UserLocalStorage
+import com.example.arfashion.presentation.app.presentation.product.test.LoadImageController
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_user_info.*
 import kotlinx.android.synthetic.main.layout_back_save_header.*
+import kotlinx.android.synthetic.main.layout_before_test.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -44,45 +46,7 @@ import java.util.*
 
 class ProfileDetailActivity : AppCompatActivity() {
 
-    companion object {
-        private const val CAMERA_PERMISSION_CODE = 100
-        private const val STORAGE_PERMISSION_CODE = 101
-    }
-
-    private lateinit var takeImageResultLauncher: ActivityResultLauncher<Intent>
-
-    private lateinit var chooseImageResultLauncher: ActivityResultLauncher<Intent>
-
-    private val cameraPermissionGrantedRunnable = Runnable {
-        val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        takeImageResultLauncher.launch(takePicture)
-    }
-
-    private val galleryPermissionGrantedRunnable = Runnable {
-        val pickImage = Intent().also {
-            it.type = "image/*"
-            it.action = Intent.ACTION_GET_CONTENT
-        }
-        chooseImageResultLauncher.launch(pickImage)
-    }
-
-    private val galleryPermissionDeniedRunnable =
-        Runnable {
-            Toast.makeText(
-                this,
-                this.getString(R.string.access_storage_denied),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-    private val cameraPermissionDeniedRunnable =
-        Runnable {
-            Toast.makeText(
-                this,
-                this.getString(R.string.prepare_stream_error),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+    private lateinit var loadImageController: LoadImageController
 
     private lateinit var user: User
 
@@ -214,36 +178,19 @@ class ProfileDetailActivity : AppCompatActivity() {
         if(password.isEmpty())
             relative_layout_change_password.visibility = View.INVISIBLE
 
-        takeImageResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    it.data?.let { data ->
-                        val bitmap = data.extras?.get("data") as Bitmap
-                        iv_avatar_detail.setImageBitmap(bitmap)
-                        val tempUri = getImageUri(bitmap)
-                        getPathFromURI(tempUri)?.let { path ->
-                            imgAvatar = File(path)
-                            showAvatarUploadingDialog()
-                        }
-                    }
-                }
-            }
+        loadImageController = LoadImageController(this, applicationContext, contentResolver)
 
-        chooseImageResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    it.data?.let { data ->
-                        val selectedImageUri: Uri? = data.data
-                        iv_avatar_detail.setImageURI(selectedImageUri)
-                        selectedImageUri?.let {
-                            getPathFromURI(selectedImageUri)?.let { path ->
-                                imgAvatar = File(path)
-                                iv_avatar_detail.setImageURI(selectedImageUri)
-                            }
-                        }
-                    }
-                }
-            }
+        loadImageController.takeImageResultListener = { file, bitmap ->
+            iv_avatar_detail.setImageBitmap(bitmap)
+            imgAvatar = file
+            showAvatarUploadingDialog()
+        }
+
+        loadImageController.chooseImageResultListener = { file, uri ->
+            iv_avatar_detail.setImageURI(uri)
+            imgAvatar = file
+            showAvatarUploadingDialog()
+        }
 
         check_icon.setOnClickListener {
 
@@ -338,40 +285,18 @@ class ProfileDetailActivity : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_camera ->{
-                checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE)
+                loadImageController.checkPermission(Manifest.permission.CAMERA, LoadImageController.CAMERA_PERMISSION_CODE)
                 return  true
             }
             R.id.menu_gallery -> {
-                checkPermission(
+                loadImageController.checkPermission(
                     Manifest.permission.READ_EXTERNAL_STORAGE,
-                    STORAGE_PERMISSION_CODE
+                    LoadImageController.STORAGE_PERMISSION_CODE
                 )
                 return  true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun getImageUri(bitmap: Bitmap): Uri {
-        val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path: String =
-            MediaStore.Images.Media.insertImage(contentResolver, bitmap, "Title", null)
-        return Uri.parse(path)
-    }
-
-    private fun getPathFromURI(uri: Uri): String? {
-        var res: String? = null
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor: Cursor? = contentResolver.query(uri, projection, null, null, null)
-        cursor?.let {
-            if (it.moveToFirst()) {
-                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                res = it.getString(columnIndex)
-            }
-        }
-        cursor?.close()
-        return res
     }
 
     override fun onRequestPermissionsResult(
@@ -381,43 +306,16 @@ class ProfileDetailActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            CAMERA_PERMISSION_CODE -> runPermissionRunnable(
+            LoadImageController.CAMERA_PERMISSION_CODE -> loadImageController.runPermissionRunnable(
                 grantResults,
-                cameraPermissionGrantedRunnable,
-                cameraPermissionDeniedRunnable
+                loadImageController.cameraPermissionGrantedRunnable,
+                loadImageController.cameraPermissionDeniedRunnable
             )
-            STORAGE_PERMISSION_CODE -> runPermissionRunnable(
+            LoadImageController.STORAGE_PERMISSION_CODE -> loadImageController.runPermissionRunnable(
                 grantResults,
-                galleryPermissionGrantedRunnable,
-                galleryPermissionDeniedRunnable
+                loadImageController.galleryPermissionGrantedRunnable,
+                loadImageController.galleryPermissionDeniedRunnable
             )
-        }
-    }
-
-    private fun runPermissionRunnable(
-        grantResults: IntArray,
-        runnableGranted: Runnable,
-        runnableDenied: Runnable
-    ) {
-        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            runnableGranted.run()
-        } else {
-            runnableDenied.run()
-        }
-    }
-
-    private fun checkPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                permission
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
-        } else {
-            when (requestCode) {
-                CAMERA_PERMISSION_CODE -> cameraPermissionGrantedRunnable.run()
-                STORAGE_PERMISSION_CODE -> galleryPermissionGrantedRunnable.run()
-            }
         }
     }
 
@@ -425,6 +323,11 @@ class ProfileDetailActivity : AppCompatActivity() {
         back_icon.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loadImageController.clearRegister()
     }
 }
 

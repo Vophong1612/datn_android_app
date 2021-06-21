@@ -193,4 +193,6 @@
     <string name="color_lbl">Color: </string>
     <string name="size_lbl">Size: </string>
 
+    <string name="detail_bill_lbl">Detail Bill</string>
+
 </resources>

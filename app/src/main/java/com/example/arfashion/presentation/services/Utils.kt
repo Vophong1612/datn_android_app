@@ -56,7 +56,7 @@ class Utils {
             return ""
         }
 
-        fun formatPrice(target: Int?): String {
+        fun formatPrice(target: Int): String {
 
             val format: NumberFormat = NumberFormat.getCurrencyInstance()
             format.maximumFractionDigits = 0
