@@ -59,19 +59,14 @@ class BillAdapter(private val context: Context) : RecyclerView.Adapter<BillAdapt
         private val price = view.findViewById<TextView>(R.id.item_price)
         private val total = view.findViewById<TextView>(R.id.item_totalProduct)
         private val totalPayment = view.findViewById<TextView>(R.id.totalPaymentValue)
-        private val showMoreProduct = view.findViewById<TextView>(R.id.showMoreProduct)
 
         init {
             itemView.setOnClickListener {
                 itemViewClickListener?.invoke()
-            }
-
-            showMoreProduct.setOnClickListener {
                 val intent = Intent(context, DetailBillActivity::class.java)
                 intent.putExtra("detailBill", Gson().toJson(data[adapterPosition]))
                 context.startActivity(intent)
             }
-
         }
 
         @SuppressLint("SetTextI18n")
