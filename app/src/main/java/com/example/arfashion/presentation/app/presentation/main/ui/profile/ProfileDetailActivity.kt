@@ -6,23 +6,14 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
@@ -33,13 +24,15 @@ import com.example.arfashion.presentation.app.presentation.product.test.LoadImag
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.Utils
+import kotlinx.android.synthetic.main.activity_forgot_password.*
+import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
 import kotlinx.android.synthetic.main.activity_user_info.*
+import kotlinx.android.synthetic.main.fragment_profile_tab.*
 import kotlinx.android.synthetic.main.layout_back_save_header.*
 import kotlinx.android.synthetic.main.layout_before_test.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -208,9 +201,7 @@ class ProfileDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.invalid_email), Toast.LENGTH_SHORT)
                     .show()
             } else {
-                user.credential.accessToken?.let { it1 ->
-                    profileViewModel.updateProfile(it1, name, email, birthday, gender)
-                }
+                    profileViewModel.updateProfile(name, email, birthday, gender)
             }
         }
 
@@ -232,12 +223,7 @@ class ProfileDetailActivity : AppCompatActivity() {
                 val requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), it)
                 val avatar = MultipartBody.Part.createFormData("avatar", it.name, requestFile)
-                user.credential.accessToken?.let { it2 ->
-                    profileViewModel.uploadAvatar(
-                        it2,
-                        avatar
-                    )
-                }
+                profileViewModel.uploadAvatar(avatar)
             }
         }
 
@@ -261,7 +247,7 @@ class ProfileDetailActivity : AppCompatActivity() {
         phoneNumberEdt.setText(Utils.formatPhoneToNormal(user.profile.phone))
         emailUserEdt.setText(user.profile.email)
         fullNameEdt.setText(user.profile.name)
-        birthdayEdt.setText(Utils.formatDateToString(user.profile.birthday))
+        birthdayEdt.setText(Utils.formatDateToString(user.profile.birthday.toString()))
 
         when (user.profile.gender) {
             0 -> genderSpinner.setSelection(0, true)

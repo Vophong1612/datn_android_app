@@ -42,7 +42,7 @@ class Utils {
 
         fun formatPhone(target: String?): String {
            val res: String? = target
-            if (res != null) {
+            if (!res.isNullOrEmpty()) {
                 return "84" + res.removeRange(0,1)
             }
             return ""
@@ -50,7 +50,7 @@ class Utils {
 
         fun formatPhoneToNormal(target: String?): String {
             val res: String? = target
-            if (res != null) {
+            if (!res.isNullOrEmpty()) {
                 return "0" + res.removeRange(0,2)
             }
             return ""
@@ -70,6 +70,8 @@ class Utils {
             if(user.phone.isNullOrEmpty()) user.phone = ""
             if(user.gender.toString().isNullOrEmpty()) user.gender = -1
             if(user.birthday.isNullOrEmpty()) user.birthday = ""
+            if(user.avatar.isNullOrEmpty()) user.avatar = ""
+            if(user.gender.toString().isNullOrEmpty()) user.gender = -1
             if(user.avatar.isNullOrEmpty()) user.avatar = ""
         }
 

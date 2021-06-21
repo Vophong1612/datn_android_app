@@ -54,8 +54,8 @@ class ProfileViewModel(context: Context) : ViewModel() {
     val changePasswordResponse : LiveData<UserForgotPasswordResponse>
         get() = _changePasswordResponse
 
-    fun updateProfile(token: String, name: String, email: String, birthday: String, gender: Int) {
-        userService.updateProfile("Bearer $token", name, email, birthday, gender)
+    fun updateProfile(name: String, email: String, birthday: String, gender: Int) {
+        userService.updateProfile(name, email, birthday, gender)
             .enqueue(object : Callback<UserLoginResponse> {
             override fun onResponse(
                 call: Call<UserLoginResponse>,
@@ -74,8 +74,8 @@ class ProfileViewModel(context: Context) : ViewModel() {
         })
     }
 
-    fun uploadAvatar(token: String, avt: MultipartBody.Part) {
-        userService.uploadAvatar("Bearer $token", avt)
+    fun uploadAvatar(avt: MultipartBody.Part) {
+        userService.uploadAvatar(avt)
             .enqueue(object : Callback<AvatarResponse> {
                 override fun onResponse(
                     call: Call<AvatarResponse>,
@@ -94,8 +94,8 @@ class ProfileViewModel(context: Context) : ViewModel() {
             })
     }
 
-    fun getProfile(token: String) {
-        userService.getProfile("Bearer $token")
+    fun getProfile() {
+        userService.getProfile()
             .enqueue(object : Callback<ProfileResponse> {
                 override fun onResponse(
                     call: Call<ProfileResponse>,
@@ -114,8 +114,8 @@ class ProfileViewModel(context: Context) : ViewModel() {
             })
     }
 
-    fun changePassword(token: String, oldPass: String, newPass: String, confPass: String) {
-        userService.changePasswordProfile("Bearer $token",oldPass, newPass, confPass)
+    fun changePassword(oldPass: String, newPass: String, confPass: String) {
+        userService.changePasswordProfile(oldPass, newPass, confPass)
             .enqueue(object : Callback<UserForgotPasswordResponse> {
                 override fun onResponse(
                     call: Call<UserForgotPasswordResponse>,

@@ -121,9 +121,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             else if(newPass != confPass)
                 Toast.makeText(this, getString(R.string.confirm_password_fail), Toast.LENGTH_SHORT).show()
             else {
-                user.credential.accessToken?.let {
-                        it1 -> profileViewModel.changePassword(it1, curPass, newPass, confPass )
-                }
+                profileViewModel.changePassword( curPass, newPass, confPass )
             }
         }
 

@@ -204,4 +204,7 @@
     <string name="chip_quick_delivery">Quick Delivery</string>
     <string name="chip_perfect_product">Perfect Product</string>
 
+    <string name="favorite_lbl">Favorite</string>
+    <string name="favorite_product_lbl">Favorite products</string>
+
 </resources>

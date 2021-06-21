@@ -45,6 +45,7 @@
         <activity android:name=".presentation.app.presentation.main.ui.profile.ChangePasswordActivity" />
         <activity android:name=".presentation.app.presentation.main.ui.profile.ProfileDetailActivity" />
         <activity android:name=".presentation.app.presentation.bill.DetailBillActivity"/>
+        <activity android:name=".presentation.app.presentation.favorite.FavoriteActivity"/>
         <activity
             android:name=".presentation.app.presentation.main.MainActivity"
             android:label="@string/title_activity_main_ativity"
