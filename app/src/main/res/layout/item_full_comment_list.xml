@@ -67,8 +67,55 @@
         android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@id/name"
         app:layout_constraintStart_toEndOf="@id/avatarView"
-        app:layout_constraintEnd_toStartOf="@id/imageAttach"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="Good Product"/>
+
+    <HorizontalScrollView
+        android:id="@+id/reviewImageLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp" />
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp" />
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp" />
+
+            <ImageView
+                android:id="@+id/image5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp" />
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/comment"
@@ -80,25 +127,9 @@
         android:textColor="@color/palattes_1_50"
         android:fontFamily="@font/sf_pro_text_regular"
         android:textSize="15sp"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/reviewImageLayout"
         app:layout_constraintStart_toEndOf="@id/avatarView"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Bla bla bla bla bla bla"/>
-
-    <TextView
-        android:id="@+id/imageAttach"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/palattes_1_75"
-        android:fontFamily="@font/sf_pro_text_light"
-        android:textSize="15sp"
-        android:gravity="end"
-        app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintStart_toEndOf="@id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Attach 2 image(s)"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

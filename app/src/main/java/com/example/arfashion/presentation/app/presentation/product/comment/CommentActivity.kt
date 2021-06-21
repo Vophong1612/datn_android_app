@@ -1,28 +1,27 @@
 package com.example.arfashion.presentation.app.presentation.product.comment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
-import com.example.arfashion.presentation.app.presentation.product.detail.ReviewAdapter
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Comment
 import kotlinx.android.synthetic.main.activity_comment.*
-import kotlinx.android.synthetic.main.activity_comment.refreshLayout
 import kotlinx.android.synthetic.main.layout_back_header.*
 
 class CommentActivity : AppCompatActivity() {
 
     private lateinit var commentViewModel: CommentViewModel
 
-    private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var commentFullAdapter: CommentFullAdapter
 
     private var productId: String? = null
 
@@ -35,7 +34,8 @@ class CommentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_comment)
 
         commentViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(
-            CommentViewModel::class.java)
+            CommentViewModel::class.java
+        )
 
         productId = intent.extras?.getString(KEY_PRODUCT_ID)
 
@@ -43,9 +43,9 @@ class CommentActivity : AppCompatActivity() {
             finish()
         }
         screen_name.text = getString(R.string.product_review_tab)
-        reviewAdapter = ReviewAdapter()
+        commentFullAdapter = CommentFullAdapter()
         with(commentList) {
-            adapter = reviewAdapter
+            adapter = commentFullAdapter
             layoutManager = LinearLayoutManager(context)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -60,6 +60,18 @@ class CommentActivity : AppCompatActivity() {
                     }
                 }
             })
+        }
+        commentFullAdapter.fullImageClickListener = {
+            fullImage.visible()
+            Glide.with(applicationContext)
+                .load(it)
+                .placeholder(R.drawable.img_default_category)
+                .error(R.drawable.img_default_category)
+                .into(fullImage)
+        }
+
+        fullImage.setOnClickListener {
+            fullImage.gone()
         }
 
         getData(offset)
@@ -121,9 +133,9 @@ class CommentActivity : AppCompatActivity() {
         }
         comments.addAll(comment)
         if (offset != 0) {
-            reviewAdapter.addData(comment)
+            commentFullAdapter.addData(comment)
         } else {
-            reviewAdapter.setData(comment)
+            commentFullAdapter.setData(comment)
         }
         showReviewList()
     }

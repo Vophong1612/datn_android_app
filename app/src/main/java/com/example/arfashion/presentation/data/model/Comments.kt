@@ -3,10 +3,12 @@ package com.example.arfashion.presentation.data.model
 import java.util.*
 
 data class Comment(
+    val title: String = "",
     val content: String = "",
     val stars: Float = 0f,
+    val images: List<String> = listOf(),
     val id: String = "",
     val owner: Profile = Profile(),
-    val response: List<Comment> = listOf(),
-    val createAt: Date = Date()
+    val createAt: Date = Date(),
+    val productId: String = ""
 )

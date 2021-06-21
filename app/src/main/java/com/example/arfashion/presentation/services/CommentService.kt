@@ -1,13 +1,12 @@
 package com.example.arfashion.presentation.services
 
 import android.content.Context
-import com.example.arfashion.presentation.app.models.home.GetCarouselResponse
 import com.example.arfashion.presentation.app.models.product.*
-import com.example.arfashion.presentation.data.model.Comment
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+
 
 interface CommentService {
     companion object {
@@ -25,4 +24,12 @@ interface CommentService {
         @Query("star") star: Int? = null,
         @Query("create_at") sortDate: String = "asc"
     ): Call<GetCommentsResponse>
+
+    @Multipart
+    @POST("/comments/add")
+    fun addComment(
+        @Part photos: List<MultipartBody.Part>, @Part("star") star: RequestBody,
+        @Part("content") content: RequestBody, @Part("title") title: RequestBody,
+        @Part("productId") productId: RequestBody
+    ): Call<Unit>
 }

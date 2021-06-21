@@ -13,11 +13,15 @@ data class GetCommentsResponse(
 )
 
 data class Comments(
+    @SerializedName("title") val title: String,
     @SerializedName("content") val content: String,
     @SerializedName("star") val star: Float,
-    @SerializedName("responses") val responses: List<Comments>?,
+    @SerializedName("attach_images") val images : List<String>,
     @SerializedName("_id") val _id: String,
-    @SerializedName("created_by") val created_by: CreatedBy
+    @SerializedName("created_by") val created_by: CreatedBy,
+    @SerializedName("status") val status: String,
+    @SerializedName("product") val productId: String,
+    @SerializedName("created_at") val createdAt: String
 )
 
 data class CreatedBy(

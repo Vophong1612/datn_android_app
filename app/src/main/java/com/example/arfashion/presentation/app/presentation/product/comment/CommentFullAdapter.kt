@@ -1,4 +1,4 @@
-package com.example.arfashion.presentation.app.presentation.product.detail
+package com.example.arfashion.presentation.app.presentation.product.comment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +15,13 @@ import com.example.arfashion.presentation.data.model.Comment
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+typealias FullImageClickListener = (url: String) -> Unit
+
+class CommentFullAdapter : RecyclerView.Adapter<CommentFullAdapter.ViewHolder>() {
 
     private var comments: MutableList<Comment> = mutableListOf()
+
+    var fullImageClickListener: FullImageClickListener? = null
 
     fun setData(data: List<Comment>?) {
         comments.clear()
@@ -39,7 +43,7 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_comment_list, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_full_comment_list, parent, false)
         return ViewHolder(inflater)
     }
 
@@ -58,7 +62,21 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
         private val dateComment = view.findViewById<TextView>(R.id.dateComment)
         private val title = view.findViewById<TextView>(R.id.title)
         private val comment = view.findViewById<TextView>(R.id.comment)
-        private val imagesAttach = view.findViewById<TextView>(R.id.imageAttach)
+
+        private val image1 = view.findViewById<ImageView>(R.id.image1)
+        private val image2 = view.findViewById<ImageView>(R.id.image2)
+        private val image3 = view.findViewById<ImageView>(R.id.image3)
+        private val image4 = view.findViewById<ImageView>(R.id.image4)
+        private val image5 = view.findViewById<ImageView>(R.id.image5)
+        private val listImage = listOf<ImageView>(image1, image2, image3, image4, image5)
+
+        init {
+            listImage.forEachIndexed { index, imageView ->
+                imageView.setOnClickListener {
+                    fullImageClickListener?.invoke(comments[adapterPosition].images[index])
+                }
+            }
+        }
 
         fun bindData(data: Comment) {
             Glide.with(avatar)
@@ -71,12 +89,20 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
             name.text = data.owner.name
             comment.text = data.content
             title.text = data.title
-            data.images.size.let {
-                if (it == 0) {
-                    imagesAttach.gone()
+
+            data.images.forEachIndexed { index, url ->
+                Glide.with(listImage[index])
+                    .load(url)
+                    .placeholder(R.drawable.img_default_category)
+                    .error(R.drawable.img_default_category)
+                    .into(listImage[index])
+            }
+
+            listImage.forEach {
+                if (it.drawable == null) {
+                    it.gone()
                 } else {
-                    imagesAttach.visible()
-                    imagesAttach.text = imagesAttach.context.getString(R.string.attach_image_review, data.images.size)
+                    it.visible()
                 }
             }
 
