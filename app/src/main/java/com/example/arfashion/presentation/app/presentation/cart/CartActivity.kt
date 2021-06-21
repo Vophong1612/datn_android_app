@@ -44,12 +44,6 @@ class CartActivity : AppCompatActivity() {
         var temp: List<Product> = listOf()
     }
 
-    init {
-        lifecycleScope.launchWhenCreated {
-            cartViewModel.getCart()
-        }
-    }
-
     @ExperimentalCoroutinesApi
     @FlowPreview
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,38 +52,17 @@ class CartActivity : AppCompatActivity() {
 
         cartViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(CartViewModel::class.java)
 
-        cartProductAdapter = CartProductAdapter()
-
         initView()
 
         initData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        cartViewModel.getCart()
+    }
+
     private fun initData() {
-//        val cart = Cart(
-//            id = "609d41147ff9a80015ac06ff",
-//            product = listOf(
-//                Product(
-//                    id = "605a2714928cf217986aad98",
-//                    name = "T-Shirt 4 Yeah",
-//                    priceSale = 200000,
-//                    prices = 300000,
-//                    total = 1,
-//                    sizes = listOf(Size("6058a53dc84007ba500dc13f", "S")),
-//                    images = listOf("https://res.cloudinary.com/ar-fashion/image/upload/v1619184696/ar/products/605a221c928cf217986aad8d/main.jpg")
-//                ),
-//                Product(
-//                    id = "605a2742928cf217986aad99",
-//                    name = "T-Shirt 5 Yeah",
-//                    priceSale = 200000,
-//                    prices = 300000,
-//                    total = 100,
-//                    sizes = listOf(Size("6058a56dc84007ba500dc140", "XL")),
-//                    images = listOf("https://res.cloudinary.com/ar-fashion/image/upload/v1619184837/ar/products/605a2742928cf217986aad99/000074_1_jkakuo.jpg")
-//                )
-//            )
-//        )
-////        handelData(cart)
         cartViewModel.cart.observe(this, {
             when (it) {
                 is ARResult.Success -> {
@@ -134,6 +107,10 @@ class CartActivity : AppCompatActivity() {
     @ExperimentalCoroutinesApi
     private fun initView() {
         initHeader()
+
+        cartProductAdapter = CartProductAdapter()
+        cartViewModel.getCart()
+
         with(cartList) {
             adapter = cartProductAdapter
             layoutManager = LinearLayoutManager(this.context)
@@ -141,11 +118,10 @@ class CartActivity : AppCompatActivity() {
         cartProductAdapter.selectCbClickEvent = { product, isChecked ->
             if (isChecked) {
                 cartViewModel.updateTotalPrice(product.priceSale * product.total)
-                product.isCartCheck = true
             } else {
                 cartViewModel.updateTotalPrice(-product.priceSale * product.total)
-                product.isCartCheck = false
             }
+            product.isCartCheck = isChecked
         }
         cartProductAdapter.deleteProductClickEvent = { product, position ->
             showDeleteProductAlertDialog(product, position)
@@ -230,6 +206,7 @@ class CartActivity : AppCompatActivity() {
         } else {
             selectAllCb.gone()
             buyNowBtn.isEnabled = false
+            totalPrices.text = generateTotalPrice(0)
             handleShowMessage(applicationContext.getString(R.string.cart_is_empty))
         }
     }

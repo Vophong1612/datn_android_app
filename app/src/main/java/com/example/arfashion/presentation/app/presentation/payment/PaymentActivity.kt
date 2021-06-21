@@ -3,19 +3,19 @@ package com.example.arfashion.presentation.app.presentation.payment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
-import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.app.models.address.AddressResponse
+import com.example.arfashion.presentation.app.models.bill.AddBillRequest
 import com.example.arfashion.presentation.app.models.payment.PaymentItem
 import com.example.arfashion.presentation.app.models.payment.ProductInAPI
 import com.example.arfashion.presentation.app.models.payment.ProductInBill
@@ -26,7 +26,6 @@ import com.example.arfashion.presentation.app.presentation.cart.CartActivity
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_payment.*
 import kotlinx.android.synthetic.main.layout_back_header.*
-import kotlinx.android.synthetic.main.layout_back_header.screen_name
 
 class PaymentActivity : AppCompatActivity() {
 
@@ -67,7 +66,7 @@ class PaymentActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(!paymentName.isNullOrEmpty()){
+        if (!paymentName.isNullOrEmpty()) {
             payment_name.text = paymentName
             payment_email.text = paymentEmail
             payment_phone.text = paymentPhone
@@ -136,10 +135,11 @@ class PaymentActivity : AppCompatActivity() {
                     ).show()
                 }
                 else -> {
-                    paymentViewModel.addBill(
+                    val addBillRequest = AddBillRequest(
                         chosenProducts.size, paymentId,
                         methodId, totalMoney, postAPIProducts
                     )
+                    paymentViewModel.addBill(addBillRequest)
                 }
             }
         }
@@ -260,6 +260,7 @@ class PaymentActivity : AppCompatActivity() {
                     Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, BillActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
@@ -299,7 +300,7 @@ class PaymentActivity : AppCompatActivity() {
                         receiver_default.visibility = View.VISIBLE
                     }
                 }
-                if(payment_name.text.isEmpty()){
+                if (payment_name.text.isEmpty()) {
                     payment_name.visibility = View.VISIBLE
                     payment_email.visibility = View.VISIBLE
                     payment_phone.visibility = View.VISIBLE

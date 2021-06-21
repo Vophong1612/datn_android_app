@@ -59,14 +59,14 @@
             android:textSize="15sp"
             android:theme="@style/Theme.MaterialComponents"
             app:cornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/selectAllCb"
+            android:enabled="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/selectAllCb"
+            app:layout_constraintTop_toBottomOf="@id/backLayout"
             app:rippleColor="@color/palattes_3" />
 
         <TextView
             android:id="@+id/totalPrices"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/sf_pro_text_regular"
@@ -75,10 +75,11 @@
             android:text="@string/total_prices"
             android:textColor="@color/palattes_1"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@id/selectAllCb"
+            android:gravity="end"
+            app:layout_constraintBottom_toBottomOf="@id/buyNowBtn"
+            app:layout_constraintStart_toEndOf="@id/selectAllCb"
             app:layout_constraintEnd_toStartOf="@id/buyNowBtn"
-            app:layout_constraintTop_toTopOf="@id/selectAllCb"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="@id/buyNowBtn" />
 
         <Space
             android:id="@+id/paddingHeader"
