@@ -1,10 +1,16 @@
 package com.example.arfashion.presentation.app.presentation.bill
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_ID
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_IMAGE
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_NAME
+import com.example.arfashion.presentation.app.presentation.product.comment.rating.RatingActivity
 import com.example.arfashion.presentation.data.model.Bill
 import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
 import com.google.gson.Gson
@@ -15,7 +21,11 @@ class DetailBillActivity : AppCompatActivity() {
 
     private lateinit var bill: Bill
 
-    private lateinit var productAdapter: ProductsInBillAdapter
+    private lateinit var productAdapter: ProductsInDetailBillAdapter
+
+    companion object{
+        var statusBill: String = ""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +60,14 @@ class DetailBillActivity : AppCompatActivity() {
         detail_bill_money_order.text = detail_bill_money_order.context.getString(R.string.price, bill.totalCost.standardFormat())
         detail_bill_money_cost.text = detail_bill_money_order.context.getString(R.string.price, bill.totalCost.standardFormat())
 
-        productAdapter = ProductsInBillAdapter((this))
+        productAdapter = ProductsInDetailBillAdapter(this)
         with(detail_bill_products_List){
             adapter = productAdapter
             layoutManager = LinearLayoutManager(context)
         }
         productAdapter.setProductList(bill.products)
+
+        statusBill = bill.billStatus.name
     }
 
     private fun onNavigateBack() {

@@ -23,7 +23,9 @@ import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.credential.Credential
 import com.example.arfashion.presentation.data.model.Profile
 import com.example.arfashion.presentation.data.model.User
+import kotlinx.android.synthetic.main.activity_cart.*
 import kotlinx.android.synthetic.main.fragment_profile_tab.*
+import kotlinx.android.synthetic.main.fragment_profile_tab.refreshLayout
 
 class ProfileFragment : Fragment() {
 
@@ -82,6 +84,14 @@ class ProfileFragment : Fragment() {
             val intent = Intent(this.requireContext(), BillActivity::class.java)
             startActivity(intent)
         }
+
+        tv_sign_out.setOnClickListener {
+            logOut()
+        }
+
+        refreshLayout.setOnRefreshListener {
+            profileViewModel.getProfile()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,6 +135,7 @@ class ProfileFragment : Fragment() {
                     userStorage.save(userManager.currentUser)
                     user = userStorage.load()
                     setDataProfile()
+                    refreshLayout.isRefreshing = false
                 }
             } else {
                 Toast.makeText(this.requireContext(), "Failure!", Toast.LENGTH_SHORT).show()
@@ -139,10 +150,6 @@ class ProfileFragment : Fragment() {
             Glide.with(iv_avatar_general)
                 .load(user.profile.avatar)
                 .into(iv_avatar_general)
-        }
-
-        tv_sign_out.setOnClickListener {
-            logOut()
         }
     }
 
