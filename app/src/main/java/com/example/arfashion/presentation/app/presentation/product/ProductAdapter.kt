@@ -70,6 +70,9 @@ class ProductAdapter(private val context: Context, private val isViewPager: Bool
             }
 
             itemView.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
                 productClickLister?.invoke(products[adapterPosition].id)
             }
         }

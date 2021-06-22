@@ -51,6 +51,10 @@ class TagFilterAdapter : RecyclerView.Adapter<TagFilterAdapter.ViewHolder>() {
 
         init {
             tag.setOnCheckedChangeListener { _, isChecked ->
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnCheckedChangeListener
+                }
+
                 checkBoxCheckEvent?.invoke(list[adapterPosition], isChecked)
             }
         }

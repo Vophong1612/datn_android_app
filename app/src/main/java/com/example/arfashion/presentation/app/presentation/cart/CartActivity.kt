@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
+import com.example.arfashion.presentation.app.openProductDetailActivity
 import com.example.arfashion.presentation.app.presentation.payment.PaymentActivity
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
@@ -55,11 +56,6 @@ class CartActivity : AppCompatActivity() {
         initView()
 
         initData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        cartViewModel.getCart()
     }
 
     private fun initData() {
@@ -165,6 +161,10 @@ class CartActivity : AppCompatActivity() {
                temp = cartProductAdapter.getData()
                startActivity(intent)
            }else Toast.makeText(this, getString(R.string.alert_must_be_choose), Toast.LENGTH_SHORT).show()
+        }
+
+        cartProductAdapter.openProductDetailListener = {
+            openProductDetailActivity(it)
         }
     }
 

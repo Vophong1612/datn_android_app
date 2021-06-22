@@ -57,6 +57,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
             }
 
             image.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 itemClickListener?.invoke(list[adapterPosition].id)
             }
         }

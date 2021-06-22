@@ -59,6 +59,10 @@ class ProductsInDetailBillAdapter(private val context: Activity) :
 
         init {
             rating.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 val intent = Intent(context, RatingActivity::class.java)
                 intent.putExtra(KEY_RATING_PRODUCT_ID, productList[adapterPosition].id)
                 intent.putExtra(KEY_RATING_PRODUCT_NAME, productList[adapterPosition].name)
