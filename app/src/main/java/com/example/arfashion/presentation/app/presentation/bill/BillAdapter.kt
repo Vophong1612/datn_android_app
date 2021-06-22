@@ -62,6 +62,10 @@ class BillAdapter(private val context: Context) : RecyclerView.Adapter<BillAdapt
 
         init {
             itemView.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 itemViewClickListener?.invoke()
                 val intent = Intent(context, DetailBillActivity::class.java)
                 intent.putExtra("detailBill", Gson().toJson(data[adapterPosition]))

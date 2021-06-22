@@ -58,12 +58,20 @@ class FavoriteAdapter(private val context: Activity) :
 
         init {
             itemView.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 val intent = Intent(context, ProductDetailActivity::class.java)
                 intent.putExtra(KEY_PRODUCT_ID, favoriteList[adapterPosition].id)
                 context.startActivity(intent)
             }
 
             favoriteIcon.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 deleteProductClickEvent?.invoke(favoriteList[adapterPosition], adapterPosition)
             }
         }

@@ -55,6 +55,10 @@ class AddressListAdapter(private val context: Activity) :
         init {
 
             ivChoose.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 PaymentActivity.paymentName = addressList[adapterPosition].name
                 PaymentActivity.paymentEmail = addressList[adapterPosition].email
                 PaymentActivity.paymentPhone = addressList[adapterPosition].phone
@@ -66,6 +70,10 @@ class AddressListAdapter(private val context: Activity) :
             }
 
             itemView.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 addressClickLister?.invoke(addressList[adapterPosition]._id)
                 val intent = Intent(context, AddNewAddressActivity::class.java)
                 intent.putExtra("mode", "edit")
@@ -85,6 +93,9 @@ class AddressListAdapter(private val context: Activity) :
             }
 
             itemView.setOnLongClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnLongClickListener false
+                }
                 addressClickLister?.invoke(addressList[adapterPosition]._id)
                 displayDialog(addressList[adapterPosition])
             }

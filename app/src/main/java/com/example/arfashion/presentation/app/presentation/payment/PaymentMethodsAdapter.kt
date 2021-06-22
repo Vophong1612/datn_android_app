@@ -65,6 +65,9 @@ class PaymentMethodsAdapter : RecyclerView.Adapter<PaymentMethodsAdapter.ViewHol
 
         init {
             chosen.setOnCheckedChangeListener { _, isChecked ->
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnCheckedChangeListener
+                }
                 selectCbClickEvent?.invoke(methodList[adapterPosition], isChecked)
             }
         }

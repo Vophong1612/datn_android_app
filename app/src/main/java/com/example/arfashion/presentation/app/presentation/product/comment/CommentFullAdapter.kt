@@ -73,6 +73,10 @@ class CommentFullAdapter : RecyclerView.Adapter<CommentFullAdapter.ViewHolder>()
         init {
             listImage.forEachIndexed { index, imageView ->
                 imageView.setOnClickListener {
+                    if (adapterPosition == RecyclerView.NO_POSITION) {
+                        return@setOnClickListener
+                    }
+
                     fullImageClickListener?.invoke(comments[adapterPosition].images[index])
                 }
             }

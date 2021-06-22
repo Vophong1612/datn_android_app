@@ -26,6 +26,8 @@ class CartProductAdapter : RecyclerView.Adapter<CartProductAdapter.ViewHolder>()
 
     var deleteProductClickEvent: ((product: Product, position: Int) -> Unit)? = null
 
+    var openProductDetailListener: ((productId: String) -> Unit)? = null
+
     fun setData(products: List<Product>?) {
         data.clear()
         products?.let {
@@ -81,17 +83,36 @@ class CartProductAdapter : RecyclerView.Adapter<CartProductAdapter.ViewHolder>()
 
         init {
             selectCb.setOnCheckedChangeListener { _, isChecked ->
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnCheckedChangeListener
+                }
+
                 selectCbClickEvent?.invoke(data[adapterPosition], isChecked)
 
                 productCount.isEnabled = !isChecked
             }
             productCount.doOnProgressChanged { numberPicker , progress, _ ->
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@doOnProgressChanged
+                }
+
                 if (numberPicker.isFocused) {
                     productCountClickEvent?.invoke(data[adapterPosition], progress - beforeProgress)
                 }
             }
             deleteBtn.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
                 deleteProductClickEvent?.invoke(data[adapterPosition], adapterPosition)
+            }
+            itemView.setOnClickListener {
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return@setOnClickListener
+                }
+
+                openProductDetailListener?.invoke(data[adapterPosition].id)
             }
         }
 
