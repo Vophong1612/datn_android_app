@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem" />
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem" />
+
+    <style name="Product.Tab" parent="Theme.ARFashion">
+        <item name="android:background">@drawable/bg_product_state_tab</item>
+        <item name="android:textColor">@color/color_product_tab</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Categories.Tab" parent="Theme.ARFashion">
+        <item name="android:background">@drawable/bg_categories_state_tab</item>
+        <item name="android:textColor">@color/palattes_1</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="myDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:textColor">@color/color_bill_tab</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+</resources>

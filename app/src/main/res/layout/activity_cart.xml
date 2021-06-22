@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor">
+
+        <View
+            android:id="@+id/headerBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/paddingHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/backLayout"
+            layout="@layout/layout_back_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/selectAllCb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="@string/select_all"
+            android:textColor="@color/palattes_1"
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/backLayout"
+            app:layout_constraintTop_toBottomOf="@id/backLayout" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buyNowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="@color/palattes_2"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:paddingStart="15dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="5dp"
+            android:text="@string/buy_now"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:theme="@style/Theme.MaterialComponents"
+            app:cornerRadius="5dp"
+            android:enabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/backLayout"
+            app:rippleColor="@color/palattes_3" />
+
+        <TextView
+            android:id="@+id/totalPrices"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/total_prices"
+            android:textColor="@color/palattes_1"
+            android:textSize="15sp"
+            android:gravity="end"
+            app:layout_constraintBottom_toBottomOf="@id/buyNowBtn"
+            app:layout_constraintStart_toEndOf="@id/selectAllCb"
+            app:layout_constraintEnd_toStartOf="@id/buyNowBtn"
+            app:layout_constraintTop_toTopOf="@id/buyNowBtn" />
+
+        <Space
+            android:id="@+id/paddingHeader"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buyNowBtn" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cartList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerBackground" />
+
+        <TextView
+            android:id="@+id/cartAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/cart_is_empty"
+            android:visibility="gone"
+            android:textSize="15sp"
+            android:fontFamily="@font/sf_pro_text_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerBackground"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

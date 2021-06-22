@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_margin="2dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/receiver_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textSize="15sp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="tower"/>
+
+    <TextView
+        android:id="@+id/receiver_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/palattes_1"
+        android:fontFamily="@font/sf_pro_text_regular"
+        app:layout_constraintTop_toBottomOf="@id/receiver_name"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="(+84)335160976"/>
+
+    <TextView
+        android:id="@+id/receiver_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/palattes_1"
+        android:fontFamily="@font/sf_pro_text_regular"
+        app:layout_constraintTop_toBottomOf="@id/receiver_phone"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="abc@xyz.com"/>
+
+    <TextView
+        android:id="@+id/receiver_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/palattes_1"
+        android:fontFamily="@font/sf_pro_text_regular"
+        app:layout_constraintTop_toBottomOf="@id/receiver_email"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="District 8, HCM City, VietNam"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/receiver_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/default_address_"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/palattes_2"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        app:layout_constraintTop_toBottomOf="@id/receiver_address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_location"-->
+<!--        android:layout_width="20dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:src="@drawable/ic_location"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/receiver_address"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:tint="@color/palattes_2" />-->
+
+    <ImageView
+        android:id="@+id/iv_choose_address"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_check"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/receiver_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/palattes_2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
