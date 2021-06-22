@@ -169,7 +169,7 @@ class ProfileDetailActivity : AppCompatActivity() {
 
         val password: String = userStorage.loadPassword()
         if(password.isEmpty())
-            relative_layout_change_password.visibility = View.INVISIBLE
+            user_info_change_password_background.visibility = View.INVISIBLE
 
         loadImageController = LoadImageController(this, applicationContext, contentResolver)
 
