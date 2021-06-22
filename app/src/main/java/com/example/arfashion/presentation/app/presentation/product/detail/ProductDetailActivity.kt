@@ -225,19 +225,6 @@ class ProductDetailActivity : AppCompatActivity() {
                 favouriteIcon.isSelected = false
             }
         }
-
-        //todo: this is hardcode, remove here and in xml
-        ratingButton.setOnClickListener {
-            val intent = Intent(this@ProductDetailActivity, RatingActivity::class.java)
-            intent.putExtra(KEY_RATING_PRODUCT_ID, productId)
-            intent.putExtra(KEY_RATING_PRODUCT_NAME, product?.name)
-            product?.images?.let {
-                if (it.isNotEmpty()) {
-                    intent.putExtra(KEY_RATING_PRODUCT_IMAGE, product?.images?.get(0))
-                }
-            }
-            startActivity(intent)
-        }
     }
 
     private fun handleRelatedData(data: List<Product>) {
