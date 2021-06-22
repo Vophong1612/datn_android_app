@@ -70,10 +70,15 @@ class RegisterViewModel(context: Context) : ViewModel() {
         userService.register(email, password, name).enqueue(object : Callback<UserRegisterResponse> {
             override fun onResponse(call: Call<UserRegisterResponse>, response: Response<UserRegisterResponse>) {
                 _registerResponse.value = response.body()
+                when (response.code()){
+                    200 -> _resultPhoneRegister.value = response.isSuccessful
+                    else -> _resultPhoneRegister.value = false
+                }
             }
 
             override fun onFailure(call: Call<UserRegisterResponse>, t: Throwable) {
                 t.printStackTrace()
+                _resultPhoneRegister.value = false
             }
         })
     }

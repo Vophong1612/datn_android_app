@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
+import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register_email_user_info.*
@@ -41,12 +42,14 @@ class RegisterEmailUserInfoActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        registerViewModel.registerResponse.observe(this) {
-            if (it.status_code == 1) {
+        registerViewModel.resultPhoneRegister.observe(this) {
+            if (it) {
                 val intent = Intent(this@RegisterEmailUserInfoActivity, RegisterVerifyActivity::class.java)
                 intent.putExtra("strEmail",emailEdt.text.toString())
                 startActivity(intent)
-            } else Toast.makeText(this,getString(R.string.register_fail) ,Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(R.string.register_fail), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

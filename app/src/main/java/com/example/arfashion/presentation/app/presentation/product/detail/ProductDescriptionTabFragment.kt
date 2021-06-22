@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
-import com.example.arfashion.presentation.app.presentation.cart.CartViewModel
 import com.example.arfashion.presentation.data.ARResult
-import com.example.arfashion.presentation.data.data
 import com.example.arfashion.presentation.data.model.Product
 import kotlinx.android.synthetic.main.fragment_product_desciption_tab.*
 
@@ -59,5 +55,6 @@ class ProductDescriptionTabFragment : Fragment() {
         }
 
         productDesciption.text = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        productDesciption.isNestedScrollingEnabled = true
     }
 }

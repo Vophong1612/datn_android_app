@@ -137,13 +137,16 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
             if (it) {
                 val response = registerViewModel.checkPhoneLoginResponse.value
                 if (response != null) {
-                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@RegisterEmailOrPhoneActivity, RegisterVerifyActivity::class.java)
-                    intent.putExtra("strPhone",Utils.formatPhone(emailSignUpEdt.text.toString()))
-                    startActivity(intent)
+                    if (response.status_code == 1) {
+                        Toast.makeText(this, getString(R.string.existed_phone), Toast.LENGTH_SHORT).show()
+                    } else {
+                        val intent = Intent(this@RegisterEmailOrPhoneActivity, RegisterVerifyActivity::class.java)
+                        intent.putExtra("strPhone",Utils.formatPhone(emailSignUpEdt.text.toString()))
+                        startActivity(intent)
+                    }
                 }
             } else {
-                Toast.makeText(this, getString(R.string.existed_phone), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
             }
         }
 
