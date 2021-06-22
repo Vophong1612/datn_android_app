@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "392837443843",
+    "firebase_url": "https://arfashion-default-rtdb.firebaseio.com",
+    "project_id": "arfashion",
+    "storage_bucket": "arfashion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392837443843:android:2afcec3089a15558f7f936",
+        "android_client_info": {
+          "package_name": "com.example.arfashion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392837443843-34loah7sj9liul934o9ufj0o23vrc7k7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.arfashion",
+            "certificate_hash": "c829eca9602e89720fe77ecb7fd0d170197339b2"
+          }
+        },
+        {
+          "client_id": "392837443843-s6bga8uj8u756ue6fqf3a64teve5pc8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehkm-tPvR-V2VOd0rTavGcsR8GTJXVgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392837443843-s6bga8uj8u756ue6fqf3a64teve5pc8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
