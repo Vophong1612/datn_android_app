@@ -88,7 +88,6 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
 
         LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                Log.d("TAG", "Success Login")
                 loginViewModel.loginFacebook(loginResult.accessToken.token.toString(), loginResult.accessToken.userId.toString())
             }
 
@@ -209,7 +208,6 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
             }
             if (account != null) {
                 account.idToken?.let {
-                    Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
                     loginViewModel.loginGoogle(it)
                 }
             }

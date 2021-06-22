@@ -259,7 +259,6 @@ class RegisterVerifyActivity : AppCompatActivity() {
             }
             if (account != null) {
                 account.idToken?.let {
-                    Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
                     loginViewModel.loginGoogle(it)
                 }
             }
