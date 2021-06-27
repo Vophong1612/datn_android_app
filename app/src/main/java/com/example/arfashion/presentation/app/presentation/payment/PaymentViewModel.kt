@@ -16,6 +16,10 @@ import retrofit2.Response
 class PaymentViewModel(context: Context) : ViewModel() {
     private val paymentService = PaymentService.create(context)
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     private val _resultGetPaymentMethods = MutableLiveData<Boolean>()
     val resultGetPaymentMethods: LiveData<Boolean>
         get() = _resultGetPaymentMethods
@@ -33,6 +37,7 @@ class PaymentViewModel(context: Context) : ViewModel() {
         get() = _addBillResponse
 
     fun getPaymentMethods() {
+        _loading.value = true
         paymentService.getPaymentMethods().enqueue(object :
             Callback<PaymentMethodResponse> {
             override fun onResponse(
@@ -44,15 +49,18 @@ class PaymentViewModel(context: Context) : ViewModel() {
                     200 -> _resultGetPaymentMethods.value = true
                     else -> _resultGetPaymentMethods.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<PaymentMethodResponse>, t: Throwable) {
                 _resultGetPaymentMethods.value = false
+                _loading.value = false
             }
         })
     }
 
     fun addBill(addBillRequest: AddBillRequest) {
+        _loading.value = true
         paymentService.addBill(addBillRequest).enqueue(object :
             Callback<AddBillResponse> {
             override fun onResponse(
@@ -64,10 +72,12 @@ class PaymentViewModel(context: Context) : ViewModel() {
                     200 -> _resultAddBill.value = true
                     else -> _resultAddBill.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(cll: Call<AddBillResponse>, t: Throwable) {
                 _resultAddBill.value = false
+                _loading.value = false
             }
         })
     }

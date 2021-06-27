@@ -13,6 +13,7 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.services.Utils
+import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
 import kotlinx.android.synthetic.main.activity_register_email_user_info.*
 import kotlinx.android.synthetic.main.activity_register_email_user_info.confirmPasswordEdt
 import kotlinx.android.synthetic.main.activity_register_email_user_info.fullNameEdt
@@ -42,6 +43,11 @@ class RegisterPhoneUserInfoActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
+        registerViewModel.loading.observe(this) {
+            refreshLayoutRegisterPhone.isRefreshing = it
+        }
+        
         registerViewModel.resultPhoneRegister.observe(this) {
             if (it) {
                 val response = registerViewModel.phoneRegisterResponse.value
@@ -55,6 +61,10 @@ class RegisterPhoneUserInfoActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView(intentEmail: Intent) {
+
+        refreshLayoutRegisterPhone.setOnRefreshListener {
+            refreshLayoutRegisterPhone.isRefreshing = false
+        }
 
         phoneEdt.setText(intentEmail.getStringExtra("strPhone"))
 

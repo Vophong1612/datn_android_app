@@ -33,7 +33,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
 import kotlinx.android.synthetic.main.activity_register_verify.*
+import kotlinx.android.synthetic.main.activity_register_verify.refreshLayout
+import kotlinx.android.synthetic.main.activity_register_verify.signUpBtn
 import kotlinx.android.synthetic.main.activity_register_verify.verifyBtn
 import kotlinx.android.synthetic.main.layout_back_save_header.*
 import kotlinx.android.synthetic.main.layout_or.*
@@ -104,6 +107,10 @@ class RegisterVerifyActivity : AppCompatActivity() {
         initOtp()
         initViewModel()
 
+        refreshLayout.setOnRefreshListener {
+            refreshLayout.isRefreshing = false
+        }
+
         signUpBtn.setOnClickListener {
             val intent = Intent(this@RegisterVerifyActivity, LoginActivity::class.java)
             startActivity(intent)
@@ -151,6 +158,11 @@ class RegisterVerifyActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
+        registerViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
+
         registerViewModel.resultResendActiveEmail.observe(this) {
             if (it) {
                 val response = registerViewModel.resendActiveEmailResponse.value

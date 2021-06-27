@@ -31,7 +31,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
+import kotlinx.android.synthetic.main.activity_register_email_or_phone.signUpBtn
 import kotlinx.android.synthetic.main.layout_back_header.*
 import kotlinx.android.synthetic.main.layout_or.*
 
@@ -128,10 +130,19 @@ class RegisterEmailOrPhoneActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(LoginViewModel::class.java)
 
+        refreshLayout.setOnRefreshListener {
+            refreshLayout.isRefreshing = false
+        }
+
         initViewModel()
     }
 
     private fun initViewModel() {
+
+        registerViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
+
         registerViewModel.resultCheckLogined.observe(this) {
             if (it) {
                 val response = registerViewModel.checkPhoneLoginResponse.value

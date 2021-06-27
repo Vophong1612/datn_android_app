@@ -6,6 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayoutRegisterPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -198,6 +203,8 @@
             android:layout_marginTop="50dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </ScrollView>
 

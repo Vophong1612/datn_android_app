@@ -15,6 +15,10 @@ class FavoriteViewModel(context: Context)  : ViewModel() {
 
     private val favoriteService = FavoriteService.create(context)
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     private val _resultAddToFavorite = MutableLiveData<Boolean>()
     val resultAddToFavorite: LiveData<Boolean>
         get() = _resultAddToFavorite
@@ -80,6 +84,7 @@ class FavoriteViewModel(context: Context)  : ViewModel() {
     }
 
     fun getFavorites() {
+        _loading.value = true
         favoriteService.getFavoriteList().enqueue(object :
             Callback<ListFavoritesResponse> {
             override fun onResponse(
@@ -91,10 +96,12 @@ class FavoriteViewModel(context: Context)  : ViewModel() {
                     200 -> _resultGetFavorites.value = response.isSuccessful
                     else -> _resultGetFavorites.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<ListFavoritesResponse>, t: Throwable) {
                 _resultGetFavorites.value = false
+                _loading.value = false
             }
         })
     }
