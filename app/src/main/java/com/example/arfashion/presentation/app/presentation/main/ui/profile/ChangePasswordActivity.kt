@@ -15,6 +15,7 @@ import com.example.arfashion.presentation.app.local.UserLocalStorage
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.User
 import kotlinx.android.synthetic.main.activity_change_password.*
+import kotlinx.android.synthetic.main.activity_user_info.*
 import kotlinx.android.synthetic.main.layout_back_save_header.*
 
 class ChangePasswordActivity : AppCompatActivity() {
@@ -55,6 +56,11 @@ class ChangePasswordActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
+        profileViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
+
         profileViewModel.resultChangePassword.observe(this) {
             if (it) {
                 val response = profileViewModel.changePasswordResponse.value
@@ -71,6 +77,10 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView() {
+
+        refreshLayout.setOnRefreshListener {
+            refreshLayout.isRefreshing = false
+        }
 
         iv_toggle_show_curr_pass.setOnClickListener {
             if(iv_toggle_show_curr_pass.drawable.constantState == getDrawable(R.drawable.toggle_password_close)?.constantState){

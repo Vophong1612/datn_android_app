@@ -12,7 +12,10 @@ import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.presentation.login.LoginActivity
+import kotlinx.android.synthetic.main.activity_add_new_address.*
 import kotlinx.android.synthetic.main.activity_change_forgot_password.*
+import kotlinx.android.synthetic.main.activity_change_forgot_password.refreshLayout
+import kotlinx.android.synthetic.main.activity_favorite.*
 import kotlinx.android.synthetic.main.layout_back_save_header.*
 
 class ChangePasswordForgotActivity : AppCompatActivity() {
@@ -41,6 +44,10 @@ class ChangePasswordForgotActivity : AppCompatActivity() {
 
     private fun initViewModel() {
 
+        changePasswordViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
+
         changePasswordViewModel.resultChangePasswordForgot.observe(this) {
             if (it) {
                 val response = changePasswordViewModel.changePasswordForgotResponse.value
@@ -58,6 +65,10 @@ class ChangePasswordForgotActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView() {
+
+        refreshLayout.setOnRefreshListener{
+            refreshLayout.isRefreshing = false
+        }
 
         iv_toggle_show_pass_forgot.setOnClickListener {
             if(iv_toggle_show_pass_forgot.drawable.constantState == getDrawable(R.drawable.toggle_password_close)?.constantState){

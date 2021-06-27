@@ -11,8 +11,11 @@ import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.presentation.register.otp.GenericKeyEvent
 import com.example.arfashion.presentation.app.presentation.register.otp.OtpEditText
 import com.example.arfashion.presentation.services.Utils
+import kotlinx.android.synthetic.main.activity_add_new_address.*
+import kotlinx.android.synthetic.main.activity_change_forgot_password.*
 import kotlinx.android.synthetic.main.activity_forgot_password.signInBtn
 import kotlinx.android.synthetic.main.activity_forgot_password_verify_code.*
+import kotlinx.android.synthetic.main.activity_forgot_password_verify_code.refreshLayout
 import kotlinx.android.synthetic.main.layout_back_save_header.*
 import kotlinx.android.synthetic.main.layout_otp.*
 
@@ -45,6 +48,10 @@ class VerifyForgotPasswordActivity : AppCompatActivity() {
 
     private fun initViewModel() {
 
+        changePasswordViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
+
         changePasswordViewModel.resultGenerateCodeForgot.observe(this) {
             if (it) {
                 val response = changePasswordViewModel.generateCodeForgotResponse.value
@@ -72,6 +79,10 @@ class VerifyForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+
+        refreshLayout.setOnRefreshListener{
+            refreshLayout.isRefreshing = false
+        }
 
         tvResend.setOnClickListener {
             when (dataType){

@@ -12,6 +12,8 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_add_new_address.*
+import kotlinx.android.synthetic.main.activity_add_new_address.refreshLayout
+import kotlinx.android.synthetic.main.activity_favorite.*
 import kotlinx.android.synthetic.main.layout_back_save_header.back_icon
 import kotlinx.android.synthetic.main.layout_back_save_header.screen_name
 import kotlinx.android.synthetic.main.layout_back_save_white_header.*
@@ -117,6 +119,10 @@ class AddNewAddressActivity : AppCompatActivity() {
 
     private fun initView() {
 
+        refreshLayout.setOnRefreshListener{
+            refreshLayout.isRefreshing = false
+        }
+
         arrowChooseAddress.setOnClickListener {
             val intent = Intent(this, ChooseAddressActivity::class.java)
             startActivity(intent)
@@ -159,6 +165,10 @@ class AddNewAddressActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
+        addressViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
 
         addressViewModel.resultAddAddress.observe(this) {
             if (it) {
