@@ -24,6 +24,7 @@ import com.example.arfashion.presentation.app.presentation.product.test.LoadImag
 import com.example.arfashion.presentation.data.ARFashionUserManager
 import com.example.arfashion.presentation.data.model.User
 import com.example.arfashion.presentation.services.Utils
+import kotlinx.android.synthetic.main.activity_favorite.*
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
 import kotlinx.android.synthetic.main.activity_user_info.*
@@ -77,6 +78,11 @@ class ProfileDetailActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
+        profileViewModel.loading.observe(this) {
+            refreshLayoutProfile.isRefreshing = it
+        }
+
         profileViewModel.resultUploadAvatar.observe(this) {
             if (it) {
                 val response = profileViewModel.uploadAvatarResponse.value
@@ -105,6 +111,10 @@ class ProfileDetailActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun initView() {
+
+        refreshLayoutProfile.setOnRefreshListener {
+            refreshLayoutProfile.isRefreshing = false
+        }
 
         registerForContextMenu(iv_avatar_detail)
         registerForContextMenu(v_avatar_detail)

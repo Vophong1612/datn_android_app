@@ -15,6 +15,10 @@ import retrofit2.Response
 class LoginViewModel(context: Context) : ViewModel() {
     private val userService = UserService.create(context)
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     private val _result = MutableLiveData<Boolean>()
     val result: LiveData<Boolean>
         get() = _result
@@ -40,6 +44,7 @@ class LoginViewModel(context: Context) : ViewModel() {
         get() = _loginFacebookResponse
 
     fun login(email: String, password: String) {
+        _loading.value = true
         userService.login(email, password).enqueue(object : Callback<UserLoginResponse> {
             override fun onResponse(
                 call: Call<UserLoginResponse>,
@@ -50,15 +55,18 @@ class LoginViewModel(context: Context) : ViewModel() {
                     200 -> _result.value = response.isSuccessful
                     else -> _result.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                 _result.value = false
+                _loading.value = false
             }
         })
     }
 
     fun loginPhone(phone: String, password: String) {
+        _loading.value = true
         userService.loginPhone(phone, password).enqueue(object : Callback<UserLoginResponse> {
             override fun onResponse(
                     call: Call<UserLoginResponse>,
@@ -69,15 +77,18 @@ class LoginViewModel(context: Context) : ViewModel() {
                     200 -> _result.value = response.isSuccessful
                     else -> _result.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                 _result.value = false
+                _loading.value = false
             }
         })
     }
 
     fun loginGoogle(idToken: String) {
+        _loading.value = true
         userService.loginGoogle(idToken).enqueue(object : Callback<UserLoginGoogleResponse> {
             override fun onResponse(
                     call: Call<UserLoginGoogleResponse>,
@@ -88,15 +99,18 @@ class LoginViewModel(context: Context) : ViewModel() {
                     200 -> _resultLoginGoogle.value = response.isSuccessful
                     else -> _resultLoginGoogle.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserLoginGoogleResponse>, t: Throwable) {
                 _resultLoginGoogle.value = false
+                _loading.value = false
             }
         })
     }
 
     fun loginFacebook(accessToken: String, userId: String) {
+        _loading.value = true
         userService.loginFacebook(accessToken, userId).enqueue(object : Callback<UserLoginFacebookResponse> {
             override fun onResponse(
                     call: Call<UserLoginFacebookResponse>,
@@ -107,10 +121,12 @@ class LoginViewModel(context: Context) : ViewModel() {
                     200 -> _resultLoginFacebook.value = response.isSuccessful
                     else -> _resultLoginFacebook.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserLoginFacebookResponse>, t: Throwable) {
                 _resultLoginFacebook.value = false
+                _loading.value = false
             }
         })
     }

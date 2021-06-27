@@ -17,6 +17,10 @@ import retrofit2.Response
 class ProfileViewModel(context: Context) : ViewModel() {
     private val userService = UserService.create(context)
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"
     }
@@ -55,6 +59,7 @@ class ProfileViewModel(context: Context) : ViewModel() {
         get() = _changePasswordResponse
 
     fun updateProfile(name: String, email: String, birthday: String, gender: Int) {
+        _loading.value = true
         userService.updateProfile(name, email, birthday, gender)
             .enqueue(object : Callback<UserLoginResponse> {
             override fun onResponse(
@@ -66,15 +71,18 @@ class ProfileViewModel(context: Context) : ViewModel() {
                     200 -> _resultUpdateProfile.value = response.isSuccessful
                     else -> _resultUpdateProfile.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                 _resultUpdateProfile.value = false
+                _loading.value = false
             }
         })
     }
 
     fun uploadAvatar(avt: MultipartBody.Part) {
+        _loading.value = true
         userService.uploadAvatar(avt)
             .enqueue(object : Callback<AvatarResponse> {
                 override fun onResponse(
@@ -86,10 +94,12 @@ class ProfileViewModel(context: Context) : ViewModel() {
                         200 -> _resultUploadAvatar.value = response.isSuccessful
                         else -> _resultUploadAvatar.value = false
                     }
+                    _loading.value = false
                 }
 
                 override fun onFailure(call: Call<AvatarResponse>, t: Throwable) {
                     _resultUploadAvatar.value = false
+                    _loading.value = false
                 }
             })
     }

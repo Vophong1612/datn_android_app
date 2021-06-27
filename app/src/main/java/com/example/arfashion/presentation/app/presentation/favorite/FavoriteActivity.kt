@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import kotlinx.android.synthetic.main.activity_favorite.*
+import kotlinx.android.synthetic.main.activity_favorite.refreshLayout
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_back_save_header.back_icon
 import kotlinx.android.synthetic.main.layout_back_save_header.screen_name
 
@@ -63,9 +65,17 @@ class FavoriteActivity : AppCompatActivity() {
         favoriteAdapter.deleteProductClickEvent = { product, position ->
             favoriteViewModel.deleteFromFavorite(product.id)
         }
+
+        refreshLayout.setOnRefreshListener {
+            favoriteViewModel.getFavorites()
+        }
     }
 
     private fun initViewModel() {
+
+        favoriteViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
 
         favoriteViewModel.resultGetFavorites.observe(this) {
             if (it) {

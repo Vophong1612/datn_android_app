@@ -13,6 +13,10 @@ import retrofit2.Response
 class AddressViewModel(context: Context) : ViewModel() {
     private val addressService = AddressService.create(context)
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     private val _resultChooseProvince = MutableLiveData<Boolean>()
     val resultChooseProvince: LiveData<Boolean>
         get() = _resultChooseProvince
@@ -128,6 +132,7 @@ class AddressViewModel(context: Context) : ViewModel() {
 
     fun addAddress(name: String, email: String, phone: String,
                         home: String, village: Int, district: Int, province: Int) {
+        _loading.value = true
         addressService.addAddress(name, email, phone, home, village, district, province)
             .enqueue(object : Callback<ResultAddressResponse> {
             override fun onResponse(
@@ -139,16 +144,19 @@ class AddressViewModel(context: Context) : ViewModel() {
                     200 -> _resultAddAddress.value = response.isSuccessful
                     else -> _resultAddAddress.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<ResultAddressResponse>, t: Throwable) {
                 _resultAddAddress.value = false
+                _loading.value = false
             }
         })
     }
 
     fun updateAddress(id: String, name: String, email: String, phone: String,
                       is_default: Boolean, home: String, village: Int, district: Int, province: Int) {
+        _loading.value = true
         addressService.updateAddress(id, name, email, phone, is_default, home, village, district, province)
             .enqueue(object : Callback<ResultAddressResponse> {
                 override fun onResponse(
@@ -160,10 +168,12 @@ class AddressViewModel(context: Context) : ViewModel() {
                         200 -> _resultUpdateAddress.value = response.isSuccessful
                         else -> _resultUpdateAddress.value = false
                     }
+                    _loading.value = false
                 }
 
                 override fun onFailure(call: Call<ResultAddressResponse>, t: Throwable) {
                     _resultUpdateAddress.value = false
+                    _loading.value = false
                 }
             })
     }

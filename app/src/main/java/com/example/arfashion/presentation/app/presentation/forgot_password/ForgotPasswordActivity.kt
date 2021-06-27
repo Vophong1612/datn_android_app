@@ -9,7 +9,10 @@ import androidx.lifecycle.observe
 import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.services.Utils
+import kotlinx.android.synthetic.main.activity_add_new_address.*
+import kotlinx.android.synthetic.main.activity_change_forgot_password.*
 import kotlinx.android.synthetic.main.activity_forgot_password.*
+import kotlinx.android.synthetic.main.activity_forgot_password.refreshLayout
 import kotlinx.android.synthetic.main.activity_forgot_password.verifyBtn
 
 import kotlinx.android.synthetic.main.layout_back_save_header.back_icon
@@ -39,6 +42,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
+        changePasswordViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
+
         changePasswordViewModel.resultGenerateCodeForgot.observe(this) {
             if (it) {
                 val response = changePasswordViewModel.generateCodeForgotResponse.value
@@ -56,6 +64,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+
+        refreshLayout.setOnRefreshListener{
+            refreshLayout.isRefreshing = false
+        }
 
         verifyBtn.setOnClickListener {
 

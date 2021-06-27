@@ -35,6 +35,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_change_password.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_user_info.*
 import kotlinx.android.synthetic.main.layout_back_header.*
 import kotlinx.android.synthetic.main.layout_or.*
 import java.util.*
@@ -155,10 +156,18 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failure!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        loginViewModel.loading.observe(this) {
+            refreshLayoutLogin.isRefreshing = it
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView() {
+
+        refreshLayoutLogin.setOnRefreshListener {
+            refreshLayoutLogin.isRefreshing = false
+        }
 
         iv_toggle_pass.setOnClickListener {
             if(iv_toggle_pass.drawable.constantState == getDrawable(R.drawable.toggle_password_close)?.constantState) {

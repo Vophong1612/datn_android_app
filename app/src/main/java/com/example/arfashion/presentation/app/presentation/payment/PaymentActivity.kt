@@ -106,6 +106,11 @@ class PaymentActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        refreshLayoutPayment.setOnRefreshListener {
+            paymentViewModel.getPaymentMethods()
+            addressViewModel.loadAddress()
+        }
+
         setStatus(View.VISIBLE)
 
         getProducts()
@@ -252,6 +257,10 @@ class PaymentActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initViewModel() {
+
+        paymentViewModel.loading.observe(this) {
+            refreshLayoutPayment.isRefreshing = it
+        }
 
         paymentViewModel.resultAddBill.observe(this) {
             if (it) {

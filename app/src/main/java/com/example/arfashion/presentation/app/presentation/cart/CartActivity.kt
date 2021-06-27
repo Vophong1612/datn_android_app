@@ -58,6 +58,11 @@ class CartActivity : AppCompatActivity() {
         initData()
     }
 
+    override fun onResume(){
+        super.onResume()
+        cartViewModel.getCart()
+    }
+
     private fun initData() {
         cartViewModel.cart.observe(this, {
             when (it) {

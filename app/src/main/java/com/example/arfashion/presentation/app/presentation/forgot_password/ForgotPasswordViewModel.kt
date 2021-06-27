@@ -13,6 +13,10 @@ import retrofit2.Response
 class ForgotPasswordViewModel (context: Context) : ViewModel() {
     private val userService = UserService.create(context)
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     private val _resultGenerateCodeForgot = MutableLiveData<Boolean>()
     val resultGenerateCodeForgot: LiveData<Boolean>
         get() = _resultGenerateCodeForgot
@@ -38,6 +42,7 @@ class ForgotPasswordViewModel (context: Context) : ViewModel() {
         get() = _changePasswordForgotResponse
 
     fun generateCodeForgot(username: String, type: String){
+        _loading.value = true
         userService.generateCodeForgot(username, type).enqueue(object : Callback<UserForgotPasswordResponse> {
             override fun onResponse(call: Call<UserForgotPasswordResponse>, response: Response<UserForgotPasswordResponse>) {
                 _generateCodeForgotResponse.value = response.body()
@@ -45,15 +50,18 @@ class ForgotPasswordViewModel (context: Context) : ViewModel() {
                     200 -> _resultGenerateCodeForgot.value = response.isSuccessful
                     else -> _resultGenerateCodeForgot.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserForgotPasswordResponse>, t: Throwable) {
                 _resultGenerateCodeForgot.value = false
+                _loading.value = false
             }
         })
     }
 
     fun validateCodeForgot(username: String, code: String, type: String){
+        _loading.value = true
         userService.validateCodeForgot(username, code, type).enqueue(object :
             Callback<UserForgotPasswordResponse> {
             override fun onResponse(call: Call<UserForgotPasswordResponse>,
@@ -63,15 +71,18 @@ class ForgotPasswordViewModel (context: Context) : ViewModel() {
                     200 -> _resultValidateCodeForgot.value = response.isSuccessful
                     else -> _resultValidateCodeForgot.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserForgotPasswordResponse>, t: Throwable) {
                 _resultValidateCodeForgot.value = false
+                _loading.value = false
             }
         })
     }
 
     fun changePasswordForgot(token: String, newPassword: String, confirmPassword: String){
+        _loading.value = true
         userService.changePasswordForgot("Bearer $token", newPassword, confirmPassword).enqueue(object :
             Callback<UserForgotPasswordResponse> {
             override fun onResponse(call: Call<UserForgotPasswordResponse>,
@@ -81,10 +92,12 @@ class ForgotPasswordViewModel (context: Context) : ViewModel() {
                     200 -> _resultChangePasswordForgot.value = response.isSuccessful
                     else -> _resultChangePasswordForgot.value = false
                 }
+                _loading.value = false
             }
 
             override fun onFailure(call: Call<UserForgotPasswordResponse>, t: Throwable) {
                 _resultChangePasswordForgot.value = false
+                _loading.value = false
             }
         })
     }

@@ -14,9 +14,12 @@ import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.presentation.login.LoginActivity
 import com.example.arfashion.presentation.services.Utils
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_register_email_or_phone.*
 import kotlinx.android.synthetic.main.activity_register_email_user_info.*
+import kotlinx.android.synthetic.main.activity_register_email_user_info.emailEdt
 import kotlinx.android.synthetic.main.activity_register_email_user_info.iv_toggle_pass
 import kotlinx.android.synthetic.main.activity_register_email_user_info.passwordEdt
+import kotlinx.android.synthetic.main.activity_register_email_user_info.refreshLayout
 import kotlinx.android.synthetic.main.layout_back_save_header.*
 import java.util.*
 
@@ -42,6 +45,11 @@ class RegisterEmailUserInfoActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+
+        registerViewModel.loading.observe(this) {
+            refreshLayout.isRefreshing = it
+        }
+
         registerViewModel.resultPhoneRegister.observe(this) {
             if (it) {
                 val intent = Intent(this@RegisterEmailUserInfoActivity, RegisterVerifyActivity::class.java)
@@ -55,6 +63,10 @@ class RegisterEmailUserInfoActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView(intentEmail: Intent) {
+
+        refreshLayout.setOnRefreshListener {
+            refreshLayout.isRefreshing = false
+        }
 
         emailEdt.setText(intentEmail.getStringExtra("strEmail"))
 

@@ -21,10 +21,6 @@ import com.example.arfashion.presentation.app.presentation.favorite.FavoriteView
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
 import com.example.arfashion.presentation.app.presentation.product.ProductAdapter
 import com.example.arfashion.presentation.app.presentation.product.comment.*
-import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_ID
-import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_IMAGE
-import com.example.arfashion.presentation.app.presentation.product.comment.rating.KEY_RATING_PRODUCT_NAME
-import com.example.arfashion.presentation.app.presentation.product.comment.rating.RatingActivity
 import com.example.arfashion.presentation.app.presentation.product.test.ARTestActivity
 import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_COLOR
 import com.example.arfashion.presentation.app.presentation.product.test.KEY_PRODUCT_IMAGE
@@ -32,7 +28,6 @@ import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import com.example.arfashion.presentation.data.model.Product
 import com.example.arfashion.presentation.services.Utils.Companion.standardFormat
-import kotlinx.android.synthetic.main.activity_login.refreshLayout
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.layout_back_header.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
