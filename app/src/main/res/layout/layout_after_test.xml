@@ -38,12 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/palattes_2"
         android:fontFamily="@font/sf_pro_text_light"
         android:textStyle="italic"
         android:text="@string/retry_ar_test_btn"
-        app:layout_constraintBottom_toTopOf="@id/resultImg"
+        app:layout_constraintTop_toBottomOf="@id/resultLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -51,12 +51,25 @@
         android:id="@+id/resultImg"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_ar_test_image"
-        app:layout_constraintDimensionRatio="1:1.33"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.3333"
+        app:layout_constraintTop_toBottomOf="@id/retryBtn"
         app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
         app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/palattes_1"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textSize="10sp"
+        android:text="@string/ar_result_reference_alert"
+        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
+        app:layout_constraintTop_toBottomOf="@id/resultImg"
+        tools:ignore="SmallSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

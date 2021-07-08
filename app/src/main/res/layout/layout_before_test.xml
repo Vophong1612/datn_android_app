@@ -27,17 +27,30 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.80"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"/>
+
     <View
         android:id="@+id/userImgView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
         android:background="@drawable/bg_ar_test_image"
-        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
-        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightHorizontalGuideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/centerVerticalGuideline"/>
+        app:layout_constraintBottom_toTopOf="@id/andIcon"/>
 
 
     <ImageView
@@ -45,10 +58,10 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/bg_click_here"
-        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
-        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/centerVerticalGuideline"/>
+        app:layout_constraintStart_toStartOf="@id/userImgView"
+        app:layout_constraintEnd_toEndOf="@id/userImgView"
+        app:layout_constraintTop_toTopOf="@id/userImgView"
+        app:layout_constraintBottom_toBottomOf="@id/userImgView"/>
 
     <ImageView
         android:id="@+id/userImg"
@@ -56,12 +69,12 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/bg_ar_test_image"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
-        app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/centerVerticalGuideline"/>
+        android:visibility="visible"
+        android:padding="1dp"
+        app:layout_constraintStart_toStartOf="@id/userImgView"
+        app:layout_constraintEnd_toEndOf="@id/userImgView"
+        app:layout_constraintTop_toTopOf="@id/userImgView"
+        app:layout_constraintBottom_toBottomOf="@id/userImgView"/>
 
     <ImageView
         android:id="@+id/productImg"
@@ -69,7 +82,9 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
+        android:padding="1dp"
         android:background="@drawable/bg_ar_test_image"
+        app:layout_constraintDimensionRatio="1:1.333"
         app:layout_constraintStart_toStartOf="@id/centerLeftHorizontalGuideline"
         app:layout_constraintEnd_toEndOf="@id/centerRightHorizontalGuideline"
         app:layout_constraintTop_toBottomOf="@id/centerVerticalGuideline"
@@ -84,6 +99,7 @@
         android:textColor="@color/palattes_2"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/productImg"
+        app:layout_constraintTop_toBottomOf="@id/userImgView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="HardcodedText" />
@@ -95,8 +111,16 @@
         android:src="@drawable/arrow_up_selector_24"
         android:rotation="90"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/centerVerticalGuideline"
-        app:layout_constraintBottom_toBottomOf="@id/centerVerticalGuideline"
+        app:layout_constraintTop_toBottomOf="@id/userImgView"
         app:tint="@color/palattes_2" />
+
+    <ImageView
+        android:id="@+id/tutorialBtn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_info_ar_test"
+        app:layout_constraintTop_toBottomOf="@id/testBtn"
+        app:layout_constraintStart_toStartOf="@id/testBtn"
+        app:layout_constraintEnd_toEndOf="@id/testBtn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
