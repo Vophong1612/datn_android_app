@@ -59,7 +59,6 @@
     <string name="choose_from_camera">Camera</string>
     <string name="choose_from_gallery">Choose from gallery</string>
     <string name="resend_active_email">Resend Code</string>
-
     <string name="invalid_email">Invalid email. Try again</string>
     <string name="invalid_phone">Invalid phone. Try again</string>
     <string name="invalid_data">Data must not be empty</string>
@@ -67,14 +66,11 @@
     <string name="invalid_old_password">Invalid old password</string>
     <string name="invalid_password">Password must contain more 6 characters</string>
     <string name="invalid_data_login">Please enter email and password</string>
-
     <string name="incorrect_data_login">Email or password is incorrect</string>
     <string name="incorrect_active_code">Incorrect active code</string>
-
     <string name="register_fail">Fail to register. Try again</string>
     <string name="confirm_password_fail">Password and Confirm Password must be equal. Try again</string>
     <string name="send_code_successfully">Code has sent to your device. Check it!</string>
-
     <string name="existed_email">Email already existed</string>
     <string name="existed_phone">Existed Phone</string>
 
@@ -101,6 +97,17 @@
     <string name="access_storage_denied">Can not access to storage</string>
     <string name="prepare_stream_error">Cannot connect to camera. Please check the installation and try again.</string>
     <string name="attach_image_review">Attach %1$d image(s)</string>
+    <string name="ar_test_tutorial">
+        <b>How to get good results?</b>\n
+        1. Should wear short clothes when using AR.\n
+        2. The photo to be tested should clearly show the face and upper half of the body.\n
+        3. The body in the photo should make up the majority of the photo.\n
+        4. Standing in front, you can rotate from 10-15 degrees.
+    </string>
+    <string name="ar_result_reference_alert">
+        <b>Note:</b>\n
+        AR results are for reference only. Actual product may differ when worn.
+    </string>
 
     <string name="categories_man">Man</string>
     <string name="categories_kid">Kid</string>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/dailyMissionInfoLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/bg_ar_test_tutorial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/arrow_up"
+        app:layout_constraintBottom_toBottomOf="@id/dailyMissionInfo"/>
+
+    <TextView
+        android:id="@+id/dailyMissionInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="23dp"
+        android:paddingBottom="23dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="12dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="@string/ar_test_tutorial"
+        android:textColor="@color/palattes_3"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/dailyMissionInfoLayout"
+        app:layout_constraintStart_toStartOf="@id/dailyMissionInfoLayout"
+        app:layout_constraintTop_toBottomOf="@id/arrow_up" />
+
+    <View
+        android:id="@+id/arrow_up"
+        android:layout_width="47dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/ic_info_arrow_up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

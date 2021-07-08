@@ -11,6 +11,7 @@ import com.example.arfashion.R
 import com.example.arfashion.presentation.app.MyViewModelFactory
 import com.example.arfashion.presentation.app.gone
 import com.example.arfashion.presentation.app.presentation.main.ui.categories.KEY_PRODUCT_ID
+import com.example.arfashion.presentation.app.presentation.product.test.tutorial.ARTutorialToolTip
 import com.example.arfashion.presentation.app.visible
 import com.example.arfashion.presentation.data.ARResult
 import kotlinx.android.synthetic.main.activity_ar_test.*
@@ -20,7 +21,6 @@ import kotlinx.android.synthetic.main.layout_before_test.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 const val KEY_PRODUCT_COLOR = "key_bundle_product_color"
@@ -39,6 +39,8 @@ class ARTestActivity : AppCompatActivity() {
     private var imgBody: File? = null
 
     private lateinit var loadImageController: LoadImageController
+
+    private lateinit var arTutorialToolTip: ARTutorialToolTip
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +91,12 @@ class ARTestActivity : AppCompatActivity() {
         refreshLayout.setOnRefreshListener {
             test()
         }
+
+        tutorialBtn.setOnClickListener {
+            arTutorialToolTip.show(it)
+        }
+
+        arTutorialToolTip = ARTutorialToolTip(applicationContext)
 
         loadImageController = LoadImageController(this, applicationContext, contentResolver)
 
